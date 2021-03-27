@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/test_tag', 'TagController@test');
     Route::get('/test_tag_type', 'TagTypeController@test');
 
+    // POST
     Route::group(['prefix' => '/post'], function (){
         Route::get('/test_attach_tag', 'PostController@testAttachTag');
         Route::get('/test_image_upload', 'PostController@testImageUploadPage');
