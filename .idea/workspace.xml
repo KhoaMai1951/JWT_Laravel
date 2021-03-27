@@ -19,31 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/TagController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/TagTypeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/ImageForPost.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/Post.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/Tag.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/TagType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/test/test_upload.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cay-canh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cay-canh.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Models/Image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/157734547_257325112545969_1831398547651884805_n.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/157964403_267328601629949_1274276652081027003_n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/aaaaa" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/aaaaa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/awMAmvr_460swp.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/159331680_177456837333786_6559458576006886582_n.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-    </list>
+    <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -220,7 +196,7 @@
       <workItem from="1616725098526" duration="7669000" />
       <workItem from="1616746896428" duration="2575000" />
       <workItem from="1616759966375" duration="6603000" />
-      <workItem from="1616808937042" duration="4932000" />
+      <workItem from="1616808937042" duration="5251000" />
     </task>
     <servers />
   </component>
