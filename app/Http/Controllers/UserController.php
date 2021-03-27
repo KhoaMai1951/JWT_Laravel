@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -130,7 +133,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(),  [
+        $validator = Validator::make($request->all(), [
             'username' => 'required',
             'name' => 'required',
             'email' => 'required|email|unique:user',
@@ -163,7 +166,7 @@ class UserController extends Controller
                 'success' => true,
                 'message' => 'Logout successfully'
             ]);
-        }else {
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => 'Unable to Logout'
@@ -171,25 +174,50 @@ class UserController extends Controller
         }
     }
 
-    public function getData(){
+    public function getData()
+    {
         return Response::json([
             'data' => '1111'
         ], 200);
     }
 
-    public function uploadImage(Request $request) {
-        $this->validate($request, [
-            'input_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+    public function uploadImage(Request $request)
+    {
 
-        if ($request->hasFile('input_img')) {
-            $image = $request->file('input_img');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $this->save();
-
-            return back()->with('success','Image Upload successfully');
+        if (!$request->hasFile('image')) {
+            return response()->json(['upload_file_not_found'], 400);
         }
+        $file = $request->file('image');
+        if (!$file->isValid()) {
+            return response()->json(['invalid_file_upload'], 400);
+        }
+        $path = public_path() . '/uploads/images/store/';
+        $file->move($path, $file->getClientOriginalName());
+        return response()->json(compact('path'));
+    }
+
+    public function uploadS3(Request $request)
+    {
+        try {
+            $this->validate($request, ['image' => 'required|image|mimes:jpeg,jpg,png,gif|max:50']);
+        } catch (ValidationException $e) {
+            return Response::json([
+                'error' => 'image error'
+            ], 400);
+        }
+
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $name = (string)Str::uuid() . $file->getClientOriginalName();
+            $filePath = $name;
+
+            Storage::disk('s3')->put($filePath, file_get_contents($file), 'public');
+            return Response::json([
+                'message' => 'Image upload successfully',
+                'url' => 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $name,
+            ], 200);
+
+        }
+        return null;
     }
 }

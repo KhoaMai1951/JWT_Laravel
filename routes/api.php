@@ -27,6 +27,18 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => '/user'], function (){
         Route::post('/upload_image', 'UserController@uploadImage');
+        Route::post('/upload_image_s3', 'UserController@uploadS3');
+
+    });
+
+    Route::get('/test_tag', 'TagController@test');
+    Route::get('/test_tag_type', 'TagTypeController@test');
+
+    Route::group(['prefix' => '/post'], function (){
+        Route::get('/test_attach_tag', 'PostController@testAttachTag');
+        Route::get('/test_image_upload', 'PostController@testImageUploadPage');
+        Route::post('/submit_post', 'PostController@submitPost');
+        Route::get('/get_post', 'PostController@getPostById');
 
     });
 });

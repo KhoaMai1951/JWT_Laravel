@@ -56,13 +56,30 @@ return [
         ],
 
         's3' => [
+//            'driver' => 's3',
+//            'key' => env('AWS_ACCESS_KEY_ID'),
+//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+//            'region' => env('AWS_DEFAULT_REGION'),
+//            'bucket' => env('AWS_BUCKET'),
+//            'url' => env('AWS_URL'),
+//            'endpoint' => env('AWS_ENDPOINT'),
+
+//            'driver' => 's3',
+//            'key' => 'AKIAY37FEZY4JJERW3P3',
+//            'secret' => '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',
+//            'region' => 'ap-southeast-1',
+//            'bucket' => 'caycanhapi',
+//            'url' => env('AWS_URL'),
+//            'endpoint' => env('AWS_ENDPOINT'),
+
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'key' => env('AWS_ACCESS_KEY_ID', 'AKIAY37FEZY4JJERW3P3'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY', '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'),
+            'region' => env('AWS_DEFAULT_REGION', 'ap-southeast-1'),
+            'bucket' => env('AWS_BUCKET', 'caycanhapi'),
+            'url' => env('AWS_URL'), //You can keep this as is
+            'endpoint' => env('AWS_ENDPOINT'), //You can keep this as is
+
         ],
 
     ],
