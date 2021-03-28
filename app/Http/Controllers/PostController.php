@@ -18,20 +18,26 @@ use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
-    public function testAttachTag()
+    public function testDio(Request $request)
     {
-        $post = new Post();
-        $post->save();
-        $post->tags()->attach([1, 2, 3, 4, 5]);
-        $post->update();
-    }
-
-    public function testImageUploadPage()
-    {
-        return view("/test/test_upload");
+        if ($files = $request->file('files')) {
+            // loop through image array
+            foreach ($files as $file) {
+                S3Helper::S3UploadFile($file, (string)Str::uuid());
+            }
+        }
     }
 
     public function submitPost(Request $request)
+    {
+        if ($request->file('images_for_post') != null) {
+            return $this->submitPostWithImage($request);
+        } else {
+            return $this->submitPostWithoutImage($request);
+        }
+    }
+
+    public function submitPostWithImage(Request $request)
     {
         DB::beginTransaction();
 
@@ -59,7 +65,6 @@ class PostController extends Controller
             ], 400);
         }
 
-
         // handle multiple images
         $uploadIsErrorFlag = false;
         if ($files = $request->file('images_for_post')) {
@@ -69,8 +74,7 @@ class PostController extends Controller
                 // if upload file to s3 successful
                 if ($result == true) {
                     $uploadIsErrorFlag = true;
-                }
-                // if fail, break the loop
+                } // if fail, break the loop
                 else {
                     $uploadIsErrorFlag = false;
                     break;
@@ -81,7 +85,7 @@ class PostController extends Controller
                 $post->update();
                 DB::commit();
                 return Response::json([
-                    'message' => 'Image upload successfully',
+                    'message' => 'Post submit successfully',
                 ], 200);
             } // if there is error, return fail
             else {
@@ -92,6 +96,25 @@ class PostController extends Controller
             }
         }
         return null;
+    }
+
+    public function submitPostWithoutImage(Request $request)
+    {
+        DB::beginTransaction();
+
+        $post = new Post();
+        //fields handle
+        $post->title = $request->get('title');
+        $post->content = $request->get('content');
+        $post->user_id = $request->get('user_id');
+        $post->save();
+        //tag field handle
+        $post->tags()->attach($request->get('tag_ids'));
+
+        DB::commit();
+        return Response::json([
+            'message' => 'Post submit successfully',
+        ], 200);
     }
 
     public function imageForPostHandle($post, $file)

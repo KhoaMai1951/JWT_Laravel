@@ -19,27 +19,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
+    // USER
+    // USER AUTHENTICATE SYSTEM
     Route::post('/login', 'UserController@login');
     Route::post('/register', 'UserController@register');
-    Route::get('/logout', 'UserController@logout')->middleware('auth:api');
-    Route::get('/get_data_with_token', 'UserController@getData')->middleware('auth:api');
+    Route::post('/activate_account', 'UserController@activateAccount');
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('/logout', 'UserController@logout');
+        Route::get('/get_data_with_token', 'UserController@getData');
+    });
     Route::get('/get_data', 'UserController@getData');
 
-    Route::group(['prefix' => '/user'], function (){
-        Route::post('/upload_image', 'UserController@uploadImage');
-        Route::post('/upload_image_s3', 'UserController@uploadS3');
-
-    });
-
-    Route::get('/test_tag', 'TagController@test');
-    Route::get('/test_tag_type', 'TagTypeController@test');
-
     // POST
-    Route::group(['prefix' => '/post'], function (){
-        Route::get('/test_attach_tag', 'PostController@testAttachTag');
-        Route::get('/test_image_upload', 'PostController@testImageUploadPage');
+    Route::group(['prefix' => '/post'], function () {
         Route::post('/submit_post', 'PostController@submitPost');
+        Route::post('/test_dio', 'PostController@testDio');
         Route::get('/get_post', 'PostController@getPostById');
-
     });
 });

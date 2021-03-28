@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\SignupActivate;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -115,15 +116,23 @@ class UserController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('appToken')->accessToken;
-            //After successfull authentication, notice how I return json parameters
-            return response()->json([
-                'success' => true,
-                'token' => $success,
-                'user' => $user
-            ]);
+            if($user->active == 1 && $user->deleted_at == null){
+                $success['token'] = $user->createToken('appToken')->accessToken;
+                //After successful authentication, return json parameters
+                return response()->json([
+                    'success' => true,
+                    'token' => $success,
+                    'user' => $user
+                ]);
+            }
+            else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Account is not available',
+                ], 401);
+            }
         } else {
-            //if authentication is unsuccessfull, notice how I return json parameters
+            //if authentication is unsuccessful
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Email or Password',
@@ -147,13 +156,37 @@ class UserController extends Controller
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        // create a 4 digits code to email the user
+        $input['activation_token'] = rand(pow(10, 4 - 1), pow(10, 4) - 1);
         $user = User::create($input);
-        $success['token'] = $user->createToken('appToken')->accessToken;
+        //send email to verify
+        MailController::sendVerificationEmail($user->activation_token, $user->email);
+        //$success['token'] = $user->createToken('appToken')->accessToken;
         return response()->json([
             'success' => true,
-            'token' => $success,
-            'user' => $user
+            //'token' => $success,
+            'message' => 'check email for activation code',
+            'user' => $user,
         ]);
+    }
+
+    public function activateAccount(Request $request)
+    {
+        $user = User::find($request->get('user_id'));
+        if ($user->activation_token == $request->get('activation_token')) {
+            $user->active = 1;
+            $success['token'] = $user->createToken('appToken')->accessToken;
+            $user->update();
+            return response()->json([
+                'success' => true,
+                'token' => $success,
+                'user' => $user
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'wrong activation token',
+            ]);
+        }
     }
 
     public function logout(Request $res)
@@ -181,43 +214,19 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function uploadImage(Request $request)
-    {
+    /* public function uploadImage(Request $request)
+     {
 
-        if (!$request->hasFile('image')) {
-            return response()->json(['upload_file_not_found'], 400);
-        }
-        $file = $request->file('image');
-        if (!$file->isValid()) {
-            return response()->json(['invalid_file_upload'], 400);
-        }
-        $path = public_path() . '/uploads/images/store/';
-        $file->move($path, $file->getClientOriginalName());
-        return response()->json(compact('path'));
-    }
+         if (!$request->hasFile('image')) {
+             return response()->json(['upload_file_not_found'], 400);
+         }
+         $file = $request->file('image');
+         if (!$file->isValid()) {
+             return response()->json(['invalid_file_upload'], 400);
+         }
+         $path = public_path() . '/uploads/images/store/';
+         $file->move($path, $file->getClientOriginalName());
+         return response()->json(compact('path'));
+     }*/
 
-    public function uploadS3(Request $request)
-    {
-        try {
-            $this->validate($request, ['image' => 'required|image|mimes:jpeg,jpg,png,gif|max:50']);
-        } catch (ValidationException $e) {
-            return Response::json([
-                'error' => 'image error'
-            ], 400);
-        }
-
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $name = (string)Str::uuid() . $file->getClientOriginalName();
-            $filePath = $name;
-
-            Storage::disk('s3')->put($filePath, file_get_contents($file), 'public');
-            return Response::json([
-                'message' => 'Image upload successfully',
-                'url' => 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $name,
-            ], 200);
-
-        }
-        return null;
-    }
 }
