@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\EmailActivate;
+use App\Http\Repositories\EmailActiveRepository;
 use App\Notifications\SignupActivate;
 use App\User;
+use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use PharIo\Manifest\Email;
 
 class UserController extends Controller
 {
@@ -116,7 +120,7 @@ class UserController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            if($user->active == 1 && $user->deleted_at == null){
+            if($user->deleted_at == null){
                 $success['token'] = $user->createToken('appToken')->accessToken;
                 //After successful authentication, return json parameters
                 return response()->json([
@@ -140,49 +144,65 @@ class UserController extends Controller
         }
     }
 
+    // register new account
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'name' => 'required',
-            'email' => 'required|email|unique:user',
-            'password' => 'required',
-        ]);
+        // validate if email is unique
+        $validator = UserValidator::validateRegister($request);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors(),
             ], 401);
         }
+        // table email_activate có email vừa nhập?
+        $emailActivate = EmailActiveRepository::getByEmail($request->get('email'));
+        if($emailActivate != null)
+        {
+            EmailActiveRepository::deleteByEmail($request->get('email'));
+        }
+        //tạo mới EmailActivate bao gồm email và activation token
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         // create a 4 digits code to email the user
         $input['activation_token'] = rand(pow(10, 4 - 1), pow(10, 4) - 1);
-        $user = User::create($input);
+        $newEmailActivate = EmailActivate::create($input);
+
         //send email to verify
-        MailController::sendVerificationEmail($user->activation_token, $user->email);
+        MailController::sendVerificationEmail($newEmailActivate->activation_token, $newEmailActivate->email);
         //$success['token'] = $user->createToken('appToken')->accessToken;
         return response()->json([
             'success' => true,
-            //'token' => $success,
             'message' => 'check email for activation code',
-            'user' => $user,
+            'user' => $newEmailActivate
         ]);
     }
 
     public function activateAccount(Request $request)
     {
-        $user = User::find($request->get('user_id'));
-        if ($user->activation_token == $request->get('activation_token')) {
-            $user->active = 1;
+        //lấy record trong table email_active theo email
+        $emailActivate =  EmailActiveRepository::getByEmail($request->get('email'));
+        // activation token trong record = activation token trong request?
+        if($emailActivate->activation_token == $request->get('activation_token'))
+        {
+            // tạo mới user theo record trong email_active
+            $user = new User();
+            $user->username = $emailActivate->username;
+            $user->email = $emailActivate->email;
+            $user->password = $emailActivate->password;
+            $user->name = $emailActivate->name;
             $success['token'] = $user->createToken('appToken')->accessToken;
-            $user->update();
+            $user->save();
+            // xóa record trong table email_active
+            EmailActiveRepository::deleteByEmail($request->get('email'));
+            // trả về token cho app
             return response()->json([
                 'success' => true,
                 'token' => $success,
                 'user' => $user
             ]);
-        } else {
+        }
+        else {
             return response()->json([
                 'message' => 'wrong activation token',
             ]);
