@@ -42,6 +42,19 @@ CREATE TABLE IF NOT EXISTS `commented_post` (
 /*!40000 ALTER TABLE `commented_post` DISABLE KEYS */;
 /*!40000 ALTER TABLE `commented_post` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.email_activate
+CREATE TABLE IF NOT EXISTS `email_activate` (
+  `email` varchar(50) DEFAULT NULL,
+  `username` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `password` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_ai_ci DEFAULT NULL,
+  `activation_token` int(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.email_activate: ~0 rows (approximately)
+/*!40000 ALTER TABLE `email_activate` DISABLE KEYS */;
+/*!40000 ALTER TABLE `email_activate` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -93,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `image_for_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.image_for_post: ~10 rows (approximately)
+-- Dumping data for table caycanhapi.image_for_post: ~0 rows (approximately)
 /*!40000 ALTER TABLE `image_for_post` DISABLE KEYS */;
 /*!40000 ALTER TABLE `image_for_post` ENABLE KEYS */;
 
@@ -158,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table caycanhapi.oauth_access_tokens: ~38 rows (approximately)
+-- Dumping data for table caycanhapi.oauth_access_tokens: ~40 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('051684a08b4297743da5a9551a96d044bbe5d28338bae5d41c2a25efe626ce7c56abb15863405d74', 4, 1, 'appToken', '[]', 1, '2021-03-27 11:24:24', '2021-03-27 11:24:24', '2022-03-27 11:24:24'),
@@ -170,6 +183,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('16f9052a69f14e610ed2f4507904ed4015a0856b800ca46f8b68feaf7ca79e4a8f96bd8d3df0f0b3', 4, 1, 'appToken', '[]', 0, '2021-03-27 11:35:55', '2021-03-27 11:35:55', '2022-03-27 11:35:55'),
 	('1a40d3996fe8a7a0650f31feb13192f912dec04a88a00664a6ba60ab92d53d32db03a654dbba6795', 4, 1, NULL, '[]', 0, '2021-03-22 12:35:29', '2021-03-22 12:35:29', '2022-03-22 12:35:29'),
 	('1b34e0053f2de48c160cb53259be20bec98401576283a676dde2a2d47dcc9b4ddf0b55e646ccc41a', 1, 1, 'appToken', '[]', 0, '2021-03-28 13:51:36', '2021-03-28 13:51:36', '2022-03-28 13:51:36'),
+	('1cc8bf47fba02c0bb21bf490ccf8c334fee7cb6ef6b07acc7d66bd2e0e732cc7a7b4309779142fbe', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:27:24', '2021-03-29 13:27:24', '2022-03-29 13:27:24'),
 	('28a2b74855fab6d56c4c76a9639a3830e6ee499a212cbd219d9f94e2a292e1760dd4b760d62405d6', 4, 1, 'appToken', '[]', 1, '2021-03-27 11:27:17', '2021-03-27 11:27:17', '2022-03-27 11:27:17'),
 	('37810ff23314c5527568ada0fba898348e1be4bdd866635be1527cc97d3ea7951fd7db74e5262ca5', 4, 1, 'appToken', '[]', 0, '2021-03-27 13:41:28', '2021-03-27 13:41:28', '2022-03-27 13:41:28'),
 	('40b67a7712485a895fe742682ccf8ac976aacac1f8f1b60f1e678c5be0b7c46056996a7dcc6fca98', 4, 1, 'appToken', '[]', 0, '2021-03-28 09:44:13', '2021-03-28 09:44:13', '2022-03-28 09:44:13'),
@@ -182,18 +196,22 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('5fd02e74639ba9d17e06494002d8320ef8dec91649a90f6dc8a5cf62f09d6b6b14b56c96fe299ed2', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:29:40', '2021-03-27 12:29:40', '2022-03-27 12:29:40'),
 	('627b687165de3484ea2dcb86b44cf486181d8c4543cd2ed3254b63a09e59c42865419bb48192ed6e', 4, 1, 'appToken', '[]', 1, '2021-03-23 12:48:21', '2021-03-23 12:48:21', '2022-03-23 12:48:21'),
 	('63ed0bc101a252a0f9773c7b6678e3114f358615dcb4fa44dad74f360cacf4eab44a105ea7928819', 4, 1, 'appToken', '[]', 0, '2021-03-27 12:38:52', '2021-03-27 12:38:52', '2022-03-27 12:38:52'),
+	('695323aacb78d6a448b8ac8ba2a1fb66f3e6aa204227f479288aa989c170fbba616e946720ba1f99', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:21:57', '2021-03-29 13:21:57', '2022-03-29 13:21:57'),
 	('703fbf1fc4e2014e0a16c57deab2b7e739ce0c90bfa8f30f090bc2d881f5a11a2d966a99715a36c1', 4, 1, 'appToken', '[]', 0, '2021-03-27 15:23:46', '2021-03-27 15:23:46', '2022-03-27 15:23:46'),
 	('7684552c0f567e6c29beb0a7f3c33a82c9385c009a34a2c109725742082e05963b90c1065eb75716', 4, 1, 'appToken', '[]', 1, '2021-03-27 11:20:51', '2021-03-27 11:20:51', '2022-03-27 11:20:51'),
 	('76fdcb01a9b4ab75af938b8f459a9dea63f6d4baa7b2071effbc8d74ff6f19b0f5b9d4308aa5d1bc', 4, 1, 'appToken', '[]', 1, '2021-03-28 09:39:51', '2021-03-28 09:39:51', '2022-03-28 09:39:51'),
 	('7efe3ff54c12c82d25f0e230b8bae9884a3a6f7ea5a5bffd34037ec667de189bc4a23a6640d52f15', 4, 1, 'appToken', '[]', 1, '2021-03-23 12:47:06', '2021-03-23 12:47:06', '2022-03-23 12:47:06'),
 	('841f531d7886edc1882ee3b8c64b396c0e7faaca5e0fb7af5f8e5b81e3a351e39285a76f05729fcc', 4, 1, 'appToken', '[]', 0, '2021-03-23 12:23:43', '2021-03-23 12:23:43', '2022-03-23 12:23:43'),
 	('8472c921204ce1c0314ecbbbbf29e14ce7b1ac1a7cf2fbc3d33ad958dd2bccf494bc75b3228a2944', 1, 1, 'appToken', '[]', 0, '2021-03-28 13:52:23', '2021-03-28 13:52:23', '2022-03-28 13:52:23'),
+	('90dc54174029f22ae6e80d75866c272787ff28f6d5b5b97cd652d675497bcaaa9bc328f3bbbaad6f', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:20:28', '2021-03-29 13:20:28', '2022-03-29 13:20:28'),
 	('918f12de1927f4bbadd3a18d9c2b74bb84d7823aff8360bc4a0130e46fdf56ab38c2722120be2f24', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:23:43', '2021-03-27 12:23:43', '2022-03-27 12:23:43'),
 	('9ba681d5794e3544a5a0f016bfc57be762b712e5db04846f936512f56951f697ab4de9d4d837d304', 4, 1, 'appToken', '[]', 0, '2021-03-27 11:04:12', '2021-03-27 11:04:12', '2022-03-27 11:04:12'),
 	('9cff90dc4c94f344180cf4dc8d5c0cdcd73a882f1f13f393cf4add38abb2f25f43b31d2ed61baece', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:20:32', '2021-03-27 12:20:32', '2022-03-27 12:20:32'),
 	('aab1881063a2325ad239c798ea8f46566418aea8ad4a9a5d11e6c5490fd9da7cd5f87955bc88acb5', 4, 1, 'appToken', '[]', 0, '2021-03-28 04:47:43', '2021-03-28 04:47:43', '2022-03-28 04:47:43'),
+	('b83a303aaeb651ef1d9769c6f3407e2fe95e3b0cbb86d0b5a11cbdb62b48e7689e5092b39aa7fdcb', 1, 1, 'appToken', '[]', 0, '2021-03-29 13:28:49', '2021-03-29 13:28:49', '2022-03-29 13:28:49'),
 	('b9c89057d8edd9e57e5dd7a3aa19f0cb12b59f04f03dbea408f1177ce6f08060da22158fb3f03d91', 4, 1, 'appToken', '[]', 0, '2021-03-27 12:39:31', '2021-03-27 12:39:31', '2022-03-27 12:39:31'),
 	('ba13011a91d43162baa441524971ce71706cecfb66be7e5102f884678a2e154f933c7c33bcd11ac1', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:21:58', '2021-03-27 12:21:58', '2022-03-27 12:21:58'),
+	('c2ab228aacab3d91e141a853b243cc8e098ae46f99aa685c2b0b186ca7c3339c6dc98db133854b9e', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:33:58', '2021-03-29 13:33:58', '2022-03-29 13:33:58'),
 	('c528e7b7c8c3bd84d9bb8708289ca30a69e6e2f259c2ba8d523c8c569928ab1d58af516b24e2907e', 4, 1, 'appToken', '[]', 0, '2021-03-25 03:45:28', '2021-03-25 03:45:28', '2022-03-25 03:45:28'),
 	('cca2ebb1c72580e969741e112d1c888fae9b6fc3496193684b636101bddb672721dd58a1505fcb99', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:24:02', '2021-03-27 12:24:02', '2022-03-27 12:24:02'),
 	('e0d36e85386709e37d315346d93e6dd5a295b6983eaa4a5d7303ae34c6237a827028a79a60df2e1a', 4, 1, 'appToken', '[]', 0, '2021-03-27 09:45:59', '2021-03-27 09:45:59', '2022-03-27 09:45:59'),
@@ -310,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post: ~16 rows (approximately)
+-- Dumping data for table caycanhapi.post: ~0 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
@@ -320,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `post_tag` (
   `tag_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post_tag: ~18 rows (approximately)
+-- Dumping data for table caycanhapi.post_tag: ~0 rows (approximately)
 /*!40000 ALTER TABLE `post_tag` DISABLE KEYS */;
 /*!40000 ALTER TABLE `post_tag` ENABLE KEYS */;
 
@@ -421,15 +439,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '0',
-  `activation_token` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.user: ~4 rows (approximately)
+-- Dumping data for table caycanhapi.user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `bio`, `role_id`, `is_deleted`, `name`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `active`, `activation_token`) VALUES
-	(1, 'chronicle', 'chronicle1951@gmail.com', '$2y$10$NUabujVwdjEVVEASHJMbLesxaVTa922HA9AA1SmvqP25HnOsF8Hhq', '', 0, 0, 'khoa', NULL, NULL, '2021-03-28 13:47:40', '2021-03-28 13:51:36', NULL, 1, 3414);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `bio`, `role_id`, `is_deleted`, `name`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'chronicle', 'chronicle1951@gmail.com', '$2y$10$jApdi2OUGb.S87qWSmrp0Ohb00RGWxQ1dMv2wNEZl73OW6TASILBy', '', 0, 0, 'khoa', NULL, NULL, '2021-03-29 13:33:58', '2021-03-29 13:33:58', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.user_follow_user
