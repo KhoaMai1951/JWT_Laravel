@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/EmailActivate.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Repositories/EmailActiveRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Validators/UserValidator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,6 +209,7 @@
       <workItem from="1616923667512" duration="1201000" />
       <workItem from="1616930361392" duration="9188000" />
       <workItem from="1617017784658" duration="5941000" />
+      <workItem from="1617197878756" duration="3001000" />
     </task>
     <servers />
   </component>
@@ -267,10 +263,10 @@
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689012569" />
     <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1616936460787" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616932610974">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1617202051628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616932610974" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1617202051628" />
     <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615688807339">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
