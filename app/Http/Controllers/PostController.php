@@ -114,6 +114,7 @@ class PostController extends Controller
         DB::commit();
         return Response::json([
             'message' => 'Post submit successfully',
+            'post_id' => $post->id,
         ], 200);
     }
 

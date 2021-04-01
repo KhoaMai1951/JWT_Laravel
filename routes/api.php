@@ -36,4 +36,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/test_dio', 'PostController@testDio');
         Route::get('/get_post', 'PostController@getPostById');
     });
+
+    // TAG
+    Route::group(['prefix' => '/tag'], function () {
+        Route::get('/get_all_tags', 'TagController@getAllTags');
+        Route::get('/get_all_tags_by_type_id', 'TagController@getAllTagsByTypeId');
+    });
 });
