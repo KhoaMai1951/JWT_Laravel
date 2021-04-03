@@ -142,6 +142,7 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $imagesForPost = $post->imagesForPost;
+        $tags = $post->tags;
         if (!$post) {
             return Response::json([
                 'message' => 'no post is found',
@@ -150,6 +151,7 @@ class PostController extends Controller
             return Response::json([
                 'post' => Post::find($id),
                 'images_for_post' => $imagesForPost,
+                'tags' => $tags,
             ], 200);
         }
 

@@ -20,12 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AfterMiddleware.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TagController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TagController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Models/Tag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Validators/UserValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Validators/UserValidator.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,6 +218,11 @@
       <workItem from="1617244769356" duration="653000" />
       <workItem from="1617271757386" duration="1079000" />
       <workItem from="1617280130138" duration="1983000" />
+      <workItem from="1617332214798" duration="1258000" />
+      <workItem from="1617354521835" duration="1255000" />
+      <workItem from="1617364197370" duration="2282000" />
+      <workItem from="1617417045487" duration="5120000" />
+      <workItem from="1617433981219" duration="8137000" />
     </task>
     <servers />
   </component>
@@ -267,11 +271,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1617024258200" />
-    <state x="565" y="309" key="NewPhpFileDialog" timestamp="1616936460787">
+    <state x="565" y="309" key="NewPhpFileDialog" timestamp="1617421264936">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689012569" />
-    <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1616936460787" />
+    <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1617421264936" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1617202051628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

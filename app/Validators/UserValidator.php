@@ -10,11 +10,21 @@ namespace App\Validators;
 class UserValidator
 {
     public static function validateRegister(Request $request){
-        return Validator::make($request->all(), [
-            'username' => 'required',
-            'name' => 'required',
+
+        $customMessages = [
+            'email.unique' => 'Email đã được đăng ký',
+            'required' => 'Không được bỏ trống',
+            'min' => ':attribute phải lớn hơn :min kí tự',
+            'password.confirmed' => 'Xác nhận mật khẩu không trùng',
+        ];
+
+        $rules = [
+            'username' => 'required|min:4',
+            'name' => 'required|min:4',
             'email' => 'required|email|unique:user',
-            'password' => 'required',
-        ]);
+            'password' => 'required|min:4|confirmed',
+            'password_confirmation' => 'required|min:4',
+        ];
+        return Validator::make($request->all(), $rules, $customMessages);
     }
 }
