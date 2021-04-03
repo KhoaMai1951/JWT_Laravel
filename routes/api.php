@@ -27,9 +27,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/logout', 'UserController@logout');
         Route::get('/get_data_with_token', 'UserController@getData');
+
+
     });
     Route::get('/get_data', 'UserController@getData');
-
+    Route::get('/testme', function (Request $request) { dd($request->header()); });
     // POST
     Route::group(['prefix' => '/post'], function () {
         Route::post('/submit_post', 'PostController@submitPost');

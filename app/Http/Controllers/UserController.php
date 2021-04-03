@@ -21,81 +21,6 @@ use PharIo\Manifest\Email;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 
     public function appLogin(Request $request)
     {
@@ -124,16 +49,25 @@ class UserController extends Controller
         else return false;
     }
 
-    public function login()
+    public function login(Request $request)
     {
+        $rules = [
+            'email' => 'required',
+            'password' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
         $email = request('email');
-        $user = User::withTrashed()
-            ->select('email', 'password', 'deleted_at')
+        $user1 = User::withTrashed()
+            //->select('id', 'email', 'password', 'deleted_at', 'name', 'username')
+            ->select()
             ->where('email', 'LIKE', $email)
             ->first();
 
-        if ($this->checkLogin($user)) {
-            //$user = Auth::user();
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')]))
+       // if ($this->checkLogin($user))
+        {
+            $user = Auth::user();
             if ($user->deleted_at == null) {
                 $success['token'] = $user->createToken('appToken')->accessToken;
                 //After successful authentication, return json parameters

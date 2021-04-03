@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
 use App\Utilities\S3Helper;
+use App\Validators\PostValidator;
+use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -30,6 +32,14 @@ class PostController extends Controller
 
     public function submitPost(Request $request)
     {
+        $validator = PostValidator::validateSubmitPost($request);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 401);
+        }
+
         if ($request->file('images_for_post') != null) {
             return $this->submitPostWithImage($request);
         } else {
@@ -41,6 +51,16 @@ class PostController extends Controller
     {
         DB::beginTransaction();
 
+        // validate the image
+        $validator = PostValidator::validateImage($request);
+
+        if ($validator->fails()) {
+            DB::rollBack();
+            return Response::json([
+                'error' => $validator->getMessageBag()->toArray(),
+            ], 400);
+        }
+
         $post = new Post();
         //fields handle
         $post->title = $request->get('title');
@@ -50,20 +70,6 @@ class PostController extends Controller
         //tag field handle
         $post->tags()->attach($request->get('tag_ids'));
         //image for post handle
-        // validate the image
-        $validator = Validator::make(
-            $request->all(), [
-            'images_for_post.*' => 'required|mimes:jpg,jpeg,png,bmp,jpg,gif|max:100'
-        ], ['images_for_post .*.required' => 'Please upload an image',
-                'images_for_post .*.mimes' => 'Only jpeg,png and bmp images are allowed',
-                'images_for_post .*.max' => 'Sorry!Maximum allowed size for an image is 20MB',]
-        );
-        if ($validator->fails()) {
-            DB::rollBack();
-            return Response::json([
-                'error' => $validator->getMessageBag()->toArray(),
-            ], 400);
-        }
 
         // handle multiple images
         $uploadIsErrorFlag = false;
@@ -113,6 +119,7 @@ class PostController extends Controller
 
         DB::commit();
         return Response::json([
+            'success' => true,
             'message' => 'Post submit successfully',
             'post_id' => $post->id,
         ], 200);
