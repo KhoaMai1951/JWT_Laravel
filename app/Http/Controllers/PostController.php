@@ -22,11 +22,39 @@ class PostController extends Controller
 {
     public function testDio(Request $request)
     {
+        $flag = true;
+        if(($request->file('files')) == null)
+        {
+            return Response::json([
+                'message' => 'No image ',
+            ], 200);
+        }
+
+        $count = -1;
         if ($files = $request->file('files')) {
             // loop through image array
             foreach ($files as $file) {
-                S3Helper::S3UploadFile($file, (string)Str::uuid());
+                $count++;
+                if(S3Helper::S3UploadFile($file, (string)Str::uuid()) == false)
+                {
+                    $flag = false;
+                    break;
+                }
             }
+        }
+
+        if($flag)
+        {
+            return Response::json([
+                'message' => 'Image upload success',
+                'files' => $request->file('files'),
+                'countFile' => $count,
+            ], 200);
+        }
+        else{
+            return Response::json([
+                'message' => 'Image upload failed',
+            ], 400);
         }
     }
 
