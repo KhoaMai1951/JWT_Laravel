@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Models\Post;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -43,5 +44,9 @@ class User extends Authenticatable implements CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
 }

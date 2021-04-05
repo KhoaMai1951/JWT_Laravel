@@ -68,7 +68,8 @@ class PostController extends Controller
             ], 401);
         }
 
-        if ($request->file('images_for_post') != null) {
+        //if ($request->file('images_for_post') != null) {
+        if ($request->file('files') != null) {
             return $this->submitPostWithImage($request);
         } else {
             return $this->submitPostWithoutImage($request);
@@ -101,7 +102,7 @@ class PostController extends Controller
 
         // handle multiple images
         $uploadIsErrorFlag = false;
-        if ($files = $request->file('images_for_post')) {
+        if ($files = $request->file('files')) {
             // loop through image array
             foreach ($files as $file) {
                 $result = $this->imageForPostHandle($post, $file);
@@ -119,7 +120,8 @@ class PostController extends Controller
                 $post->update();
                 DB::commit();
                 return Response::json([
-                    'message' => 'Post submit successfully',
+                    'message' => 'Post submit with image successfully',
+                    'post_id' => $post->id,
                 ], 200);
             } // if there is error, return fail
             else {
@@ -148,7 +150,7 @@ class PostController extends Controller
         DB::commit();
         return Response::json([
             'success' => true,
-            'message' => 'Post submit successfully',
+            'message' => 'Post without image submit successfully',
             'post_id' => $post->id,
         ], 200);
     }
@@ -178,6 +180,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $imagesForPost = $post->imagesForPost;
         $tags = $post->tags;
+        $user = $post->user;
         if (!$post) {
             return Response::json([
                 'message' => 'no post is found',
@@ -187,6 +190,7 @@ class PostController extends Controller
                 'post' => Post::find($id),
                 'images_for_post' => $imagesForPost,
                 'tags' => $tags,
+                'user' => $user,
             ], 200);
         }
 
