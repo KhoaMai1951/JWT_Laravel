@@ -35,10 +35,10 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::post('/test_dio', 'PostController@testDio');
         Route::get('/get_post', 'PostController@getPostById');
-//        Route::group(['middleware' => 'auth:api'], function () {
-//            Route::post('/submit_post', 'PostController@submitPost');
-//        });
-        Route::post('/submit_post', 'PostController@submitPost');
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::post('/submit_post', 'PostController@submitPost');
+        });
+        //Route::post('/submit_post', 'PostController@submitPost');
     });
 
     // TAG
