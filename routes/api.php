@@ -39,6 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/submit_post', 'PostController@submitPost');
         });
         //Route::post('/submit_post', 'PostController@submitPost');
+        Route::post('/upload_image', 'PostController@uploadImageToStorage');
     });
 
     // TAG

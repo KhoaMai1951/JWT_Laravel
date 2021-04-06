@@ -23,8 +23,7 @@ class PostController extends Controller
     public function testDio(Request $request)
     {
         $flag = true;
-        if(($request->file('files')) == null)
-        {
+        if (($request->file('files')) == null) {
             return Response::json([
                 'message' => 'No image ',
             ], 200);
@@ -35,23 +34,20 @@ class PostController extends Controller
             // loop through image array
             foreach ($files as $file) {
                 $count++;
-                if(S3Helper::S3UploadFile($file, (string)Str::uuid()) == false)
-                {
+                if (S3Helper::S3UploadFile($file, (string)Str::uuid()) == false) {
                     $flag = false;
                     break;
                 }
             }
         }
 
-        if($flag)
-        {
+        if ($flag) {
             return Response::json([
                 'message' => 'Image upload success',
                 'files' => $request->file('files'),
                 'countFile' => $count,
             ], 200);
-        }
-        else{
+        } else {
             return Response::json([
                 'message' => 'Image upload failed',
             ], 400);
@@ -105,7 +101,8 @@ class PostController extends Controller
         if ($files = $request->file('files')) {
             // loop through image array
             foreach ($files as $file) {
-                $result = $this->imageForPostHandle($post, $file);
+                //$result = $this->imageForPostHandleToS3($post, $file);
+                $result = $this->imageForPostHandleToStorage($post, $file);
                 // if upload file to s3 successful
                 if ($result == true) {
                     $uploadIsErrorFlag = true;
@@ -155,7 +152,7 @@ class PostController extends Controller
         ], 200);
     }
 
-    public function imageForPostHandle($post, $file)
+    public function imageForPostHandleToS3($post, $file)
     {
         $fileName = (string)Str::uuid() . $file->getClientOriginalName();
 
@@ -173,12 +170,33 @@ class PostController extends Controller
         }
     }
 
+    public function imageForPostHandleToStorage($post, $file)
+    {
+        // change new name
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+        // upload the image to local storage
+        $this->uploadImageToStorage($file, $fileName);
+        // create new image for post object and associate it with post object
+        $imageForPost = new ImageForPost();
+        $imageLink = '/uploads/images/store/' . $fileName;
+        $imageForPost->url = $imageLink;
+        $imageForPost->post()->associate($post);
+        $imageForPost->save();
+        return true;
+
+    }
+
     public function getPostById(Request $request)
     {
         $id = $request->get('id');
 
         $post = Post::find($id);
         $imagesForPost = $post->imagesForPost;
+        // handle images for post dynamic url
+        foreach ($imagesForPost as $image)
+        {
+            $image->dynamic_url = asset($image->url);
+        }
         $tags = $post->tags;
         $user = $post->user;
         if (!$post) {
@@ -194,5 +212,11 @@ class PostController extends Controller
             ], 200);
         }
 
+    }
+
+    public function uploadImageToStorage($file, $fileName)
+    {
+        $path = public_path() . '/uploads/images/store/';
+        $file->move($path, $fileName);
     }
 }
