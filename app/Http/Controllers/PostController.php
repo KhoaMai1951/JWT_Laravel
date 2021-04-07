@@ -178,7 +178,7 @@ class PostController extends Controller
         $this->uploadImageToStorage($file, $fileName);
         // create new image for post object and associate it with post object
         $imageForPost = new ImageForPost();
-        $imageLink = '/uploads/images/store/' . $fileName;
+        $imageLink = '/storage/image_for_post/' . $fileName;
         $imageForPost->url = $imageLink;
         $imageForPost->post()->associate($post);
         $imageForPost->save();
@@ -216,7 +216,8 @@ class PostController extends Controller
 
     public function uploadImageToStorage($file, $fileName)
     {
-        $path = public_path() . '/uploads/images/store/';
-        $file->move($path, $fileName);
+//        $path = storage_path('/uploads/images/store/') ;
+//        $file->move($path, $fileName);
+        Storage::disk('public')->putFileAs('image_for_post/', $file, $fileName);
     }
 }

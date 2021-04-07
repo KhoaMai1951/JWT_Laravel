@@ -186,10 +186,7 @@ class UserController extends Controller
     public function getData()
     {
         return Response::json([
-            'data' => '1111'
+            'data' => 'ddd'
         ], 200);
     }
-
-
-
 }

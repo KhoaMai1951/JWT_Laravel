@@ -20,10 +20,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.rnd" beforeDir="false" afterPath="$PROJECT_DIR$/.rnd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/public/upload/159331680_177456837333786_6559458576006886582_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/00e46dc0-9f41-443f-896d-298950228410FB_IMG_1617692678236.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/164493911_2955707584706679_7996648302901237720_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/166964916_283272460035563_4078773328578251264_n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/336f6ea1-7e54-4d09-b691-fd2e902630d2FB_IMG_1617670639323.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/474df92b-6417-4dd6-bf97-019e6b5d1db9FB_IMG_1617678033366.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/49096b91-098a-40c4-9915-9195db488ac6166589791_318810386284838_1732472508849436995_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/4cf5d881-3c0d-4258-8393-931b0c0eff95pjaeaec2ppq61.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/4d2a2c08-3b7a-4e9b-8d13-01fa50170ae8The-future-is-brighter.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/7c25ec37-7e8f-4116-868a-0a2c8cf0046f1614865715000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/8c2006fd-a032-4271-a96d-0db6a89c338eClose-Family-Ties-confused.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/9c68e3b6-5a52-49b3-a754-85165dd02c03FB_IMG_1617670414679.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/a18d4154-82a6-43aa-892f-e60eb4f9e8f01614940806000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/b7fb439b-f0f3-416e-bbb5-6f753ffde1131615696350000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/cb61ace6-8668-4b86-b5c7-e4670445c897Cause-Im-Batman.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/e4114ad6-37e3-4eda-a09c-2517bcec2b741614992065000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/f36693eb-e131-4f04-bb21-9b24932e4fcc1615570960000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/store/fe5f1791-4184-4e6f-a3df-f0fabbe386221615570027000.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,9 +187,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dang_khoa\Desktop\caycanh\JWT_Laravel\storage\app\public" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Models" />
     </key>
@@ -230,6 +251,9 @@
       <workItem from="1617537863433" duration="3093000" />
       <workItem from="1617620440071" duration="5576000" />
       <workItem from="1617710734883" duration="3585000" />
+      <workItem from="1617756640427" duration="1178000" />
+      <workItem from="1617758272731" duration="267000" />
+      <workItem from="1617759416362" duration="6306000" />
     </task>
     <servers />
   </component>
