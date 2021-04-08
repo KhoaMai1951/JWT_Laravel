@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use App\User;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -26,4 +27,8 @@ class Post extends Model
     public function imagesForPost(){
         return $this->hasMany(ImageForPost::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+     }
 }

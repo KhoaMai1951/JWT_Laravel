@@ -192,12 +192,17 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $imagesForPost = $post->imagesForPost;
+
         // handle images for post dynamic url
         foreach ($imagesForPost as $image) {
             $image->dynamic_url = asset($image->url);
         }
         $tags = $post->tags;
         $user = $post->user;
+        $commentsNumber = count(DB::table('comment')
+            ->select('id')
+            ->where('post_id', '=', $post->id)
+            ->get());
         if (!$post) {
             return Response::json([
                 'message' => 'no post is found',
@@ -208,6 +213,7 @@ class PostController extends Controller
                 'images_for_post' => $imagesForPost,
                 'tags' => $tags,
                 'user' => $user,
+                'comments_number' => $commentsNumber,
             ], 200);
         }
 
@@ -247,7 +253,7 @@ class PostController extends Controller
             return Response::json([
                 //'result' => 'liked',
                 'liked' => true,
-                'likes' =>  Post::where('id', $postId)->select('like')->first(),
+                'likes' => Post::where('id', $postId)->select('like')->first(),
             ], 200);
         } // Nếu đã like, sẽ unlike
         else {
@@ -264,12 +270,13 @@ class PostController extends Controller
             return Response::json([
                 //'result' => 'unliked',
                 'liked' => false,
-                'likes' =>  Post::where('id', $postId)->select('like')->first(),
+                'likes' => Post::where('id', $postId)->select('like')->first(),
             ], 200);
         }
     }
 
-    public function checkLikePostOrNot(Request $request){
+    public function checkLikePostOrNot(Request $request)
+    {
         $postId = $request->get('post_id');
         $userId = $request->get('user_id');
 
@@ -278,12 +285,11 @@ class PostController extends Controller
             ->where('post_id', '=', $postId)
             ->where('user_id', '=', $userId)
             ->get();
-        if($result->isEmpty()) {
+        if ($result->isEmpty()) {
             return Response::json([
                 'result' => false,
             ], 200);
-        }
-        else {
+        } else {
             return Response::json([
                 'result' => true,
             ], 200);

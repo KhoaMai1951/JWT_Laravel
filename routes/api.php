@@ -49,4 +49,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_all_tags', 'TagController@getAllTags');
         Route::get('/get_all_tags_by_type_id', 'TagController@getAllTagsByTypeId');
     });
+
+    // COMMENT
+    Route::group(['prefix' => '/comment'], function () {
+        Route::get('/get_all_comments_by_post_id', 'CommentController@getAllCommentsByPostId');
+    });
 });
