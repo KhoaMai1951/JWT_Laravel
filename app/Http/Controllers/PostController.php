@@ -193,8 +193,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $imagesForPost = $post->imagesForPost;
         // handle images for post dynamic url
-        foreach ($imagesForPost as $image)
-        {
+        foreach ($imagesForPost as $image) {
             $image->dynamic_url = asset($image->url);
         }
         $tags = $post->tags;
@@ -205,7 +204,7 @@ class PostController extends Controller
             ], 400);
         } else {
             return Response::json([
-                'post' => Post::find($id),
+                'post' => $post,
                 'images_for_post' => $imagesForPost,
                 'tags' => $tags,
                 'user' => $user,
@@ -219,5 +218,75 @@ class PostController extends Controller
 //        $path = storage_path('/uploads/images/store/') ;
 //        $file->move($path, $fileName);
         Storage::disk('public')->putFileAs('image_for_post/', $file, $fileName);
+    }
+
+    public function likePost(Request $request)
+    {
+        $postId = $request->get('post_id');
+        $userId = $request->get('user_id');
+
+        $result = DB::table('liked_post')
+            ->select('post_id', 'user_id')
+            ->where('post_id', '=', $postId)
+            ->where('user_id', '=', $userId)
+            ->get();
+
+        $post = Post::find($postId);
+
+        // Nếu chưa like, sẽ like
+        if ($result->isEmpty()) {
+            // UPDATE TABLE TRUNG GIAN
+            DB::table('liked_post')->insert([
+                'post_id' => $postId,
+                'user_id' => $userId,
+            ]);
+            // UPDATE TABLE POST CHO CỘT LIKE
+            $post->like++;
+            $post->update();
+
+            return Response::json([
+                //'result' => 'liked',
+                'liked' => true,
+                'likes' =>  Post::where('id', $postId)->select('like')->first(),
+            ], 200);
+        } // Nếu đã like, sẽ unlike
+        else {
+            // UPDATE TABLE TRUNG GIAN
+            DB::table('liked_post')
+                ->select('post_id', 'user_id')
+                ->where('post_id', '=', $postId)
+                ->where('user_id', '=', $userId)
+                ->delete();
+            // UPDATE TABLE POST CHO CỘT LIKE
+            $post->like > 0 ? $post->like-- : null;
+            $post->update();
+
+            return Response::json([
+                //'result' => 'unliked',
+                'liked' => false,
+                'likes' =>  Post::where('id', $postId)->select('like')->first(),
+            ], 200);
+        }
+    }
+
+    public function checkLikePostOrNot(Request $request){
+        $postId = $request->get('post_id');
+        $userId = $request->get('user_id');
+
+        $result = DB::table('liked_post')
+            ->select('post_id', 'user_id')
+            ->where('post_id', '=', $postId)
+            ->where('user_id', '=', $userId)
+            ->get();
+        if($result->isEmpty()) {
+            return Response::json([
+                'result' => false,
+            ], 200);
+        }
+        else {
+            return Response::json([
+                'result' => true,
+            ], 200);
+        }
     }
 }

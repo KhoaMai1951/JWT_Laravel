@@ -17,7 +17,7 @@ class PostValidator
 
         $rules = [
             'title' => 'required|min:2',
-            'content' => 'required|min:2|max:200',
+            'content' => 'required|min:2|max:1000',
             'user_id' => 'required',
         ];
         return Validator::make($request->all(), $rules, $customMessages);

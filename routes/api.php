@@ -40,6 +40,8 @@ Route::group(['prefix' => 'v1'], function () {
         });
         //Route::post('/submit_post', 'PostController@submitPost');
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
+        Route::get('/like_post', 'PostController@likePost');
+        Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
     });
 
     // TAG
