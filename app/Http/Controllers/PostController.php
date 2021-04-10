@@ -119,12 +119,14 @@ class PostController extends Controller
                 return Response::json([
                     'message' => 'Post submit with image successfully',
                     'post_id' => $post->id,
+                    'status' => true,
                 ], 200);
             } // if there is error, return fail
             else {
                 DB::rollBack();
                 return Response::json([
                     'message' => 'Image upload failed',
+                    'status' => false,
                 ], 400);
             }
         }
@@ -191,6 +193,13 @@ class PostController extends Controller
         $id = $request->get('id');
 
         $post = Post::find($id);
+
+//        // TEST LẤY 1 PHẦN CONTENT
+//        $postTest = DB::table('post')->select(DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+//        ->where('id', '=', $request->get('id'))
+//        ->get();
+
+
         $imagesForPost = $post->imagesForPost;
 
         // handle images for post dynamic url
@@ -209,6 +218,7 @@ class PostController extends Controller
             ], 400);
         } else {
             return Response::json([
+                //'post2' => $postTest,
                 'post' => $post,
                 'images_for_post' => $imagesForPost,
                 'tags' => $tags,

@@ -55,5 +55,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_all_comments_by_post_id', 'CommentController@getAllCommentsByPostId');
         Route::get('/get_number_of_comments_by_post_id', 'CommentController@getNumberOfCommentsByPostId');
         Route::post('/submit_comment', 'CommentController@submitComment');
+        Route::post('/get_comments_by_chunk_by_post_id', 'CommentController@getCommentsByChunkByPostId');
     });
 });
