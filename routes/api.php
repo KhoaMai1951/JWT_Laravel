@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    // USER
+
     // USER AUTHENTICATE SYSTEM
     Route::post('/login', 'UserController@login');
     Route::post('/register', 'UserController@register');
@@ -30,6 +30,11 @@ Route::group(['prefix' => 'v1'], function () {
     });
     Route::get('/get_data', 'UserController@getData');
     Route::get('/testme', function (Request $request) { dd($request->header()); });
+    // USER
+    Route::group(['prefix' => '/user'], function () {
+        Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
+    });
+
     // POST
     Route::group(['prefix' => '/post'], function () {
 

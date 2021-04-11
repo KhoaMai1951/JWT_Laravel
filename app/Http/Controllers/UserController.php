@@ -64,8 +64,7 @@ class UserController extends Controller
             ->where('email', 'LIKE', $email)
             ->first();
 
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')]))
-       // if ($this->checkLogin($user))
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) // if ($this->checkLogin($user))
         {
             $user = Auth::user();
             if ($user->deleted_at == null) {
@@ -188,5 +187,41 @@ class UserController extends Controller
         return Response::json([
             'data' => '1'
         ], 200);
+    }
+
+    public function getUserInfoById(Request $request)
+    {
+        $user = DB::table('user')
+            ->select('username', 'email', 'name', 'bio', 'id')
+            ->where('id', '=', $request->get('id'))
+            ->get();
+
+        $avatarLink = DB::table('image_for_user')
+            ->select('url')
+            ->where('user_id', '=', $request->get('id'))
+            ->get();
+
+        $followers = DB::table('user_follow_user')
+            ->select('follower_user_id')
+            ->where('user_id', '=', $request->get('id'))
+            ->get();
+        $numberOfFollowers = count($followers);
+
+        $following = DB::table('user_follow_user')
+            ->select('user_id')
+            ->where('follower_user_id', '=', $request->get('id'))
+            ->get();
+        $numberOfFollowing = count($following);
+
+        return response()->json(
+            [
+                'user' => $user,
+                'avatar_link' => $avatarLink,
+                'number_of_followers' => $numberOfFollowers,
+                'number_of_following' => $numberOfFollowing,
+            ],
+            200,
+            ['Content-type' => 'application/json;charset=utf-8'],
+            JSON_UNESCAPED_UNICODE);
     }
 }
