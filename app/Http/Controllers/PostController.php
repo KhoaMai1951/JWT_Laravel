@@ -229,6 +229,44 @@ class PostController extends Controller
 
     }
 
+    public function getAllPostsByChunkByUserId(Request $request)
+    {
+        $userId = $request->get('user_id');
+
+        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            ->where('user_id', '=', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->skip($request->get('skip'))->take($request->get('take'))
+            ->get();
+
+       foreach ($posts as $post)
+       {
+           $first_image_for_post = DB::table('image_for_post')
+               ->where('post_id', '=', $post->id)
+               ->first();
+
+           if($first_image_for_post != null)
+               $post->image_url = asset($first_image_for_post->url);
+           else $post->image_url = '';
+
+           $commentsNumber = count(DB::table('comment')
+               ->select('id')
+               ->where('post_id', '=', $post->id)
+               ->get());
+           $post->comments_number = $commentsNumber;
+       }
+
+        foreach ($posts as $post) {
+            $post->short_content .= '...';
+        };
+        return Response::json([
+            //'post2' => $postTest,
+            'posts' => $posts,
+
+        ], 200);
+
+    }
+
     public function uploadImageToStorage($file, $fileName)
     {
 //        $path = storage_path('/uploads/images/store/') ;

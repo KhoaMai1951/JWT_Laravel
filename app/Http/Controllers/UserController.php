@@ -213,10 +213,14 @@ class UserController extends Controller
             ->get();
         $numberOfFollowing = count($following);
 
+        if(sizeof($avatarLink) != 0)
+            $avatarTemp = $avatarLink[0];
+        else $avatarTemp = '';
+
         return response()->json(
             [
                 'user' => $user,
-                'avatar_link' => $avatarLink,
+                'avatar_link' =>  $avatarTemp != null ? asset($avatarTemp->url) : '',
                 'number_of_followers' => $numberOfFollowers,
                 'number_of_following' => $numberOfFollowing,
             ],

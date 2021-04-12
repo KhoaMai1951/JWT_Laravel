@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -171,6 +172,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\storage\app\public\image_for_user" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Controllers" />
       <recent name="C:\Users\dang_khoa\Desktop\caycanh\JWT_Laravel\storage\app\public" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
@@ -244,6 +246,9 @@
       <workItem from="1618042828885" duration="3279000" />
       <workItem from="1618101800159" duration="702000" />
       <workItem from="1618130442248" duration="3848000" />
+      <workItem from="1618141478669" duration="3746000" />
+      <workItem from="1618188573982" duration="4566000" />
+      <workItem from="1618211996211" duration="1386000" />
     </task>
     <servers />
   </component>
