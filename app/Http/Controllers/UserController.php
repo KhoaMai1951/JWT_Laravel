@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\EmailActivate;
+use App\Http\Models\Post;
 use App\Http\Repositories\EmailActiveRepository;
 use App\Notifications\SignupActivate;
 use App\User;
@@ -227,5 +228,66 @@ class UserController extends Controller
             200,
             ['Content-type' => 'application/json;charset=utf-8'],
             JSON_UNESCAPED_UNICODE);
+    }
+
+    public function checkFollow(Request $request) {
+        $currentUserId = $request->get('current_user_id');
+        $userId = $request->get('user_id');
+
+        $result = DB::table('user_follow_user')
+            ->select('user_id', 'follower_user_id')
+            ->where('user_id', '=', $userId)
+            ->where('follower_user_id', '=', $currentUserId)
+            ->get();
+        if ($result->isEmpty()) {
+            return Response::json([
+                'result' => false,
+            ], 200);
+        } else {
+            return Response::json([
+                'result' => true,
+            ], 200);
+        }
+    }
+
+    public function followUser(Request $request)
+    {
+        $currentUserId = $request->get('current_user_id');
+        $userId = $request->get('user_id');
+
+        $result = DB::table('user_follow_user')
+            ->select('user_id', 'follower_user_id')
+            ->where('user_id', '=', $userId)
+            ->where('follower_user_id', '=', $currentUserId)
+            ->get();
+
+        // Nếu chưa follow, sẽ follow
+        if ($result->isEmpty()) {
+            // UPDATE TABLE TRUNG GIAN
+            DB::table('user_follow_user')->insert([
+                'follower_user_id' => $currentUserId,
+                'user_id' => $userId,
+            ]);
+
+            return Response::json([
+                //'result' => 'liked',
+                'follow' => true,
+
+            ], 200);
+        } // Nếu đã follow, sẽ unfollow
+        else {
+            // UPDATE TABLE TRUNG GIAN
+            DB::table('user_follow_user')
+                ->select('follower_user_id', 'user_id')
+                ->where('user_id', '=', $userId)
+                ->where('follower_user_id', '=', $currentUserId)
+                ->delete();
+
+            return Response::json([
+                //'result' => 'unliked',
+                'follow' => false,
+
+            ], 200);
+        }
     }
 }

@@ -33,6 +33,8 @@ Route::group(['prefix' => 'v1'], function () {
     // USER
     Route::group(['prefix' => '/user'], function () {
         Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
+        Route::post('/check_follow', 'UserController@checkFollow');
+        Route::post('/follow_user', 'UserController@followUser');
     });
 
     // POST

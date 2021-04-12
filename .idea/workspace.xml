@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -172,10 +171,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\storage\app\public\image_for_user" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Controllers" />
       <recent name="C:\Users\dang_khoa\Desktop\caycanh\JWT_Laravel\storage\app\public" />
-      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Models" />
     </key>
   </component>
@@ -248,7 +247,7 @@
       <workItem from="1618130442248" duration="3848000" />
       <workItem from="1618141478669" duration="3746000" />
       <workItem from="1618188573982" duration="4566000" />
-      <workItem from="1618211996211" duration="1386000" />
+      <workItem from="1618211996211" duration="4216000" />
     </task>
     <servers />
   </component>
@@ -273,10 +272,10 @@
     </state>
     <state x="2097" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689861801" />
     <state x="520" y="225" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1616726772424" />
-    <state x="412" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1617886601582">
+    <state x="412" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1618231428908">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="412" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1617886601582" />
+    <state x="412" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1618231428908" />
     <state width="1304" height="254" key="GridCell.Tab.0.bottom" timestamp="1615610376838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
