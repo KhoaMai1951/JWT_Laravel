@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
+use App\User;
 use App\Utilities\S3Helper;
 use App\Validators\PostValidator;
 use App\Validators\UserValidator;
@@ -194,12 +195,6 @@ class PostController extends Controller
 
         $post = Post::find($id);
 
-//        // TEST LẤY 1 PHẦN CONTENT
-//        $postTest = DB::table('post')->select(DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-//        ->where('id', '=', $request->get('id'))
-//        ->get();
-
-
         $imagesForPost = $post->imagesForPost;
 
         // handle images for post dynamic url
@@ -239,26 +234,73 @@ class PostController extends Controller
             ->skip($request->get('skip'))->take($request->get('take'))
             ->get();
 
-       foreach ($posts as $post)
-       {
-           $first_image_for_post = DB::table('image_for_post')
-               ->where('post_id', '=', $post->id)
-               ->first();
+        foreach ($posts as $post) {
+            $first_image_for_post = DB::table('image_for_post')
+                ->where('post_id', '=', $post->id)
+                ->first();
 
-           if($first_image_for_post != null)
-               $post->image_url = asset($first_image_for_post->url);
-           else $post->image_url = '';
+            if ($first_image_for_post != null)
+                $post->image_url = asset($first_image_for_post->url);
+            else $post->image_url = '';
 
-           $commentsNumber = count(DB::table('comment')
-               ->select('id')
-               ->where('post_id', '=', $post->id)
-               ->get());
-           $post->comments_number = $commentsNumber;
-       }
+            $commentsNumber = count(DB::table('comment')
+                ->select('id')
+                ->where('post_id', '=', $post->id)
+                ->get());
+            $post->comments_number = $commentsNumber;
+        }
 
         foreach ($posts as $post) {
             $post->short_content .= '...';
         };
+        return Response::json([
+            //'post2' => $postTest,
+            'posts' => $posts,
+
+        ], 200);
+
+    }
+
+    public function getAllPostsByChunk(Request $request)
+    {
+        // GET ALL POSTS BY CHUNK
+        $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+            ->orderBy('created_at', 'DESC')
+            ->skip($request->get('skip'))->take($request->get('take'))
+            ->get();
+
+
+        // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
+        foreach ($posts as $post) {
+            // HANDLE SHORT CONTENT
+            $post->short_content .= '...';
+
+            // IMAGES FOR POST HANDLE
+            $imagesForPost = $post->imagesForPost;
+
+            // handle images for post dynamic url
+            foreach ($imagesForPost as $image) {
+                $image->dynamic_url = asset($image->url);
+            }
+
+            // COMMENTS NUMBER HANDLE
+            $commentsNumber = count(DB::table('comment')
+                ->select('id')
+                ->where('post_id', '=', $post->id)
+                ->get());
+            $post->comments_number = $commentsNumber;
+
+            // USER HANDLE
+            $avatar_url = DB::table('image_for_user')
+                ->select('url')
+                ->where('user_id', '=', $post->user->id)
+                ->first();
+            if ($avatar_url != '' && $avatar_url != null)
+                $post->user->avatar_url = asset($avatar_url->url);
+            else $post->user->avatar_url = '';
+        }
+
+
         return Response::json([
             //'post2' => $postTest,
             'posts' => $posts,

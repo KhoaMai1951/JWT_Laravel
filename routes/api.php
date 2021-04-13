@@ -48,6 +48,8 @@ Route::group(['prefix' => 'v1'], function () {
         //Route::post('/submit_post', 'PostController@submitPost');
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         Route::post('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
+        Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
+        Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/like_post', 'PostController@likePost');
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
     });
