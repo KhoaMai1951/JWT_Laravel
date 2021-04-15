@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use function PHPUnit\Framework\isEmpty;
 
 
 class PostController extends Controller
@@ -96,7 +97,6 @@ class PostController extends Controller
         //tag field handle
         $post->tags()->attach($request->get('tag_ids'));
         //image for post handle
-
         // handle multiple images
         $uploadIsErrorFlag = false;
         if ($files = $request->file('files')) {
@@ -269,7 +269,6 @@ class PostController extends Controller
             ->skip($request->get('skip'))->take($request->get('take'))
             ->get();
 
-
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
             // HANDLE SHORT CONTENT
@@ -298,6 +297,19 @@ class PostController extends Controller
             if ($avatar_url != '' && $avatar_url != null)
                 $post->user->avatar_url = asset($avatar_url->url);
             else $post->user->avatar_url = '';
+
+            // CHECK LIKED POST OR NOT
+            $postId = $post->id;
+            $userId = $request->get('user_id');
+
+            $result = DB::table('liked_post')
+                ->select('post_id', 'user_id')
+                ->where('post_id', '=', $postId)
+                ->where('user_id', '=', $userId)
+                ->get();
+
+
+            $post->is_liked = !$result->isEmpty();
         }
 
 

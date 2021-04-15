@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\FilePathInterface;
 use App\Http\Models\EmailActivate;
 use App\Http\Models\Post;
 use App\Http\Repositories\EmailActiveRepository;
+use App\Http\Traits\FileUploadTrait;
+use App\Http\Validators\ImageValidator;
 use App\Notifications\SignupActivate;
 use App\User;
+use App\Validators\PostValidator;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 
@@ -20,8 +24,10 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use PharIo\Manifest\Email;
 
-class UserController extends Controller
+class UserController extends Controller implements FilePathInterface
 {
+
+    use FileUploadTrait;
 
     public function appLogin(Request $request)
     {
@@ -200,7 +206,7 @@ class UserController extends Controller
         $avatarLink = DB::table('image_for_user')
             ->select('url')
             ->where('user_id', '=', $request->get('id'))
-            ->get();
+            ->first();
 
         $followers = DB::table('user_follow_user')
             ->select('follower_user_id')
@@ -214,14 +220,14 @@ class UserController extends Controller
             ->get();
         $numberOfFollowing = count($following);
 
-        if(sizeof($avatarLink) != 0)
-            $avatarTemp = $avatarLink[0];
+        if ($avatarLink != null)
+            $avatarTemp = $avatarLink;
         else $avatarTemp = '';
 
         return response()->json(
             [
                 'user' => $user,
-                'avatar_link' =>  $avatarTemp != null ? asset($avatarTemp->url) : '',
+                'avatar_link' => $avatarTemp != null ? asset($avatarTemp->url) : '',
                 'number_of_followers' => $numberOfFollowers,
                 'number_of_following' => $numberOfFollowing,
             ],
@@ -230,7 +236,8 @@ class UserController extends Controller
             JSON_UNESCAPED_UNICODE);
     }
 
-    public function checkFollow(Request $request) {
+    public function checkFollow(Request $request)
+    {
         $currentUserId = $request->get('current_user_id');
         $userId = $request->get('user_id');
 
@@ -289,5 +296,72 @@ class UserController extends Controller
 
             ], 200);
         }
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        DB::beginTransaction();
+
+        // validate the image
+        $validator = ImageValidator::validateImage($request);
+
+        if ($validator->fails()) {
+            DB::rollBack();
+            return Response::json([
+                'error' => $validator->getMessageBag()->toArray(),
+            ], 400);
+        }
+
+        // get avatar link
+        $avatarLink = DB::table('image_for_user')
+            ->select('url')
+            ->where('user_id', '=', $request->get('user_id'))
+            ->first();
+
+        // check if user already has an avatar
+        // if user already has avatar
+        if ($avatarLink != '') {
+            //get old avatar name
+            preg_match('/[^\/]*$/', $avatarLink->url, $matches);
+            $oldAvatar = $matches[0];
+            //insert new avatar
+            if ($files = $request->file('files')) {
+                // loop through image array
+                foreach ($files as $file) {
+                    $this->imageForUserHandleToStorage(
+                        $request->get('user_id'),
+                        $file,
+                        UserController::IMAGE_FOR_USER_DB_URL,
+                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
+                    );
+                }
+            }
+            //delete old avatar
+            Storage::disk('public')->delete('image_for_user/' . $oldAvatar);
+            DB::table('image_for_user')
+                ->where('url', 'LIKE', $avatarLink->url)
+                ->delete();
+
+        } // if user doesn't have avatar
+        else {
+            if ($files = $request->file('files')) {
+                // loop through image array
+                foreach ($files as $file) {
+                    $this->imageForUserHandleToStorage(
+                        $request->get('user_id'),
+                        $file,
+                        UserController::IMAGE_FOR_USER_DB_URL,
+                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
+                    );
+                }
+            }
+        }
+        DB::commit();
+        return response()->json(
+            [
+                'status' => 'ok'
+            ],
+            200
+        );
     }
 }

@@ -35,6 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
         Route::post('/check_follow', 'UserController@checkFollow');
         Route::post('/follow_user', 'UserController@followUser');
+        Route::post('/upload_avatar', 'UserController@uploadAvatar');
     });
 
     // POST
@@ -51,7 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/like_post', 'PostController@likePost');
-        Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
+            Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
     });
 
     // TAG
