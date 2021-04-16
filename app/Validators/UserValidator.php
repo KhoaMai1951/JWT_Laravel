@@ -9,6 +9,17 @@ namespace App\Validators;
 
 class UserValidator
 {
+    public static function validateUserInfo(Request $request){
+
+        $rules = [
+            'username' => 'min:4|max:40',
+            'name' => 'min:4|max:100',
+            'bio' => 'max:1500',
+        ];
+        return Validator::make($request->all(), $rules);
+    }
+
+
     public static function validateRegister(Request $request){
 
         $customMessages = [

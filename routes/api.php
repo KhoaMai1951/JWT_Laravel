@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/check_follow', 'UserController@checkFollow');
         Route::post('/follow_user', 'UserController@followUser');
         Route::post('/upload_avatar', 'UserController@uploadAvatar');
+        Route::post('/update_info', 'UserController@updateInfo');
     });
 
     // POST

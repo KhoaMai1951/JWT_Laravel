@@ -364,4 +364,25 @@ class UserController extends Controller implements FilePathInterface
             200
         );
     }
+
+    public function updateInfo(Request $request)
+    {
+        $userId = $request->get('user_id');
+
+        // validate if email is unique
+        $validator = UserValidator::validateUserInfo($request);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 401);
+        }
+
+        $user = User::find($userId);
+        $user->update($request->all());
+
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
 }
