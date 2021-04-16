@@ -29,7 +29,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_data_with_token', 'UserController@getData');
     });
     Route::get('/get_data', 'UserController@getData');
-    Route::get('/testme', function (Request $request) { dd($request->header()); });
+    Route::get('/testme', function (Request $request) {
+        dd($request->header());
+    });
     // USER
     Route::group(['prefix' => '/user'], function () {
         Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
@@ -53,7 +55,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/like_post', 'PostController@likePost');
-            Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
+        Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
+        Route::post('/test_search', 'PostController@testSearch');
     });
 
     // TAG

@@ -369,7 +369,7 @@ class UserController extends Controller implements FilePathInterface
     {
         $userId = $request->get('user_id');
 
-        // validate if email is unique
+        // validate
         $validator = UserValidator::validateUserInfo($request);
         if ($validator->fails()) {
             return response()->json([
