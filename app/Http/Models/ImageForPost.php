@@ -10,6 +10,8 @@ class ImageForPost extends Model
 
     public $timestamps = false;
 
+    protected $hidden = ['is_deleted'];
+
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id', 'id');

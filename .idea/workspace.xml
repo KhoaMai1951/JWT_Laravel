@@ -20,8 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Models/UserFollowUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Models/ImageForPost.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Models/ImageForPost.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,6 +264,7 @@
       <workItem from="1618618584873" duration="1317000" />
       <workItem from="1618648281745" duration="3049000" />
       <workItem from="1618714335058" duration="689000" />
+      <workItem from="1618735898326" duration="8801000" />
     </task>
     <servers />
   </component>
@@ -305,11 +310,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1304" height="254" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1615610376838" />
-    <state x="1840" y="103" key="NewPhpClassDialog" timestamp="1618481826647">
-      <screen x="1366" y="0" width="1600" height="860" />
+    <state x="405" y="87" key="NewPhpClassDialog" timestamp="1618745521763">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="1840" y="103" key="NewPhpClassDialog/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1618481826647" />
-    <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1617450134296" />
+    <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1618745521763" />
     <state x="565" y="309" key="NewPhpFileDialog" timestamp="1617886400296">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

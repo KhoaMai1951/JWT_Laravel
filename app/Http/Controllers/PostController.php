@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
+use App\Http\Models\UserFollowUser;
 use App\User;
 use App\Utilities\S3Helper;
 use App\Validators\PostValidator;
@@ -227,32 +228,66 @@ class PostController extends Controller
     public function getAllPostsByChunkByUserId(Request $request)
     {
         $userId = $request->get('user_id');
+        // GET IDS OF FOLLOWING USER
+        $queryFollowingUsersIds = UserFollowUser::select('user_id')
+            ->where('follower_user_id', '=', $userId)
+            ->get();
+        $followingUsersIds = [];
+        array_push($followingUsersIds, $userId);
+        foreach ($queryFollowingUsersIds as $followingUsersId) {
+            array_push($followingUsersIds, $followingUsersId->user_id);
+        }
 
-        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            ->where('user_id', '=', $userId)
+        // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
+        $posts = Post::select('id', 'user_id', 'title', 'created_at',
+            'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+            ->whereIn('user_id', $followingUsersIds)
             ->orderBy('created_at', 'DESC')
             ->skip($request->get('skip'))->take($request->get('take'))
             ->get();
+        // GET ALL POSTS BY CHUNK OF THE USERS
 
+        // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
-            $first_image_for_post = DB::table('image_for_post')
-                ->where('post_id', '=', $post->id)
-                ->first();
+            // HANDLE SHORT CONTENT
+            $post->short_content .= '...';
 
-            if ($first_image_for_post != null)
-                $post->image_url = asset($first_image_for_post->url);
-            else $post->image_url = '';
+            // IMAGES FOR POST HANDLE
+            $imagesForPost = $post->imagesForPost;
 
+            // handle images for post dynamic url
+            foreach ($imagesForPost as $image) {
+                $image->dynamic_url = asset($image->url);
+            }
+
+            // COMMENTS NUMBER HANDLE
             $commentsNumber = count(DB::table('comment')
                 ->select('id')
                 ->where('post_id', '=', $post->id)
                 ->get());
             $post->comments_number = $commentsNumber;
+
+            // USER HANDLE
+            $avatar_url = DB::table('image_for_user')
+                ->select('url')
+                ->where('user_id', '=', $post->user->id)
+                ->first();
+            if ($avatar_url != '' && $avatar_url != null)
+                $post->user->avatar_url = asset($avatar_url->url);
+            else $post->user->avatar_url = '';
+
+            // CHECK LIKED POST OR NOT
+            $postId = $post->id;
+            $userId = $request->get('user_id');
+
+            $result = DB::table('liked_post')
+                ->select('post_id', 'user_id')
+                ->where('post_id', '=', $postId)
+                ->where('user_id', '=', $userId)
+                ->get();
+            $post->is_liked = !$result->isEmpty();
         }
 
-        foreach ($posts as $post) {
-            $post->short_content .= '...';
-        };
         return Response::json([
             //'post2' => $postTest,
             'posts' => $posts,
