@@ -264,7 +264,8 @@ class PostController extends Controller
     public function getAllPostsByChunk(Request $request)
     {
         // GET ALL POSTS BY CHUNK
-        $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+        $posts = Post::select('id', 'user_id', 'title', 'created_at',
+            'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
             ->orderBy('created_at', 'DESC')
             ->skip($request->get('skip'))->take($request->get('take'))
             ->get();
@@ -307,11 +308,8 @@ class PostController extends Controller
                 ->where('post_id', '=', $postId)
                 ->where('user_id', '=', $userId)
                 ->get();
-
-
             $post->is_liked = !$result->isEmpty();
         }
-
 
         return Response::json([
             //'post2' => $postTest,
@@ -403,6 +401,7 @@ class PostController extends Controller
         $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
             ->where('content', 'LIKE', '%' . $request->get('keyword') . '%')
             ->orWhere('title', 'LIKE', '%' . $request->get('keyword') . '%')
+            ->orderBy('created_at', 'DESC')
             ->skip($request->get('skip'))->take($request->get('take'))
             ->get();
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
