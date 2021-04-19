@@ -55,9 +55,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
+        Route::post('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
         Route::get('/like_post', 'PostController@likePost');
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
         Route::post('/test_search', 'PostController@testSearch');
+        Route::get('/test_search', 'PostController@testSearch');
     });
 
     // TAG
