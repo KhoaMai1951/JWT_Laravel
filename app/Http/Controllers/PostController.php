@@ -208,6 +208,26 @@ class PostController extends Controller
             ->select('id')
             ->where('post_id', '=', $post->id)
             ->get());
+        // avatar for user of the post
+        $avatar_url = DB::table('image_for_user')
+            ->select('url')
+            ->where('user_id', '=', $post->user->id)
+            ->first();
+        if ($avatar_url != '' && $avatar_url != null)
+            $post->user->avatar_url = asset($avatar_url->url);
+        else $post->user->avatar_url = '';
+
+        // CHECK LIKED POST OR NOT
+        $postId = $post->id;
+        $userId = $post->user->id;
+
+        $result = DB::table('liked_post')
+            ->select('post_id', 'user_id')
+            ->where('post_id', '=', $postId)
+            ->where('user_id', '=', $userId)
+            ->get();
+        $post->is_liked = !$result->isEmpty();
+
         if (!$post) {
             return Response::json([
                 'message' => 'no post is found',
@@ -521,5 +541,43 @@ class PostController extends Controller
         return Response::json([
             'posts' => $posts,
         ], 200);
+    }
+
+    public function savePost(Request $request)
+    {
+        $userId = $request->get('user_id');
+        $postId = $request->get('post_id');
+        $getRecord = DB::table('saved_post')
+            ->where('user_id', '=', $userId)
+            ->Where('post_id', '=', $postId)
+            ->get();
+
+        if($getRecord->isEmpty())
+        {
+            DB::table('saved_post')
+                ->insert([
+                    'user_id' => $userId,
+                    'post_id' => $postId,
+                ]);
+        }
+
+        return Response::json([
+            'message' => 'save post success',
+        ], 200);
+
+    }
+
+    public function unSavePost(Request $request)
+    {
+        $userId = $request->get('user_id');
+        $postId = $request->get('post_id');
+        $getRecord = DB::table('saved_post')
+            ->where('user_id', '=', $userId)
+            ->Where('post_id', '=', $postId)
+            ->delete();
+        return Response::json([
+            'message' => 'unsave post success',
+        ], 200);
+
     }
 }

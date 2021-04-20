@@ -27,6 +27,12 @@ class CommentController extends Controller
                 ->where('id', '=', $comment->user_id)
                 ->first();
             $comment->username = $username->username;
+            // HANDLE AVATAR
+            $avatarLink = DB::table('image_for_user')
+                ->select('url')
+                ->where('user_id', '=', $comment->user_id)
+                ->first();
+            $comment->avatar_link =  asset($avatarLink->url);
         }
         return Response::json([
             'comments' => $comments,

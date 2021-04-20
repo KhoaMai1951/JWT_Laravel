@@ -21,7 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Validators/UserValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Validators/UserValidator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,6 +170,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -264,7 +268,9 @@
       <workItem from="1618735898326" duration="8801000" />
       <workItem from="1618798912350" duration="804000" />
       <workItem from="1618799953432" duration="3311000" />
-      <workItem from="1618823997002" duration="625000" />
+      <workItem from="1618823997002" duration="1823000" />
+      <workItem from="1618884623385" duration="4532000" />
+      <workItem from="1618909500665" duration="7413000" />
     </task>
     <servers />
   </component>
@@ -320,18 +326,27 @@
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689012569" />
     <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1617886400296" />
+    <state x="1841" y="164" key="SettingsEditor" timestamp="1618923803033">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1841" y="164" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618923803033" />
+    <state x="1757" y="162" key="Vcs.Push.Dialog.v2" timestamp="1618884891964">
+      <screen x="1366" y="0" width="1600" height="860" />
+    </state>
+    <state x="1757" y="162" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1618884891964" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1618805247344">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618805247344" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1617887307115">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1617887307115" />
-    <state x="1885" y="186" width="672" height="561" key="search.everywhere.popup" timestamp="1618479819843">
+    <state x="1763" y="191" key="run.anything.popup" timestamp="1618912067274">
       <screen x="1366" y="0" width="1600" height="860" />
     </state>
-    <state x="1885" y="186" width="672" height="561" key="search.everywhere.popup/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1618479819843" />
+    <state x="1763" y="191" key="run.anything.popup/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1618912067274" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1617887307115" />
+    <state x="1885" y="186" width="672" height="561" key="search.everywhere.popup" timestamp="1618886562232">
+      <screen x="1366" y="0" width="1600" height="860" />
+    </state>
+    <state x="1885" y="186" width="672" height="561" key="search.everywhere.popup/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1618886562232" />
     <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615688807339" />
   </component>
 </project>

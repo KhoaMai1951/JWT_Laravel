@@ -39,6 +39,21 @@ class UserValidator
         return Validator::make($request->all(), $rules, $customMessages);
     }
 
+    public static function validateChangePassword(Request $request){
+
+        $customMessages = [
+            'required' => 'Không được bỏ trống',
+            'min' => ':attribute phải lớn hơn :min kí tự',
+            'password.confirmed' => 'Xác nhận mật khẩu không trùng',
+        ];
+
+        $rules = [
+            'password' => 'required|min:4|confirmed',
+            'password_confirmation' => 'required|min:4',
+        ];
+        return Validator::make($request->all(), $rules, $customMessages);
+    }
+
     public static function validateLogin(Request $request){
 
         $customMessages = [

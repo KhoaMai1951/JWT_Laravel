@@ -189,6 +189,29 @@ class UserController extends Controller implements FilePathInterface
         }
     }
 
+    public function changePassword(Request $request)
+    {
+        // validate new password
+        $validator = UserValidator::validateChangePassword($request);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 401);
+        }
+        //tạo mới password
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        //lấy record trong table user theo email và update password mới
+        DB::table('user')
+            ->where('email', 'LIKE', $input['email'])
+            ->update(['password' => $input['password']]);
+
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
+
     public function getData()
     {
         return Response::json([

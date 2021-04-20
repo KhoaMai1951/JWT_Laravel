@@ -39,6 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/follow_user', 'UserController@followUser');
         Route::post('/upload_avatar', 'UserController@uploadAvatar');
         Route::post('/update_info', 'UserController@updateInfo');
+        Route::post('/change_password', 'UserController@changePassword');
     });
 
     // POST
@@ -60,6 +61,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
         Route::post('/test_search', 'PostController@testSearch');
         Route::get('/test_search', 'PostController@testSearch');
+        Route::post('/save_post', 'PostController@savePost');
+        Route::post('/unsave_post', 'PostController@unSavePost');
     });
 
     // TAG
