@@ -223,6 +223,7 @@ class PostController extends Controller
 
     }
 
+    // LẤY CHI TIẾT BÀI VIẾT THEO ID
     public
     function getPostById(Request $request)
     {
@@ -626,5 +627,24 @@ class PostController extends Controller
         return Response::json([
             'saved_post' => false,
         ], 200);
+    }
+
+    // SỬA BÀI VIẾT
+    public function editPost(Request $request) {
+        //1.Lấy content + title + id
+        $input = $request->all();
+        //2.Lấy post từ post id
+        $post = Post::find($request->get('id'));
+        //3.Update record
+        if($post != null)
+        {
+            $post->fill($input)->save();
+            return Response::json([
+                'post_id' => $post->id,
+            ], 200);
+        }
+        return Response::json([
+            'message' => 'failed',
+        ], 400);
     }
 }

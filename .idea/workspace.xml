@@ -20,13 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/CommentService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/ImageForPostService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/ImageForUserService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/PostService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/UserService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Models/Post.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +168,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -275,6 +271,7 @@
       <workItem from="1618909500665" duration="7413000" />
       <workItem from="1618966090189" duration="5926000" />
       <workItem from="1618988876083" duration="9732000" />
+      <workItem from="1619004957509" duration="3138000" />
     </task>
     <servers />
   </component>
@@ -332,9 +329,10 @@
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618991299467" />
     <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1617886400296" />
-    <state x="1841" y="164" key="SettingsEditor" timestamp="1618999850724">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="1417" y="34" width="1549" height="799" key="SettingsEditor" timestamp="1619005631852">
+      <screen x="1366" y="0" width="1600" height="860" />
     </state>
+    <state x="1417" y="34" width="1549" height="799" key="SettingsEditor/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1619005631852" />
     <state x="338" y="18" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1618998994127" />
     <state x="1841" y="164" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618999850724" />
     <state x="1757" y="162" key="Vcs.Push.Dialog.v2" timestamp="1618884891964">

@@ -46,7 +46,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => '/post'], function () {
 
         Route::post('/test_dio', 'PostController@testDio');
+        // LẤY CHI TIẾT BÀI VIẾT THEO ID
         Route::get('/get_post', 'PostController@getPostById');
+        Route::post('/get_post', 'PostController@getPostById');
+
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/submit_post', 'PostController@submitPost');
         });
@@ -72,6 +75,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/unsave_post', 'PostController@unSavePost');
         // KIỂM TRA ĐÃ LƯU BÀI VIẾT
         Route::post('/check_save_post', 'PostController@checkSavePost');
+        // SỬA BÀI VIẾT
+        Route::post('/edit_post', 'PostController@editPost');
     });
 
     // TAG
