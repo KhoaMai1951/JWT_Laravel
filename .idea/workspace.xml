@@ -21,10 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Validators/UserValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Validators/UserValidator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +167,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="com.github.izhangzhihao.rainbow.brackets.settings.RainbowConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -271,6 +268,7 @@
       <workItem from="1618823997002" duration="1823000" />
       <workItem from="1618884623385" duration="4532000" />
       <workItem from="1618909500665" duration="7413000" />
+      <workItem from="1618966090189" duration="5926000" />
     </task>
     <servers />
   </component>
@@ -326,10 +324,10 @@
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689012569" />
     <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1617886400296" />
-    <state x="1841" y="164" key="SettingsEditor" timestamp="1618923803033">
+    <state x="1841" y="164" key="SettingsEditor" timestamp="1618969664374">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1841" y="164" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618923803033" />
+    <state x="1841" y="164" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618969664374" />
     <state x="1757" y="162" key="Vcs.Push.Dialog.v2" timestamp="1618884891964">
       <screen x="1366" y="0" width="1600" height="860" />
     </state>

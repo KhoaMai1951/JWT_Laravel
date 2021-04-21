@@ -245,7 +245,7 @@ class PostController extends Controller
 
     }
 
-    // LẤY DS BÀI VIẾT CHO TRANG PROFILE THEO CỤM
+    // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
     public function getAllPostsByChunkByUserId(Request $request)
     {
         $userId = $request->get('user_id');
@@ -281,6 +281,54 @@ class PostController extends Controller
 
         ], 200);
 
+
+    }
+
+    // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
+    public function getAllSavedPostsByChunkByUserId(Request $request)
+    {
+        $userId = $request->get('user_id');
+
+        // LẤY DS ID CỦA CÁC POST ĐƯỢC SAVE
+        $postIdsResult = DB::table('saved_post')
+            ->select('post_id')
+            ->where('user_id', '=', $userId)
+            ->get();
+        $postIds = [];
+        foreach ($postIdsResult as $value)
+        {
+            array_push($postIds, $value->post_id);
+        }
+
+        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            ->whereIn('id', $postIds)
+            ->orderBy('created_at', 'DESC')
+            ->skip($request->get('skip'))->take($request->get('take'))
+            ->get();
+
+        foreach ($posts as $post) {
+            $first_image_for_post = DB::table('image_for_post')
+                ->where('post_id', '=', $post->id)
+                ->first();
+
+            if ($first_image_for_post != null)
+                $post->image_url = asset($first_image_for_post->url);
+            else $post->image_url = '';
+
+            $commentsNumber = count(DB::table('comment')
+                ->select('id')
+                ->where('post_id', '=', $post->id)
+                ->get());
+            $post->comments_number = $commentsNumber;
+        }
+
+        foreach ($posts as $post) {
+            $post->short_content .= '...';
+        };
+        return Response::json([
+            'posts' => $posts,
+
+        ], 200);
 
     }
 
@@ -360,7 +408,8 @@ class PostController extends Controller
         $posts = Post::select('id', 'user_id', 'title', 'created_at',
             'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
             ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))->take($request->get('take'))
+            ->skip($request->get('skip'))
+            ->take($request->get('take'))
             ->get();
 
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
@@ -485,7 +534,7 @@ class PostController extends Controller
         } else {
             return Response::json([
                 'result' => true,
-            ], 200);
+            ], 400);
         }
     }
 
@@ -549,7 +598,7 @@ class PostController extends Controller
         $postId = $request->get('post_id');
         $getRecord = DB::table('saved_post')
             ->where('user_id', '=', $userId)
-            ->Where('post_id', '=', $postId)
+            ->where('post_id', '=', $postId)
             ->get();
 
         if($getRecord->isEmpty())
@@ -573,7 +622,7 @@ class PostController extends Controller
         $postId = $request->get('post_id');
         $getRecord = DB::table('saved_post')
             ->where('user_id', '=', $userId)
-            ->Where('post_id', '=', $postId)
+            ->where('post_id', '=', $postId)
             ->delete();
         return Response::json([
             'message' => 'unsave post success',

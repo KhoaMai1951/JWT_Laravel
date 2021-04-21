@@ -50,10 +50,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/submit_post', 'PostController@submitPost');
         });
-        //Route::post('/submit_post', 'PostController@submitPost');
+
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
+        // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
         Route::post('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
         Route::get('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
+        // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
+        Route::post('/get_all_saved_posts_by_chunk_by_user_id', 'PostController@getAllSavedPostsByChunkByUserId');
+        // LẤY DS BÀI VIẾT THEO CỤM
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::post('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
