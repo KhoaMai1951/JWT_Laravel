@@ -57,16 +57,21 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
         // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
         Route::post('/get_all_saved_posts_by_chunk_by_user_id', 'PostController@getAllSavedPostsByChunkByUserId');
-        // LẤY DS BÀI VIẾT THEO CỤM
+        // LẤY DS BÀI VIẾT THEO CỤM cho trang newsfeed
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::post('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
         Route::get('/like_post', 'PostController@likePost');
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
+        // LẤY DS BÀI VIẾT CHO TRANG DISCOVER
         Route::post('/test_search', 'PostController@testSearch');
         Route::get('/test_search', 'PostController@testSearch');
+        // LƯU BÀI VIẾT
         Route::post('/save_post', 'PostController@savePost');
+        // BỎ LƯU BÀI VIẾT
         Route::post('/unsave_post', 'PostController@unSavePost');
+        // KIỂM TRA ĐÃ LƯU BÀI VIẾT
+        Route::post('/check_save_post', 'PostController@checkSavePost');
     });
 
     // TAG

@@ -7,6 +7,11 @@ namespace App\Http\Controllers;
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
 use App\Http\Models\UserFollowUser;
+use App\Http\Services\CommentService;
+use App\Http\Services\ImageForPostService;
+use App\Http\Services\ImageForUserService;
+use App\Http\Services\PostService;
+use App\Http\Services\UserService;
 use App\User;
 use App\Utilities\S3Helper;
 use App\Validators\PostValidator;
@@ -18,12 +23,35 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+
 use function PHPUnit\Framework\isEmpty;
 
 
 class PostController extends Controller
 {
-    public function testDio(Request $request)
+    private $postService;
+    private $commentService;
+    private $imageForUserService;
+    private $imageForPostService;
+    private $userService;
+
+    public function __construct(
+        PostService $postService,
+        CommentService $commentService,
+        ImageForUserService $imageForUserService,
+        ImageForPostService $imageForPostService,
+        UserService $userService
+    )
+    {
+        $this->postService = $postService;
+        $this->commentService = $commentService;
+        $this->imageForUserService = $imageForUserService;
+        $this->imageForPostService = $imageForPostService;
+        $this->userService = $userService;
+    }
+
+    public
+    function testDio(Request $request)
     {
         $flag = true;
         if (($request->file('files')) == null) {
@@ -57,7 +85,8 @@ class PostController extends Controller
         }
     }
 
-    public function submitPost(Request $request)
+    public
+    function submitPost(Request $request)
     {
         $validator = PostValidator::validateSubmitPost($request);
         if ($validator->fails()) {
@@ -75,13 +104,14 @@ class PostController extends Controller
         }
     }
 
-    public function submitPostWithImage(Request $request)
+    public
+    function submitPostWithImage(Request $request)
     {
         DB::beginTransaction();
 
         // validate the image
         $validator = PostValidator::validateImage($request);
-
+        // if validate fail
         if ($validator->fails()) {
             DB::rollBack();
             return Response::json([
@@ -135,7 +165,8 @@ class PostController extends Controller
         return null;
     }
 
-    public function submitPostWithoutImage(Request $request)
+    public
+    function submitPostWithoutImage(Request $request)
     {
         DB::beginTransaction();
 
@@ -156,7 +187,8 @@ class PostController extends Controller
         ], 200);
     }
 
-    public function imageForPostHandleToS3($post, $file)
+    public
+    function imageForPostHandleToS3($post, $file)
     {
         $fileName = (string)Str::uuid() . $file->getClientOriginalName();
 
@@ -174,7 +206,8 @@ class PostController extends Controller
         }
     }
 
-    public function imageForPostHandleToStorage($post, $file)
+    public
+    function imageForPostHandleToStorage($post, $file)
     {
         // change new name
         $fileName = (string)Str::uuid() . $file->getClientOriginalName();
@@ -190,7 +223,8 @@ class PostController extends Controller
 
     }
 
-    public function getPostById(Request $request)
+    public
+    function getPostById(Request $request)
     {
         $id = $request->get('id');
 
@@ -204,29 +238,19 @@ class PostController extends Controller
         }
         $tags = $post->tags;
         $user = $post->user;
-        $commentsNumber = count(DB::table('comment')
-            ->select('id')
-            ->where('post_id', '=', $post->id)
-            ->get());
+
+        // COMMENTS NUMBER
+        $commentsNumber = $this->commentService->getNumberOfComments($post->id);
         // avatar for user of the post
-        $avatar_url = DB::table('image_for_user')
-            ->select('url')
-            ->where('user_id', '=', $post->user->id)
-            ->first();
+        $avatar_url = $this->imageForUserService->getAvatarUrl($post->user->id);
         if ($avatar_url != '' && $avatar_url != null)
             $post->user->avatar_url = asset($avatar_url->url);
         else $post->user->avatar_url = '';
 
         // CHECK LIKED POST OR NOT
-        $postId = $post->id;
         $userId = $post->user->id;
-
-        $result = DB::table('liked_post')
-            ->select('post_id', 'user_id')
-            ->where('post_id', '=', $postId)
-            ->where('user_id', '=', $userId)
-            ->get();
-        $post->is_liked = !$result->isEmpty();
+        $postId = $post->id;
+        $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
 
         if (!$post) {
             return Response::json([
@@ -246,29 +270,26 @@ class PostController extends Controller
     }
 
     // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
-    public function getAllPostsByChunkByUserId(Request $request)
+    public
+    function getAllPostsByChunkByUserId(Request $request)
     {
         $userId = $request->get('user_id');
+        $skip = $request->get('skip');
+        $take = $request->get('take');
 
-        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            ->where('user_id', '=', $userId)
-            ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))->take($request->get('take'))
-            ->get();
+        $posts = $this->postService->getAllPostsByChunkByUserId($userId, $skip, $take);
 
         foreach ($posts as $post) {
-            $first_image_for_post = DB::table('image_for_post')
-                ->where('post_id', '=', $post->id)
-                ->first();
+            // get first image for post
+            $first_image_for_post = $this->imageForPostService->getFirstImageForPostByPostId($post->id);
 
             if ($first_image_for_post != null)
                 $post->image_url = asset($first_image_for_post->url);
             else $post->image_url = '';
 
-            $commentsNumber = count(DB::table('comment')
-                ->select('id')
-                ->where('post_id', '=', $post->id)
-                ->get());
+            // get comments number
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
+
             $post->comments_number = $commentsNumber;
         }
 
@@ -280,45 +301,30 @@ class PostController extends Controller
             'posts' => $posts,
 
         ], 200);
-
-
     }
 
     // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
-    public function getAllSavedPostsByChunkByUserId(Request $request)
+    public
+    function getAllSavedPostsByChunkByUserId(Request $request)
     {
         $userId = $request->get('user_id');
 
         // LẤY DS ID CỦA CÁC POST ĐƯỢC SAVE
-        $postIdsResult = DB::table('saved_post')
-            ->select('post_id')
-            ->where('user_id', '=', $userId)
-            ->get();
-        $postIds = [];
-        foreach ($postIdsResult as $value)
-        {
-            array_push($postIds, $value->post_id);
-        }
+        $postIds = $this->postService->getSavedPostIdsFromUserId($userId);
 
-        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            ->whereIn('id', $postIds)
-            ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))->take($request->get('take'))
-            ->get();
-
+        // LẤY DS POST TỪ DS ID CỦA CÁC POST ĐƯỢC SAVE Ở TRÊN
+        $posts = $this->postService->getSavedPostFromIdsArray($postIds, $request->get('skip'), $request->get('take'));
         foreach ($posts as $post) {
-            $first_image_for_post = DB::table('image_for_post')
-                ->where('post_id', '=', $post->id)
-                ->first();
+            // LẤY HÌNH ẢNH ĐẦU TIỀN
+            $first_image_for_post = $this->imageForPostService->getFirstImageForPostByPostId($post->id);
 
             if ($first_image_for_post != null)
+                // TẠO DYNAMIC URL CHO HÌNH ẢNH ĐẦU TIÊN
                 $post->image_url = asset($first_image_for_post->url);
             else $post->image_url = '';
 
-            $commentsNumber = count(DB::table('comment')
-                ->select('id')
-                ->where('post_id', '=', $post->id)
-                ->get());
+            // LẤY SỐ LƯỢNG COMMENT
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
             $post->comments_number = $commentsNumber;
         }
 
@@ -327,31 +333,20 @@ class PostController extends Controller
         };
         return Response::json([
             'posts' => $posts,
-
         ], 200);
 
     }
 
     // LẤY DS BÀI VIẾT CHO TRANG NEWSFEED THEO CỤM
-    public function getAllPostsOfFollowingUsersByChunkByUserId(Request $request) {
+    public
+    function getAllPostsOfFollowingUsersByChunkByUserId(Request $request)
+    {
         $userId = $request->get('user_id');
-        // GET IDS OF FOLLOWING USER
-        $queryFollowingUsersIds = UserFollowUser::select('user_id')
-            ->where('follower_user_id', '=', $userId)
-            ->get();
-        $followingUsersIds = [];
-        array_push($followingUsersIds, $userId);
-        foreach ($queryFollowingUsersIds as $followingUsersId) {
-            array_push($followingUsersIds, $followingUsersId->user_id);
-        }
+        // GET FOLLOWING USERS IDS
+        $followingUsersIds = $this->userService->getIdsOfFollowingUser($userId);
 
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
-        $posts = Post::select('id', 'user_id', 'title', 'created_at',
-            'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
-            ->whereIn('user_id', $followingUsersIds)
-            ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))->take($request->get('take'))
-            ->get();
+        $posts = $this->postService->getPostsByUsersIdsArrayByChunk($followingUsersIds, $request->get('skip'), $request->get('take'));
         // GET ALL POSTS BY CHUNK OF THE USERS
 
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
@@ -368,41 +363,29 @@ class PostController extends Controller
             }
 
             // COMMENTS NUMBER HANDLE
-            $commentsNumber = count(DB::table('comment')
-                ->select('id')
-                ->where('post_id', '=', $post->id)
-                ->get());
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
             $post->comments_number = $commentsNumber;
 
             // USER HANDLE
-            $avatar_url = DB::table('image_for_user')
-                ->select('url')
-                ->where('user_id', '=', $post->user->id)
-                ->first();
+            $avatar_url = $this->imageForUserService->getAvatarUrl($post->user->id);
             if ($avatar_url != '' && $avatar_url != null)
                 $post->user->avatar_url = asset($avatar_url->url);
             else $post->user->avatar_url = '';
 
             // CHECK LIKED POST OR NOT
-            $postId = $post->id;
             $userId = $request->get('user_id');
-
-            $result = DB::table('liked_post')
-                ->select('post_id', 'user_id')
-                ->where('post_id', '=', $postId)
-                ->where('user_id', '=', $userId)
-                ->get();
-            $post->is_liked = !$result->isEmpty();
+            $postId = $post->id;
+            $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
         }
 
         return Response::json([
-            //'post2' => $postTest,
             'posts' => $posts,
 
         ], 200);
     }
 
-    public function getAllPostsByChunk(Request $request)
+    public
+    function getAllPostsByChunk(Request $request)
     {
         // GET ALL POSTS BY CHUNK
         $posts = Post::select('id', 'user_id', 'title', 'created_at',
@@ -461,14 +444,16 @@ class PostController extends Controller
 
     }
 
-    public function uploadImageToStorage($file, $fileName)
+    public
+    function uploadImageToStorage($file, $fileName)
     {
 //        $path = storage_path('/uploads/images/store/') ;
 //        $file->move($path, $fileName);
         Storage::disk('public')->putFileAs('image_for_post/', $file, $fileName);
     }
 
-    public function likePost(Request $request)
+    public
+    function likePost(Request $request)
     {
         $postId = $request->get('post_id');
         $userId = $request->get('user_id');
@@ -517,7 +502,8 @@ class PostController extends Controller
         }
     }
 
-    public function checkLikePostOrNot(Request $request)
+    public
+    function checkLikePostOrNot(Request $request)
     {
         $postId = $request->get('post_id');
         $userId = $request->get('user_id');
@@ -538,7 +524,8 @@ class PostController extends Controller
         }
     }
 
-    public function testSearch(Request $request)
+    public
+    function testSearch(Request $request)
     {
         $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
             ->where('content', 'LIKE', '%' . $request->get('keyword') . '%')
@@ -592,22 +579,16 @@ class PostController extends Controller
         ], 200);
     }
 
-    public function savePost(Request $request)
+    // LƯU BÀI VIẾT
+    public
+    function savePost(Request $request)
     {
         $userId = $request->get('user_id');
         $postId = $request->get('post_id');
-        $getRecord = DB::table('saved_post')
-            ->where('user_id', '=', $userId)
-            ->where('post_id', '=', $postId)
-            ->get();
 
-        if($getRecord->isEmpty())
-        {
-            DB::table('saved_post')
-                ->insert([
-                    'user_id' => $userId,
-                    'post_id' => $postId,
-                ]);
+        // nếu chưa save sẽ save
+        if ($this->postService->checkSavePost($userId, $postId) == false) {
+            $this->postService->savePost($userId, $postId);
         }
 
         return Response::json([
@@ -616,17 +597,34 @@ class PostController extends Controller
 
     }
 
-    public function unSavePost(Request $request)
+    // BỎ LƯU BÀI VIẾT
+    public
+    function unSavePost(Request $request)
     {
         $userId = $request->get('user_id');
         $postId = $request->get('post_id');
-        $getRecord = DB::table('saved_post')
-            ->where('user_id', '=', $userId)
-            ->where('post_id', '=', $postId)
-            ->delete();
+
+        $this->postService->unsavePost($userId, $postId);
+
         return Response::json([
             'message' => 'unsave post success',
         ], 200);
 
+    }
+
+    // KIỂM TRA ĐÃ LƯU BÀI VIẾT
+    public
+    function checkSavePost(Request $request)
+    {
+        $userId = $request->get('user_id');
+        $postId = $request->get('post_id');
+        if ($this->postService->checkSavePost($userId, $postId)) {
+            return Response::json([
+                'saved_post' => true,
+            ], 200);
+        }
+        return Response::json([
+            'saved_post' => false,
+        ], 200);
     }
 }
