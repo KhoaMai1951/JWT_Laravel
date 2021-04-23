@@ -10,7 +10,7 @@ class ImageForPost extends Model
 
     public $timestamps = false;
 
-    protected $hidden = ['is_deleted'];
+    protected $hidden = ['is_deleted', 'created_date', 'url'];
 
     public function post()
     {

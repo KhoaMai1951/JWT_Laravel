@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\FilePathInterface;
 use App\Http\Models\EmailActivate;
-use App\Http\Models\Post;
+
 use App\Http\Repositories\EmailActiveRepository;
+use App\Http\Services\ImageForUserService;
+use App\Http\Services\UserService;
 use App\Http\Traits\FileUploadTrait;
 use App\Http\Validators\ImageValidator;
-use App\Notifications\SignupActivate;
+use App\Http\Validators\UserValidator;
 use App\User;
-use App\Validators\PostValidator;
-use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +20,22 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use PharIo\Manifest\Email;
 
 class UserController extends Controller implements FilePathInterface
 {
+    private $userService;
+    private $imageForUserService;
 
     use FileUploadTrait;
+
+    public function __construct(
+        UserService $userService,
+        ImageForUserService $imageForUserService
+    )
+    {
+        $this->userService = $userService;
+        $this->imageForUserService = $imageForUserService;
+    }
 
     public function appLogin(Request $request)
     {
@@ -406,6 +414,26 @@ class UserController extends Controller implements FilePathInterface
 
         return response()->json([
             'success' => true,
+        ], 200);
+    }
+
+    public function searchUser(Request $request)
+    {
+        // SEARCH USER BY KEYWORD
+        $users = $this->userService->searchUser(
+            $request->get('keyword'),
+            $request->get('skip'),
+            $request->get('take'));
+        // AVATAR HANDLE
+        foreach ($users as $user) {
+            $avatar_url = $this->imageForUserService->getAvatarUrl($user->id);
+            if ($avatar_url != '' && $avatar_url != null)
+                $user->avatar_url = asset($avatar_url->url);
+            else $user->avatar_url = '';
+        }
+
+        return Response::json([
+            'users' => $users,
         ], 200);
     }
 }

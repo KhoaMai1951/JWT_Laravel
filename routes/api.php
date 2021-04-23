@@ -40,6 +40,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/upload_avatar', 'UserController@uploadAvatar');
         Route::post('/update_info', 'UserController@updateInfo');
         Route::post('/change_password', 'UserController@changePassword');
+        //TÌM KIẾM USER
+        Route::post('/search_user', 'UserController@searchUser');
+        Route::get('/search_user', 'UserController@searchUser');
+
     });
 
     // POST
@@ -51,8 +55,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_post', 'PostController@getPostById');
 
         Route::group(['middleware' => 'auth:api'], function () {
-            Route::post('/submit_post', 'PostController@submitPost');
+           // Route::post('/submit_post', 'PostController@submitPost');
         });
+        Route::post('/submit_post', 'PostController@submitPost');
 
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
@@ -77,6 +82,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/check_save_post', 'PostController@checkSavePost');
         // SỬA BÀI VIẾT
         Route::post('/edit_post', 'PostController@editPost');
+        // XÓA BÀI VIẾT
+        Route::post('/delete_post', 'PostController@deletePost');
+        Route::get('/delete_post', 'PostController@deletePost');
+
     });
 
     // TAG

@@ -5,6 +5,7 @@ namespace App\Http\Services;
 
 
 use App\Http\Models\UserFollowUser;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserService
@@ -24,5 +25,17 @@ class UserService
             array_push($followingUsersIds, $followingUsersId->user_id);
         }
         return $followingUsersIds;
+    }
+
+    // SEARCH USER
+    public function searchUser($keyword, $skip, $take)
+    {
+        return User::select('id', 'name', 'username')
+            ->where('username', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('name', 'LIKE', '%' . $keyword . '%')
+            ->orderBy('username', 'DESC')
+            ->skip($skip)
+            ->take($take)
+            ->get();
     }
 }

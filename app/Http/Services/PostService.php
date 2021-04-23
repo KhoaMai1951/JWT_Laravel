@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class PostService
 {
+    // LẤY BÀI VIẾT THEO ID
+    public function getPost($id) {
+        return Post::find($id);
+    }
+
     // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
     public function getAllPostsByChunkByUserId(int $userId, int $skip, int $take)
     {

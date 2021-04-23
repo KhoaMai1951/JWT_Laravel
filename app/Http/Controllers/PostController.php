@@ -12,9 +12,9 @@ use App\Http\Services\ImageForPostService;
 use App\Http\Services\ImageForUserService;
 use App\Http\Services\PostService;
 use App\Http\Services\UserService;
+use App\Http\Validators\PostValidator;
 use App\User;
 use App\Utilities\S3Helper;
-use App\Validators\PostValidator;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -231,6 +231,14 @@ class PostController extends Controller
 
         $post = Post::find($id);
 
+        //NẾU KHÔNG TÌM ĐC POST
+        if($post == null)
+        {
+            return Response::json([
+                'message' => 'no post is found',
+            ], 400);
+        }
+
         $imagesForPost = $post->imagesForPost;
 
         // handle images for post dynamic url
@@ -253,20 +261,14 @@ class PostController extends Controller
         $postId = $post->id;
         $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
 
-        if (!$post) {
-            return Response::json([
-                'message' => 'no post is found',
-            ], 400);
-        } else {
-            return Response::json([
-                //'post2' => $postTest,
-                'post' => $post,
-                'images_for_post' => $imagesForPost,
-                'tags' => $tags,
-                'user' => $user,
-                'comments_number' => $commentsNumber,
-            ], 200);
-        }
+        return Response::json([
+            //'post2' => $postTest,
+            'post' => $post,
+            'images_for_post' => $imagesForPost,
+            'tags' => $tags,
+            'user' => $user,
+            'comments_number' => $commentsNumber,
+        ], 200);
 
     }
 
@@ -532,7 +534,8 @@ class PostController extends Controller
             ->where('content', 'LIKE', '%' . $request->get('keyword') . '%')
             ->orWhere('title', 'LIKE', '%' . $request->get('keyword') . '%')
             ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))->take($request->get('take'))
+            ->skip($request->get('skip'))
+            ->take($request->get('take'))
             ->get();
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
@@ -545,34 +548,23 @@ class PostController extends Controller
             // handle images for post dynamic url
             foreach ($imagesForPost as $image) {
                 $image->dynamic_url = asset($image->url);
+                $image->makeHidden(['id', 'post_id']);
             }
 
             // COMMENTS NUMBER HANDLE
-            $commentsNumber = count(DB::table('comment')
-                ->select('id')
-                ->where('post_id', '=', $post->id)
-                ->get());
+            $commentsNumber = $this->commentService->getNumberOfComments( $post->id);
             $post->comments_number = $commentsNumber;
 
             // USER HANDLE
-            $avatar_url = DB::table('image_for_user')
-                ->select('url')
-                ->where('user_id', '=', $post->user->id)
-                ->first();
+            $avatar_url = $this->imageForUserService->getAvatarUrl($post->user->id);
             if ($avatar_url != '' && $avatar_url != null)
                 $post->user->avatar_url = asset($avatar_url->url);
             else $post->user->avatar_url = '';
 
             // CHECK LIKED POST OR NOT
-            $postId = $post->id;
             $userId = $request->get('user_id');
-
-            $result = DB::table('liked_post')
-                ->select('post_id', 'user_id')
-                ->where('post_id', '=', $postId)
-                ->where('user_id', '=', $userId)
-                ->get();
-            $post->is_liked = !$result->isEmpty();
+            $postId = $post->id;
+            $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
         }
 
         return Response::json([
@@ -646,5 +638,26 @@ class PostController extends Controller
         return Response::json([
             'message' => 'failed',
         ], 400);
+    }
+
+    // XÓA BÀI VIẾT
+    public function deletePost(Request $request)
+    {
+        //1.Lấy bài viết từ id
+        $result = $this->postService->getPost($request->get('id'));
+        //2.Nếu có bài viết
+        if($result)
+        {
+            //2.1.Xóa bài viết
+            $result->delete();
+            //3.Trả mã 200
+            return Response::json([
+                'message' => 'delete success',
+            ], 200);
+        }
+        //2.2.Trả mã 500
+        return Response::json([
+        'message' => 'delete fail',
+    ], 500);
     }
 }
