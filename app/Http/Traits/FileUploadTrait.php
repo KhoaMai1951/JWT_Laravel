@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 
 trait FileUploadTrait
 {
-
     public function imageForPostHandleToStorage($post, $file, $DBPath)
     {
         // change new name

@@ -43,7 +43,9 @@ Route::group(['prefix' => 'v1'], function () {
         //TÌM KIẾM USER
         Route::post('/search_user', 'UserController@searchUser');
         Route::get('/search_user', 'UserController@searchUser');
-
+        //LẤY AVATAR
+        Route::post('/get_avatar_url', 'UserController@getAvatarUrl');
+        Route::get('/get_avatar_url', 'UserController@getAvatarUrl');
     });
 
     // POST
@@ -100,5 +102,17 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_number_of_comments_by_post_id', 'CommentController@getNumberOfCommentsByPostId');
         Route::post('/submit_comment', 'CommentController@submitComment');
         Route::post('/get_comments_by_chunk_by_post_id', 'CommentController@getCommentsByChunkByPostId');
+    });
+
+    // SERVER PLANT
+    Route::group(['prefix' => '/server_plant'], function () {
+        // SEEDER
+        Route::get('/seeder', 'ServerPlantController@seeder');
+        // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM
+        Route::get('/get_plant_list_by_chunk', 'ServerPlantController@getPlantListByChunk');
+        Route::post('/get_plant_list_by_chunk', 'ServerPlantController@getPlantListByChunk');
+        // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH THEO ID
+        Route::get('/get_plant_detail', 'ServerPlantController@getPlantDetail');
+        Route::post('/get_plant_detail', 'ServerPlantController@getPlantDetail');
     });
 });

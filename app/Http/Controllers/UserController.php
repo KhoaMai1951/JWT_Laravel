@@ -343,7 +343,7 @@ class UserController extends Controller implements FilePathInterface
             ], 400);
         }
 
-        // get avatar link
+        // get old avatar link
         $avatarLink = DB::table('image_for_user')
             ->select('url')
             ->where('user_id', '=', $request->get('user_id'))
@@ -435,5 +435,22 @@ class UserController extends Controller implements FilePathInterface
         return Response::json([
             'users' => $users,
         ], 200);
+    }
+
+    public function getAvatarUrl(Request $request){
+        //get avatar link
+        $avatarLink = $this->imageForUserService->getAvatarUrl($request->get('id'));
+        //check null
+        if ($avatarLink == null)
+            $avatarLink = '';
+
+        //return result
+        return response()->json(
+            [
+                'avatar_link' => $avatarLink != '' ? asset($avatarLink->url) : '',
+            ],
+            200,
+            ['Content-type' => 'application/json;charset=utf-8'],
+            JSON_UNESCAPED_UNICODE);
     }
 }

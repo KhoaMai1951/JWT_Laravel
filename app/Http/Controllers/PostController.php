@@ -6,25 +6,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
-use App\Http\Models\UserFollowUser;
 use App\Http\Services\CommentService;
 use App\Http\Services\ImageForPostService;
 use App\Http\Services\ImageForUserService;
 use App\Http\Services\PostService;
 use App\Http\Services\UserService;
 use App\Http\Validators\PostValidator;
-use App\User;
 use App\Utilities\S3Helper;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
-use function PHPUnit\Framework\isEmpty;
 
 
 class PostController extends Controller
@@ -232,8 +227,7 @@ class PostController extends Controller
         $post = Post::find($id);
 
         //NẾU KHÔNG TÌM ĐC POST
-        if($post == null)
-        {
+        if ($post == null) {
             return Response::json([
                 'message' => 'no post is found',
             ], 400);
@@ -552,7 +546,7 @@ class PostController extends Controller
             }
 
             // COMMENTS NUMBER HANDLE
-            $commentsNumber = $this->commentService->getNumberOfComments( $post->id);
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
             $post->comments_number = $commentsNumber;
 
             // USER HANDLE
@@ -563,7 +557,7 @@ class PostController extends Controller
 
             // CHECK LIKED POST OR NOT
             $userId = $request->get('user_id');
-            $postId = $post->id;
+            $postId = $post->igd;
             $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
         }
 
@@ -622,14 +616,14 @@ class PostController extends Controller
     }
 
     // SỬA BÀI VIẾT
-    public function editPost(Request $request) {
+    public function editPost(Request $request)
+    {
         //1.Lấy content + title + id
         $input = $request->all();
         //2.Lấy post từ post id
         $post = Post::find($request->get('id'));
         //3.Update record
-        if($post != null)
-        {
+        if ($post != null) {
             $post->fill($input)->save();
             return Response::json([
                 'post_id' => $post->id,
@@ -646,8 +640,7 @@ class PostController extends Controller
         //1.Lấy bài viết từ id
         $result = $this->postService->getPost($request->get('id'));
         //2.Nếu có bài viết
-        if($result)
-        {
+        if ($result) {
             //2.1.Xóa bài viết
             $result->delete();
             //3.Trả mã 200
@@ -657,7 +650,7 @@ class PostController extends Controller
         }
         //2.2.Trả mã 500
         return Response::json([
-        'message' => 'delete fail',
-    ], 500);
+            'message' => 'delete fail',
+        ], 500);
     }
 }
