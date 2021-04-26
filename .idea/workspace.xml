@@ -20,15 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Helpers/ImageUrlHandle.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Models/ServerPlant.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/ServerPlantService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Traits/FileUploadTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Traits/FileUploadTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql file/caycanhapi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql file/caycanhapi.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,15 +171,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\public\storage\image_for_server_plant" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Validators" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\storage\app\public\image_for_user" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http" />
-      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Controllers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\public\storage\image_for_server_plant" />
     </key>
   </component>
   <component name="RunManager">
@@ -290,7 +283,7 @@
       <workItem from="1619316844271" duration="1741000" />
       <workItem from="1619402169339" duration="2018000" />
       <workItem from="1619425505197" duration="9607000" />
-      <workItem from="1619440157010" duration="2247000" />
+      <workItem from="1619440157010" duration="2266000" />
     </task>
     <servers />
   </component>
