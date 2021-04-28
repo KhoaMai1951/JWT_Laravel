@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\ServerPlant;
-use App\Http\Services\ServerPlantService;
+use App\Http\Services\ServerPlantService; 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -23,10 +23,9 @@ class ServerPlantController extends Controller
     // SEEDER
     public function seeder()
     {
-        for ($i = 1; $i < 7; $i++) {
+        for ($i = 1; $i < 13; $i++) {
             $serverPlant = new ServerPlant();
             $serverPlant->common_name = Str::random(10);
-            $serverPlant->scientific_name = Str::random(10);
             $serverPlant->scientific_name = Str::random(10);
             $serverPlant->image_url = '/storage/image_for_server_plant/' . $i . '.png';
             $serverPlant->pet_friendly = (bool)random_int(0, 1);
@@ -42,6 +41,26 @@ class ServerPlantController extends Controller
             $serverPlant->max_ph = rand(60, 70) / 10;
             $serverPlant->save();
         }
+    }
+
+    //TRANG LIST PLANT
+    public function listPlant() {
+        $list = $this->serverPlantService->getPlantListByChunk(0, 100, '');
+        return view('/admin_pages/server_plant/list_plant')->with('list', $list);
+    }
+
+    //TRANG CHI TIẾT PLANT
+    public function detailPage($id)
+    {
+        $plant = $this->serverPlantService->getPlantDetail($id);
+        return view('/admin_pages/server_plant/detail')->with('plant', $plant);
+    }
+
+    //UPDATE CHI TIẾT PLANT
+    public function adminUpdate(Request $request){
+        $input = $request->except(['_token']);
+        $this->serverPlantService->update($input);
+        return redirect('/admin/server-plant/detail/' . $input['id'])->with(['saved' => true]);
     }
 
     // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM

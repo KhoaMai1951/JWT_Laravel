@@ -7,22 +7,21 @@ namespace App\Http\Services;
 use App\Http\Helpers\ImageUrlHandle;
 use App\Http\Models\ServerPlant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServerPlantService
 {
-
-
     // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM
-    public function getPlantListByChunk($skip, $take, $keyword){
+    public function getPlantListByChunk($skip, $take, $keyword)
+    {
         $plants = ServerPlant::select('id', 'common_name', 'scientific_name', 'image_url')
-            ->where('common_name', 'LIKE', '%' . $keyword .'%')
-            ->orWhere('scientific_name', 'LIKE', '%' . $keyword .'%')
+            ->where('common_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('scientific_name', 'LIKE', '%' . $keyword . '%')
             ->orderBy('common_name', 'ASC')
             ->skip($skip)
             ->take($take)
             ->get();
-        foreach ($plants as $plant)
-        {
+        foreach ($plants as $plant) {
             $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
         }
         return $plants;
@@ -32,11 +31,21 @@ class ServerPlantService
     public function getPlantDetail($id)
     {
         $plant = ServerPlant::find($id);
-        $plant->temperature_range = [$plant->min_temperature, $plant->max_temperature];
-        $plant->ph_range = [$plant->min_ph, $plant->max_ph];
-        $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
-        $plant->makeHidden(['min_temperature', 'max_temperature', 'min_ph', 'max_ph']);
-
+        if($plant != null) {
+            $plant->temperature_range = [$plant->min_temperature, $plant->max_temperature];
+            $plant->ph_range = [$plant->min_ph, $plant->max_ph];
+            $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
+            $plant->makeHidden(['min_temperature', 'max_temperature', 'min_ph', 'max_ph']);
+            $plant->pet_friendly == 1 ?  $plant->pet_friendly = true :  $plant->pet_friendly = false;
+        }
         return $plant;
+    }
+
+    // UPDATE PLANT
+    public function update($input)
+    {
+        DB::table('server_plant')
+            ->where('id', $input['id'])
+            ->update($input);
     }
 }

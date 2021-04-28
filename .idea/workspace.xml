@@ -20,8 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/detail.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/list_plant.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/components/system_admin/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/components/system_admin/navbar.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/admin_layout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql file/caycanhapi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql file/caycanhapi.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Services/ServerPlantService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/ServerPlantService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,15 +178,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\public\storage\image_for_server_plant" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\sql file" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Validators" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\storage\app\public\image_for_user" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http" />
       <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\app\Http\Controllers" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Khoa\Desktop\Laravel projects\cay-canh\public\storage\image_for_server_plant" />
     </key>
   </component>
   <component name="RunManager">
@@ -284,6 +291,10 @@
       <workItem from="1619402169339" duration="2018000" />
       <workItem from="1619425505197" duration="9607000" />
       <workItem from="1619440157010" duration="2266000" />
+      <workItem from="1619488573720" duration="8508000" />
+      <workItem from="1619510698235" duration="2113000" />
+      <workItem from="1619569252317" duration="3294000" />
+      <workItem from="1619600891160" duration="2718000" />
     </task>
     <servers />
   </component>
@@ -307,21 +318,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="274" y="21" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1619236670054" />
-    <state x="444" y="188" key="#Notifications" timestamp="1619236673781">
+    <state x="444" y="188" key="#Notifications" timestamp="1619494638794">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="444" y="188" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1619236673781" />
+    <state x="444" y="188" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1619494638794" />
     <state x="520" y="225" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616726772424">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="2097" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1615689861801" />
     <state x="520" y="225" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1616726772424" />
-    <state x="1849" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1619433039183">
-      <screen x="1366" y="0" width="1600" height="860" />
+    <state x="580" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1619570381191">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1849" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1619433039183" />
     <state x="1946" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1619062301033" />
     <state x="412" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1618231428908" />
+    <state x="580" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1619570381191" />
     <state width="1304" height="254" key="GridCell.Tab.0.bottom" timestamp="1615610376838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -338,18 +350,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1304" height="254" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1615610376838" />
-    <state x="1840" y="103" key="NewPhpClassDialog" timestamp="1619433688275">
-      <screen x="1366" y="0" width="1600" height="860" />
+    <state x="405" y="87" key="NewPhpClassDialog" timestamp="1619494288648">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="87" key="NewPhpClassDialog/0.0.1280.728@0.0.1280.728" timestamp="1619414101956" />
     <state x="1840" y="103" key="NewPhpClassDialog/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1619433688275" />
     <state x="1935" y="124" key="NewPhpClassDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618994302522" />
-    <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1618745521763" />
-    <state x="2160" y="442" key="NewPhpFileDialog" timestamp="1618991299467">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1619494288648" />
+    <state x="565" y="309" key="NewPhpFileDialog" timestamp="1619496491600">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618991299467" />
-    <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1617886400296" />
+    <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1619496491600" />
     <state x="1417" y="34" width="1549" height="799" key="SettingsEditor" timestamp="1619005631852">
       <screen x="1366" y="0" width="1600" height="860" />
     </state>
@@ -365,12 +377,17 @@
     </state>
     <state x="1495" y="131" width="1662" height="778" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618993389611" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618805247344" />
-    <state x="1763" y="191" key="run.anything.popup" timestamp="1619432611713">
-      <screen x="1366" y="0" width="1600" height="860" />
+    <state x="776" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619569814045">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="776" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1619569814045" />
+    <state x="476" y="231" key="run.anything.popup" timestamp="1619570473441">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1763" y="191" key="run.anything.popup/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1619432611713" />
     <state x="1842" y="231" key="run.anything.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1619062701607" />
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1617887307115" />
+    <state x="476" y="231" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619570473441" />
     <state x="1885" y="186" width="672" height="561" key="search.everywhere.popup" timestamp="1618886562232">
       <screen x="1366" y="0" width="1600" height="860" />
     </state>

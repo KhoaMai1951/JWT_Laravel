@@ -27,3 +27,16 @@ Route::get('/send-mail', function () {
 
     dd("Email is Sent.");
 });
+
+Route::group(['prefix' => '/admin'], function () {
+    //SERVER PLANT
+    Route::group(['prefix' => '/server-plant'], function () {
+        //DS PLANT
+        Route::get('/list-plant', 'ServerPlantController@listPlant')->name('server_plant.list_plant');
+        //CHI TIẾT PLANT
+        Route::get('/detail/{id}', 'ServerPlantController@detailPage')->name('server_plant.detail');
+        //ADMIN UPDATE CHI TIẾT PLANT
+        Route::post('/admin_update', 'ServerPlantController@adminUpdate')->name('server_plant.update');
+    });
+
+});
