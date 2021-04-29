@@ -114,5 +114,7 @@ Route::group(['prefix' => 'v1'], function () {
         // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH THEO ID
         Route::get('/get_plant_detail', 'ServerPlantController@getPlantDetail');
         Route::post('/get_plant_detail', 'ServerPlantController@getPlantDetail');
+        // UPLOAD CÂY CẢNH MỚI
+        Route::post('/upload_plant', 'ServerPlantController@uploadPlant');
     });
 });

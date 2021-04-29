@@ -4,8 +4,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\ServerPlant;
-use App\Http\Services\ServerPlantService; 
+use App\Http\Services\ServerPlantService;
+use App\Http\Validators\PostValidator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -43,7 +46,7 @@ class ServerPlantController extends Controller
         }
     }
 
-    //TRANG LIST PLANT
+    //TRANG LIST PLANT/
     public function listPlant() {
         $list = $this->serverPlantService->getPlantListByChunk(0, 100, '');
         return view('/admin_pages/server_plant/list_plant')->with('list', $list);
@@ -81,6 +84,37 @@ class ServerPlantController extends Controller
     {
         return Response::json([
             'plant' => $this->serverPlantService->getPlantDetail($request->get('id')),
+        ], 200);
+    }
+
+    // UPLOAD CÂY CẢNH MỚI
+    public function uploadPlant(Request $request){
+        $input = $request->except('files');
+        DB::beginTransaction();
+        // validate the image
+        $validator = PostValidator::validateImage($request);
+        if ($validator->fails()) {
+            DB::rollBack();
+            return Response::json([
+                'error' => $validator->getMessageBag()->toArray(),
+            ], 400);
+        }
+        //image handle
+        foreach ($request->file('files') as $file) {
+            //image handle ==============================
+            // change new name
+            $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+            // upload the image to local storage
+            Storage::disk('public')->putFileAs('image_for_server_plant/', $file, $fileName);
+            $input['image_url'] = '/storage/image_for_server_plant/'.$fileName;
+        }
+        //insert new record
+        $id = $this->serverPlantService->create($input);
+        DB::commit();
+        return Response::json([
+            'message' => 'Plant submit successfully',
+            'status' => true,
+            'id' => $id,
         ], 200);
     }
 }

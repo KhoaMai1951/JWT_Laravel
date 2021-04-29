@@ -128,7 +128,6 @@ class PostController extends Controller
         if ($files = $request->file('files')) {
             // loop through image array
             foreach ($files as $file) {
-                //$result = $this->imageForPostHandleToS3($post, $file);
                 $result = $this->imageForPostHandleToStorage($post, $file);
                 // if upload file to s3 successful
                 if ($result == true) {
