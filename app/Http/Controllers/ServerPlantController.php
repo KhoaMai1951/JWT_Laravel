@@ -100,7 +100,8 @@ class ServerPlantController extends Controller
             ], 400);
         }
         //image handle
-        foreach ($request->file('files') as $file) {
+        if($request->file('files') != null)
+            foreach ($request->file('files') as $file) {
             //image handle ==============================
             // change new name
             $fileName = (string)Str::uuid() . $file->getClientOriginalName();

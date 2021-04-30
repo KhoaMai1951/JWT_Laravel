@@ -117,4 +117,9 @@ Route::group(['prefix' => 'v1'], function () {
         // UPLOAD CÂY CẢNH MỚI
         Route::post('/upload_plant', 'ServerPlantController@uploadPlant');
     });
+    // SERVER PLANT USER EDIT
+    Route::group(['prefix' => '/server_plant_user_edit'], function () {
+        // UPLOAD EDIT THÔNG TIN CÂY CẢNH
+        Route::post('/upload_plant', 'ServerPlantUserEditController@uploadPlant');
+    });
 });
