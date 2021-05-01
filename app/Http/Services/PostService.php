@@ -60,10 +60,23 @@ class PostService
     }
 
     // LẤY DS POST THEO MẢNG USER ID THEO CỤM
-    public function getPostsByUsersIdsArrayByChunk(array $userIds, int $skip, int $take)
+    public function getPostsByUsersIdsArrayByChunk(array $userIds, int $skip, int $take, $keyword)
     {
-        return Post::select('id', 'user_id', 'title', 'created_at',
-            'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+//        return Post::select('id', 'user_id', 'title', 'created_at',
+//            'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+//            ->whereIn('user_id', $userIds)
+//            ->orderBy('created_at', 'DESC')
+//            ->skip($skip)
+//            ->take($take)
+//            ->get();
+
+       return Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+        ->where(function ($query) use ($keyword) {
+            // subqueries
+            $query->where('content', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+        })
             ->whereIn('user_id', $userIds)
             ->orderBy('created_at', 'DESC')
             ->skip($skip)

@@ -333,7 +333,7 @@ class PostController extends Controller
 
     }
 
-    // LẤY DS BÀI VIẾT CHO TRANG NEWSFEED THEO CỤM
+    // LẤY DS BÀI VIẾT CHO TRANG NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
     public
     function getAllPostsOfFollowingUsersByChunkByUserId(Request $request)
     {
@@ -342,7 +342,12 @@ class PostController extends Controller
         $followingUsersIds = $this->userService->getIdsOfFollowingUser($userId);
 
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
-        $posts = $this->postService->getPostsByUsersIdsArrayByChunk($followingUsersIds, $request->get('skip'), $request->get('take'));
+        $posts = $this->postService->getPostsByUsersIdsArrayByChunk(
+            $followingUsersIds,
+            $request->get('skip'),
+            $request->get('take'),
+            $request->get('keyword')
+        );
         // GET ALL POSTS BY CHUNK OF THE USERS
 
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
@@ -376,7 +381,6 @@ class PostController extends Controller
 
         return Response::json([
             'posts' => $posts,
-
         ], 200);
     }
 
@@ -520,6 +524,7 @@ class PostController extends Controller
         }
     }
 
+    // TÌM KIẾM DS BÀI VIẾT GLOBAL THEO CỤM
     public
     function testSearch(Request $request)
     {
@@ -556,7 +561,53 @@ class PostController extends Controller
 
             // CHECK LIKED POST OR NOT
             $userId = $request->get('user_id');
-            $postId = $post->igd;
+            $postId = $post->id;
+            $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
+        }
+
+        return Response::json([
+            'posts' => $posts,
+        ], 200);
+    }
+
+    // TÌM KIẾM BÀI VIẾT HOME THEO CỤM
+    public
+    function homeSearch(Request $request)
+    {
+        $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            ->where('content', 'LIKE', '%' . $request->get('keyword') . '%')
+            ->orWhere('title', 'LIKE', '%' . $request->get('keyword') . '%')
+            ->orderBy('created_at', 'DESC')
+            ->skip($request->get('skip'))
+            ->take($request->get('take'))
+            ->get();
+        // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
+        foreach ($posts as $post) {
+            // HANDLE SHORT CONTENT
+            $post->short_content .= '...';
+
+            // IMAGES FOR POST HANDLE
+            $imagesForPost = $post->imagesForPost;
+
+            // handle images for post dynamic url
+            foreach ($imagesForPost as $image) {
+                $image->dynamic_url = asset($image->url);
+                $image->makeHidden(['id', 'post_id']);
+            }
+
+            // COMMENTS NUMBER HANDLE
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
+            $post->comments_number = $commentsNumber;
+
+            // USER HANDLE
+            $avatar_url = $this->imageForUserService->getAvatarUrl($post->user->id);
+            if ($avatar_url != '' && $avatar_url != null)
+                $post->user->avatar_url = asset($avatar_url->url);
+            else $post->user->avatar_url = '';
+
+            // CHECK LIKED POST OR NOT
+            $userId = $request->get('user_id');
+            $postId = $post->id;
             $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
         }
 
