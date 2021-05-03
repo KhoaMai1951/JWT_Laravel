@@ -37,6 +37,27 @@ class ServerPlantService
         return $plants;
     }
 
+    // LẤY DS THÔNG TIN CÂY CẢNH ĐÓNG GÓP THEO CỤM
+    public function getPlantListContributeByChunk($skip, $take, $keyword)
+    {
+        $plants = ServerPlant::where(function ($query) use ($keyword) {
+            // subqueries
+            $query
+                ->where('common_name', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('scientific_name', 'LIKE', '%' . $keyword . '%');
+        })
+            ->where('accepted', '=', false)
+            ->skip($skip)
+            ->take($take)
+            ->orderBy('common_name', 'ASC')
+            ->get();
+
+        foreach ($plants as $plant) {
+            $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
+        }
+        return $plants;
+    }
+
     // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH
     public function getPlantDetail($id)
     {

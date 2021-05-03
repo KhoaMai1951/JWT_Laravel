@@ -52,11 +52,26 @@ class ServerPlantController extends Controller
         return view('/admin_pages/server_plant/list_plant')->with('list', $list);
     }
 
+    //TRANG LIST PLANT ĐÓNG GÓP
+    public function listPlantContributePage() {
+        $list = $this->serverPlantService->getPlantListContributeByChunk(0, 100, '');
+        return view('/admin_pages/server_plant/list_plant_contribute',[
+            'list' => $list,
+        ]);
+    }
+
     //TRANG CHI TIẾT PLANT
     public function detailPage($id)
     {
         $plant = $this->serverPlantService->getPlantDetail($id);
         return view('/admin_pages/server_plant/detail')->with('plant', $plant);
+    }
+
+    //TRANG CHI TIẾT PLANT CONTRIBUTE
+    public function detailContributePage($id)
+    {
+        $plant = $this->serverPlantService->getPlantDetail($id);
+        return view('/admin_pages/server_plant/detail_contribute')->with('plant', $plant);
     }
 
     //UPDATE CHI TIẾT PLANT

@@ -30,11 +30,15 @@ Route::get('/send-mail', function () {
 
 Route::group(['prefix' => '/admin'], function () {
     //SERVER PLANT
-    Route::group(['prefix' => '/server-plant'], function () {
+    Route::group(['prefix' => '/server_plant'], function () {
         //DS PLANT
-        Route::get('/list-plant', 'ServerPlantController@listPlant')->name('server_plant.list_plant');
+        Route::get('/list_plant', 'ServerPlantController@listPlant')->name('server_plant.list_plant');
+        //DS PLANT ĐÓNG GÓP
+        Route::get('/list_plant_contribute', 'ServerPlantController@listPlantContributePage')->name('server_plant.list_plant');
         //CHI TIẾT PLANT
         Route::get('/detail/{id}', 'ServerPlantController@detailPage')->name('server_plant.detail');
+        //CHI TIẾT PLANT CONTRIBUTE
+        Route::get('/detail_contribute/{id}', 'ServerPlantController@detailContributePage')->name('server_plant.detail');
         //ADMIN UPDATE CHI TIẾT PLANT
         Route::post('/admin_update', 'ServerPlantController@adminUpdate')->name('server_plant.update');
     });

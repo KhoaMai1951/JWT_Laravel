@@ -100,8 +100,14 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => '/comment'], function () {
         Route::get('/get_all_comments_by_post_id', 'CommentController@getAllCommentsByPostId');
         Route::get('/get_number_of_comments_by_post_id', 'CommentController@getNumberOfCommentsByPostId');
+        // SUBMIT COMMENT
         Route::post('/submit_comment', 'CommentController@submitComment');
+        // GET COMMENTS BY CHUNK
         Route::post('/get_comments_by_chunk_by_post_id', 'CommentController@getCommentsByChunkByPostId');
+        Route::get('/get_comments_by_chunk_by_post_id', 'CommentController@getCommentsByChunkByPostId');
+        // LIKE COMMENT
+        Route::get('/like_comment', 'CommentController@likeComment');
+        Route::post('/like_comment', 'CommentController@likeComment');
     });
 
     // SERVER PLANT

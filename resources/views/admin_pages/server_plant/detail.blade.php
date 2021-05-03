@@ -52,7 +52,10 @@
                     @enderror
                 </div>
 
-                <a class="btn btn-danger ml-2" href="/admin/server-plant/list-plant" role="button">Quay lại</a>
+                <a class="btn btn-danger ml-2" href="/admin/server_plant/list_plant" role="button">Quay lại</a>
+                @if(session()->has('is_contributed'))
+                    <a class="btn btn-danger ml-2" href="" role="button">Thêm vào db chính thức</a>
+                @endif
                 <button type="submit" class="btn btn-primary">Lưu</button>
 
             </form>

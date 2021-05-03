@@ -5,18 +5,18 @@
 @section('content')
     <!-- TITLE -->
     <div class="alert alert-primary" role="alert">
-        <h1>Danh sách cây cảnh</h1>
+        <h1>Danh sách cây cảnh đóng góp của ng dùng</h1>
     </div>
 
     @if(session()->has('deleted'))
         <div class="alert alert-success">
-            <strong>@lang('custom_message.deleted')</strong>
+            <strong>Đã xóa</strong>
         </div>
     @endif
 
     @if(count($list) == 0)
         <div class="alert alert-warning">
-            @lang('custom_message.no_item_found')
+            Không có dữ liệu
         </div>
     @else
         <div class="table-responsive">
@@ -39,7 +39,7 @@
                         <td><img width="100" height="100" src="{{ $plant->image_url }}" alt="" title="" />
                         </td>
                         <td>
-                            <a class="btn btn-primary" href="/admin/server_plant/detail/{{$plant->id}}"
+                            <a class="btn btn-primary" href="/admin/server_plant/detail_contribute/{{$plant->id}}"
                                role="button">Chi tiết</a>
                         </td>
                     </tr>
