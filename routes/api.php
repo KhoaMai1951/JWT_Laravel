@@ -46,6 +46,7 @@ Route::group(['prefix' => 'v1'], function () {
         //LẤY AVATAR
         Route::post('/get_avatar_url', 'UserController@getAvatarUrl');
         Route::get('/get_avatar_url', 'UserController@getAvatarUrl');
+        Route::get('/get_user_info_for_comment', 'UserController@getUserInfoForComment');
     });
 
     // POST

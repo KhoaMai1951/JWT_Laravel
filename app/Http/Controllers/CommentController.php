@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Comment;
 use App\Http\Services\CommentService;
+use App\Http\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -15,13 +16,18 @@ use Illuminate\Support\Str;
 class CommentController extends Controller
 {
     private $commentService;
+    private $userService;
 
     public function __construct(
-        CommentService $commentService)
+        CommentService $commentService,
+        UserService $userService
+)
     {
         $this->commentService = $commentService;
+        $this->userService = $userService;
     }
 
+    // GET COMMENTS BY CHUNK BY POST ID
     public function getCommentsByChunkByPostId(Request $request)
     {
         $comments = $this->commentService->getCommentsByChunkByPostId(
@@ -31,19 +37,9 @@ class CommentController extends Controller
         );
 
         foreach ($comments as $comment) {
-            $username = DB::table('user')
-                ->select('username')
-                ->where('id', '=', $comment->user_id)
-                ->first();
-            $comment->username = $username->username;
-            // HANDLE AVATAR
-            $avatarLink = DB::table('image_for_user')
-                ->select('url')
-                ->where('user_id', '=', $comment->user_id)
-                ->first();
-            $comment->avatar_link =  asset($avatarLink->url);
+            // HANDLE USER INFO
+            $comment->user = $this->userService->getUserInfoForComment($comment->user_id);
             // HANDLE IMAGE
-            $comment->username = $username->username;
             $comment->image_url != '' ? $comment->image_url = asset($comment->image_url) : $comment->image_url =  null ;
             // HANDLE CHECK LIKE
             $comment->is_liked = $this->commentService->checkLikedComment($comment->id, $request->get('user_id'));
@@ -75,6 +71,7 @@ class CommentController extends Controller
         ], 200);
     }
 
+    // GET NUMBER OF COMMENTS FOR A POST
     public function getNumberOfCommentsByPostId(Request $request)
     {
         $comments = DB::table('comment')

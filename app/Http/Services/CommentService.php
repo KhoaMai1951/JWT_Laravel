@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CommentService
 {
-    // GET NUMER OF COMMENTS FOR A POST
+    // GET NUMBER OF COMMENTS FOR A POST
     public function getNumberOfComments(int $postId)
     {
         return count(DB::table('comment')

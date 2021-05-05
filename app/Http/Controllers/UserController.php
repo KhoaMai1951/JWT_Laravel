@@ -230,7 +230,7 @@ class UserController extends Controller implements FilePathInterface
     public function getUserInfoById(Request $request)
     {
         $user = DB::table('user')
-            ->select('username', 'email', 'name', 'bio', 'id')
+            ->select('username', 'email', 'name', 'bio', 'id', 'role_id')
             ->where('id', '=', $request->get('id'))
             ->get();
 
@@ -423,7 +423,9 @@ class UserController extends Controller implements FilePathInterface
         $users = $this->userService->searchUser(
             $request->get('keyword'),
             $request->get('skip'),
-            $request->get('take'));
+            $request->get('take'),
+            $request->get('role_id_array')
+        );
         // AVATAR HANDLE
         foreach ($users as $user) {
             $avatar_url = $this->imageForUserService->getAvatarUrl($user->id);
@@ -452,5 +454,10 @@ class UserController extends Controller implements FilePathInterface
             200,
             ['Content-type' => 'application/json;charset=utf-8'],
             JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getUserInfoForComment(Request $request)
+    {
+        return $this->userService->getUserInfoForComment($request->get('id'));
     }
 }

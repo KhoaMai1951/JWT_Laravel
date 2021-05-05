@@ -7,6 +7,7 @@ namespace App\Http\Services;
 use App\Http\Models\UserFollowUser;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserService
 {
@@ -28,14 +29,32 @@ class UserService
     }
 
     // SEARCH USER
-    public function searchUser($keyword, $skip, $take)
+    public function searchUser($keyword, $skip, $take, $roleIdArray)
     {
-        return User::select('id', 'name', 'username')
-            ->where('username', 'LIKE', '%' . $keyword . '%')
-            ->orWhere('name', 'LIKE', '%' . $keyword . '%')
+        return User::select('id', 'name', 'username', 'role_id')
+            ->where(function ($query) use ($keyword) {
+                // subqueries
+                $query->where('username', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->whereIn('role_id', $roleIdArray)
             ->orderBy('username', 'DESC')
             ->skip($skip)
             ->take($take)
             ->get();
+    }
+
+    public function getUserInfoForComment($userId)
+    {
+        // HANDLE AVATAR
+        $avatarLink = DB::table('image_for_user')
+            ->select('url')
+            ->where('user_id', '=', $userId)
+            ->first();
+        $user = User::select('name', 'username', 'role_id', 'id')
+            ->where('id', '=', $userId)
+            ->first();
+        $user['avatar_link']= asset($avatarLink->url) ;
+        return $user;
     }
 }

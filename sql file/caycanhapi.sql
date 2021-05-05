@@ -23,68 +23,84 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `post_id` int(11) NOT NULL DEFAULT '0',
   `content` varchar(225) NOT NULL DEFAULT '0',
   `like` int(11) NOT NULL DEFAULT '0',
+  `image_url` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.comment: ~38 rows (approximately)
+-- Dumping data for table caycanhapi.comment: ~65 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 4, 9, 'cmt 1', 0, '2021-03-01 03:18:48', '2021-04-09 03:18:48', NULL),
-	(2, 4, 9, 'cmt 2', 0, '2021-04-09 03:20:24', '2021-04-09 03:20:24', NULL),
-	(3, 4, 9, 'cmt 3', 0, '2021-04-09 10:21:02', '2021-04-09 10:21:02', NULL),
-	(4, 4, 9, 'cmt 4', 0, '2021-04-09 10:29:07', '2021-04-09 10:29:07', NULL),
-	(5, 1, 9, 'cmt 5', 0, '2021-04-09 10:40:03', '2021-04-09 10:40:03', NULL),
-	(6, 1, 9, 'cmt 6', 0, '2021-04-09 15:51:46', '2021-04-09 15:51:46', NULL),
-	(7, 1, 9, 'cmt 7', 0, '2021-04-09 16:02:13', '2021-04-09 16:02:13', NULL),
-	(8, 1, 9, 'cmt 8', 0, '2021-04-09 16:20:34', '2021-04-09 16:20:34', NULL),
-	(9, 1, 9, 'cmt 9', 0, '2021-04-09 16:20:37', '2021-04-09 16:20:37', NULL),
-	(10, 1, 9, 'cmt 10', 0, '2021-04-09 16:20:39', '2021-04-09 16:20:39', NULL),
-	(11, 1, 9, 'cmt 11', 0, '2021-04-09 16:20:40', '2021-04-09 16:20:40', NULL),
-	(12, 1, 9, 'cmt 12', 0, '2021-04-09 16:20:41', '2021-04-09 16:20:41', NULL),
-	(13, 1, 9, 'cmt 13', 0, '2021-04-09 16:20:42', '2021-04-09 16:20:42', NULL),
-	(14, 1, 9, 'cmt 14', 0, '2021-04-09 16:20:44', '2021-04-09 16:20:44', NULL),
-	(15, 1, 9, 'cmt 15', 0, '2021-04-09 16:20:45', '2021-04-09 16:20:45', NULL),
-	(16, 1, 9, 'cmt 16', 0, '2021-04-09 16:20:47', '2021-04-09 16:20:47', NULL),
-	(17, 1, 9, 'cmt 17', 0, '2021-04-09 16:20:49', '2021-04-09 16:20:49', NULL),
-	(18, 1, 9, 'cmt 18', 0, '2021-04-09 16:20:50', '2021-04-09 16:20:50', NULL),
-	(19, 1, 9, 'cmt 19', 0, '2021-04-09 16:20:52', '2021-04-09 16:20:52', NULL),
-	(20, 1, 9, 'cmt 20', 0, '2021-04-10 10:01:12', '2021-04-10 10:01:12', NULL),
-	(21, 1, 9, 'cmt 21', 0, '2021-04-11 07:50:35', '2021-04-11 07:50:35', NULL),
-	(22, 1, 18, 'aaa', 0, '2021-04-12 15:32:22', '2021-04-12 15:32:22', NULL),
-	(23, 1, 18, 'ggg', 0, '2021-04-12 15:32:44', '2021-04-12 15:32:44', NULL),
-	(24, 1, 18, 'cmt', 0, '2021-04-12 15:33:21', '2021-04-12 15:33:21', NULL),
-	(25, 1, 14, 'cmt', 0, '2021-04-12 15:36:14', '2021-04-12 15:36:14', NULL),
-	(26, 1, 14, 'gg', 0, '2021-04-12 15:37:07', '2021-04-12 15:37:07', NULL),
-	(27, 1, 9, 'cmt 22', 0, '2021-04-12 15:53:30', '2021-04-12 15:53:30', NULL),
-	(28, 1, 9, 'cmt 23', 0, '2021-04-12 15:55:49', '2021-04-12 15:55:49', NULL),
-	(29, 1, 9, 'cmt 24', 0, '2021-04-12 15:56:06', '2021-04-12 15:56:06', NULL),
-	(30, 1, 9, 'cmt 25', 0, '2021-04-12 15:57:09', '2021-04-12 15:57:09', NULL),
-	(31, 1, 9, 'cmt 26', 0, '2021-04-12 16:00:34', '2021-04-12 16:00:34', NULL),
-	(32, 1, 9, 'cmt 27', 0, '2021-04-12 16:01:05', '2021-04-12 16:01:05', NULL),
-	(33, 1, 9, 'cmt 28', 0, '2021-04-12 16:04:42', '2021-04-12 16:04:42', NULL),
-	(34, 1, 9, 'cmt 29', 0, '2021-04-12 16:05:35', '2021-04-12 16:05:35', NULL),
-	(35, 1, 9, 'cmt 30', 0, '2021-04-12 16:07:46', '2021-04-12 16:07:46', NULL),
-	(36, 7, 9, 'cmt 31', 0, '2021-04-12 17:04:25', '2021-04-12 17:04:25', NULL),
-	(37, 1, 17, 'cmt', 0, '2021-04-13 20:06:43', '2021-04-13 20:06:43', NULL),
-	(38, 1, 4, 'hi', 0, '2021-04-17 17:12:35', '2021-04-17 17:12:35', NULL),
-	(39, 1, 11, 'nice', 0, '2021-04-20 11:06:55', '2021-04-20 11:06:55', NULL),
-	(40, 1, 18, 'nice', 0, '2021-04-20 18:03:17', '2021-04-20 18:03:17', NULL),
-	(41, 1, 18, 'ff', 0, '2021-04-20 18:24:45', '2021-04-20 18:24:45', NULL),
-	(42, 1, 11, 'hey hey', 0, '2021-04-21 17:33:19', '2021-04-21 17:33:19', NULL);
+INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `image_url`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 4, 9, 'cmt 1', 1, NULL, '2021-03-01 03:18:48', '2021-05-03 20:07:18', NULL),
+	(2, 4, 9, 'cmt 2', 0, NULL, '2021-04-09 03:20:24', '2021-04-09 03:20:24', NULL),
+	(3, 4, 9, 'cmt 3', 0, NULL, '2021-04-09 10:21:02', '2021-04-09 10:21:02', NULL),
+	(4, 4, 9, 'cmt 4', 0, NULL, '2021-04-09 10:29:07', '2021-04-09 10:29:07', NULL),
+	(5, 1, 9, 'cmt 5', 0, NULL, '2021-04-09 10:40:03', '2021-04-09 10:40:03', NULL),
+	(6, 1, 9, 'cmt 6', 0, NULL, '2021-04-09 15:51:46', '2021-04-09 15:51:46', NULL),
+	(7, 1, 9, 'cmt 7', 0, NULL, '2021-04-09 16:02:13', '2021-04-09 16:02:13', NULL),
+	(8, 1, 9, 'cmt 8', 0, NULL, '2021-04-09 16:20:34', '2021-04-09 16:20:34', NULL),
+	(9, 1, 9, 'cmt 9', 0, NULL, '2021-04-09 16:20:37', '2021-04-09 16:20:37', NULL),
+	(10, 1, 9, 'cmt 10', 0, NULL, '2021-04-09 16:20:39', '2021-04-09 16:20:39', NULL),
+	(11, 1, 9, 'cmt 11', 0, NULL, '2021-04-09 16:20:40', '2021-04-09 16:20:40', NULL),
+	(12, 1, 9, 'cmt 12', 0, NULL, '2021-04-09 16:20:41', '2021-04-09 16:20:41', NULL),
+	(13, 1, 9, 'cmt 13', 0, NULL, '2021-04-09 16:20:42', '2021-04-09 16:20:42', NULL),
+	(14, 1, 9, 'cmt 14', 0, NULL, '2021-04-09 16:20:44', '2021-05-03 16:53:43', NULL),
+	(15, 1, 9, 'cmt 15', 0, NULL, '2021-04-09 16:20:45', '2021-04-09 16:20:45', NULL),
+	(16, 1, 9, 'cmt 16', 0, NULL, '2021-04-09 16:20:47', '2021-04-09 16:20:47', NULL),
+	(17, 1, 9, 'cmt 17', 0, NULL, '2021-04-09 16:20:49', '2021-04-09 16:20:49', NULL),
+	(18, 1, 9, 'cmt 18', 0, NULL, '2021-04-09 16:20:50', '2021-04-09 16:20:50', NULL),
+	(19, 1, 9, 'cmt 19', 0, NULL, '2021-04-09 16:20:52', '2021-04-09 16:20:52', NULL),
+	(20, 1, 9, 'cmt 20', 0, NULL, '2021-04-10 10:01:12', '2021-04-10 10:01:12', NULL),
+	(21, 1, 9, 'cmt 21', 0, NULL, '2021-04-11 07:50:35', '2021-04-11 07:50:35', NULL),
+	(22, 4, 18, 'aaa', 0, NULL, '2021-04-12 15:32:22', '2021-04-12 15:32:22', NULL),
+	(23, 4, 18, 'ggg', 0, NULL, '2021-04-12 15:32:44', '2021-04-12 15:32:44', NULL),
+	(24, 1, 18, 'cmt', 0, NULL, '2021-04-12 15:33:21', '2021-04-12 15:33:21', NULL),
+	(25, 1, 14, 'cmt', 0, NULL, '2021-04-12 15:36:14', '2021-04-12 15:36:14', NULL),
+	(26, 1, 14, 'gg', 0, NULL, '2021-04-12 15:37:07', '2021-04-12 15:37:07', NULL),
+	(27, 1, 9, 'cmt 22', 0, NULL, '2021-04-12 15:53:30', '2021-04-12 15:53:30', NULL),
+	(28, 1, 9, 'cmt 23', 0, NULL, '2021-04-12 15:55:49', '2021-04-12 15:55:49', NULL),
+	(29, 1, 9, 'cmt 24', 0, NULL, '2021-04-12 15:56:06', '2021-04-12 15:56:06', NULL),
+	(30, 1, 9, 'cmt 25', 0, NULL, '2021-04-12 15:57:09', '2021-04-12 15:57:09', NULL),
+	(31, 1, 9, 'cmt 26', 0, NULL, '2021-04-12 16:00:34', '2021-04-12 16:00:34', NULL),
+	(32, 1, 9, 'cmt 27', 0, NULL, '2021-04-12 16:01:05', '2021-04-12 16:01:05', NULL),
+	(33, 1, 9, 'cmt 28', 0, NULL, '2021-04-12 16:04:42', '2021-04-12 16:04:42', NULL),
+	(34, 1, 9, 'cmt 29', 0, NULL, '2021-04-12 16:05:35', '2021-04-12 16:05:35', NULL),
+	(35, 1, 9, 'cmt 30', 0, NULL, '2021-04-12 16:07:46', '2021-04-12 16:07:46', NULL),
+	(36, 7, 9, 'cmt 31', 0, NULL, '2021-04-12 17:04:25', '2021-04-12 17:04:25', NULL),
+	(37, 1, 17, 'cmt', 1, NULL, '2021-04-13 20:06:43', '2021-05-03 21:32:06', NULL),
+	(38, 1, 4, 'hi', 0, NULL, '2021-04-17 17:12:35', '2021-04-17 17:12:35', NULL),
+	(39, 1, 11, 'nice', 0, NULL, '2021-04-20 11:06:55', '2021-04-20 11:06:55', NULL),
+	(40, 1, 18, 'nice', 0, NULL, '2021-04-20 18:03:17', '2021-04-20 18:03:17', NULL),
+	(41, 1, 18, 'ff', 0, NULL, '2021-04-20 18:24:45', '2021-04-20 18:24:45', NULL),
+	(42, 1, 11, 'hey hey', 0, NULL, '2021-04-21 17:33:19', '2021-04-21 17:33:19', NULL),
+	(43, 1, 18, '😃😃😃', 0, NULL, '2021-04-28 16:32:39', '2021-04-28 16:32:39', NULL),
+	(44, 1, 12, 'j hay z', 0, NULL, '2021-05-02 21:05:32', '2021-05-02 21:05:32', NULL),
+	(45, 1, 14, 'test upload image for comment', 0, '/storage/image_for_comment/e5063435-aa8f-411a-8462-3510f11fda6b172735254_453645012364061_2647792259269094266_n.jpg', '2021-05-03 09:23:16', '2021-05-03 09:23:16', NULL),
+	(46, 1, 17, 'test upload', 0, '/storage/image_for_comment/a0856604-5d83-4138-88fb-77ccd2384c38Call-me-Daddyor-else.jpg', '2021-05-03 10:08:30', '2021-05-03 21:31:13', NULL),
+	(47, 1, 18, 'test upload', 0, '/storage/image_for_comment/f6bb3392-b7f3-4878-ab23-2687eb6c2d9c1619847938000.jpg', '2021-05-03 10:16:14', '2021-05-03 10:16:14', NULL),
+	(48, 1, 18, 'test upload', 0, '/storage/image_for_comment/e1946d15-5091-4f77-bf58-efdf0204748702eb0f7422d2b8e01aee4f5692abf76a--kid-memes-funny-memes.jpg', '2021-05-03 10:25:28', '2021-05-03 10:25:28', NULL),
+	(49, 1, 18, 'test upload', 0, NULL, '2021-05-03 11:10:59', '2021-05-03 11:10:59', NULL),
+	(50, 1, 18, 'test upload', 0, NULL, '2021-05-03 11:11:19', '2021-05-03 11:11:19', NULL),
+	(51, 1, 17, 'a', 1, '/storage/image_for_comment/55e6cf4d-9997-464e-a4c3-07f5926a23fdreceived_395822148337523.jpeg', '2021-05-03 15:33:08', '2021-05-03 21:30:46', NULL),
+	(52, 1, 17, 'a', 1, '/storage/image_for_comment/7effd8a0-430f-46bb-926f-fdb38cc5ed98received_395822148337523.jpeg', '2021-05-03 15:33:12', '2021-05-03 21:29:32', NULL),
+	(53, 1, 17, 'a', 1, '/storage/image_for_comment/15d6ae66-7513-43ab-953c-ef7dfba5c3cereceived_395822148337523.jpeg', '2021-05-03 15:33:17', '2021-05-03 21:29:30', NULL),
+	(54, 1, 15, 'test hình ảnh', 0, '/storage/image_for_comment/4ed5342e-465d-41db-9104-adcc7a9e55767532857.jpg', '2021-05-03 15:35:08', '2021-05-03 15:35:08', NULL),
+	(55, 1, 15, 'test hình ảnh', 0, NULL, '2021-05-03 15:35:10', '2021-05-03 15:35:10', NULL),
+	(56, 1, 15, 'test', 0, '/storage/image_for_comment/4e675267-1409-45c9-9c6f-083355b0d2deFB_IMG_1620022781265.jpg', '2021-05-03 15:38:13', '2021-05-03 15:38:13', NULL),
+	(57, 1, 12, 'test', 0, '/storage/image_for_comment/5d73636e-1202-4555-831d-7ca1d26f5a7ereceived_320142529731007.jpeg', '2021-05-03 15:39:02', '2021-05-03 15:39:02', NULL),
+	(58, 1, 18, 'haha', 0, '/storage/image_for_comment/74bc035a-937f-453f-830e-dd0e1ffe51aereceived_320142529731007.jpeg', '2021-05-03 15:40:47', '2021-05-03 15:40:47', NULL),
+	(59, 1, 18, 'haha', 0, '/storage/image_for_comment/43d0feb9-3a35-4fd2-bf27-5add97a1333freceived_320142529731007.jpeg', '2021-05-03 15:41:13', '2021-05-03 15:41:13', NULL),
+	(60, 1, 18, 'j', 1, '/storage/image_for_comment/b616d887-7d54-48ff-9ed4-b8021b0049cb51bfcab.jpg', '2021-05-03 15:41:28', '2021-05-03 21:24:13', NULL),
+	(61, 4, 18, 'ok', 0, '/storage/image_for_comment/36713d54-802b-4abe-b5b6-2db9e7d1661ereceived_476726877111067.jpeg', '2021-05-03 15:42:38', '2021-05-03 21:32:21', NULL),
+	(62, 1, 18, 'hay', 1, '/storage/image_for_comment/95c9d617-39cd-4763-871c-7129d488c909received_215422520013161.jpeg', '2021-05-03 15:43:38', '2021-05-03 20:10:29', NULL),
+	(63, 4, 18, 'dc', 0, '/storage/image_for_comment/0e633f74-8f08-4ebf-aca6-b1c16763934502eb0f7422d2b8e01aee4f5692abf76a--kid-memes-funny-memes.jpg', '2021-05-03 15:47:52', '2021-05-05 20:09:07', NULL),
+	(64, 1, 17, 'ok', 1, '/storage/image_for_comment/4b4185b8-63f9-4abf-8dd2-33068c1e9c04received_169417195090844.jpeg', '2021-05-03 15:50:44', '2021-05-03 21:31:31', NULL),
+	(65, 1, 17, 'hi', 0, NULL, '2021-05-03 16:01:50', '2021-05-03 21:31:18', NULL),
+	(66, 1, 14, 'test upload image for comment', 0, '/storage/image_for_comment/a81f18d1-4955-462a-ba73-45af4fa5c4b0172735254_453645012364061_2647792259269094266_n.jpg', '2021-05-05 19:03:34', '2021-05-05 19:03:34', NULL),
+	(67, 1, 18, 'hay', 0, NULL, '2021-05-05 20:09:19', '2021-05-05 20:09:19', NULL);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
-
--- Dumping structure for table caycanhapi.commented_post
-CREATE TABLE IF NOT EXISTS `commented_post` (
-  `post_id` int(4) DEFAULT NULL,
-  `user_id` int(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table caycanhapi.commented_post: ~0 rows (approximately)
-/*!40000 ALTER TABLE `commented_post` DISABLE KEYS */;
-/*!40000 ALTER TABLE `commented_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.email_activate
 CREATE TABLE IF NOT EXISTS `email_activate` (
@@ -153,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `image_for_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.image_for_post: ~43 rows (approximately)
+-- Dumping data for table caycanhapi.image_for_post: ~42 rows (approximately)
 /*!40000 ALTER TABLE `image_for_post` DISABLE KEYS */;
 INSERT INTO `image_for_post` (`id`, `post_id`, `url`, `created_date`, `is_deleted`) VALUES
 	(1, 1, '/uploads/images/store/b63f0060-7024-4cd5-8bad-162a2107ed8bpjaeaec2ppq61.jpg', '0000-00-00', 0),
@@ -218,32 +234,50 @@ INSERT INTO `image_for_user` (`id`, `user_id`, `url`, `created_at`, `is_deleted`
 	(27, 1, '/storage/image_for_user/e9e8daaa-62ba-4fd3-8d32-95f3d1d07896images (1).jpeg', '0000-00-00 00:00:00', 0);
 /*!40000 ALTER TABLE `image_for_user` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.liked_comment
+CREATE TABLE IF NOT EXISTS `liked_comment` (
+  `comment_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.liked_comment: ~8 rows (approximately)
+/*!40000 ALTER TABLE `liked_comment` DISABLE KEYS */;
+INSERT INTO `liked_comment` (`comment_id`, `user_id`) VALUES
+	(1, 2),
+	(62, 1),
+	(60, 1),
+	(53, 1),
+	(52, 1),
+	(51, 1),
+	(64, 1),
+	(37, 1);
+/*!40000 ALTER TABLE `liked_comment` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.liked_post
 CREATE TABLE IF NOT EXISTS `liked_post` (
   `post_id` int(4) DEFAULT NULL,
   `user_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.liked_post: ~17 rows (approximately)
+-- Dumping data for table caycanhapi.liked_post: ~16 rows (approximately)
 /*!40000 ALTER TABLE `liked_post` DISABLE KEYS */;
 INSERT INTO `liked_post` (`post_id`, `user_id`) VALUES
 	(1, 1),
 	(10, 1),
 	(14, 1),
-	(13, 1),
 	(12, 1),
 	(7, 1),
 	(9, 1),
 	(8, 1),
 	(17, 1),
-	(15, 1),
 	(11, 1),
 	(16, 1),
 	(6, 1),
-	(18, 1),
 	(21, 1),
 	(19, 1),
-	(20, 1);
+	(20, 1),
+	(15, 1),
+	(18, 1);
 /*!40000 ALTER TABLE `liked_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.migrations
@@ -283,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table caycanhapi.oauth_access_tokens: ~115 rows (approximately)
+-- Dumping data for table caycanhapi.oauth_access_tokens: ~113 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('01012f025561d895a6a4bd117c3b51dc51af6af5da85a8540c92117aaf2567e4e5ba3b6c6da88d5c', 1, 3, 'appToken', '[]', 1, '2021-04-09 19:04:17', '2021-04-09 19:04:17', '2022-04-09 19:04:17'),
@@ -393,6 +427,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('a90d684a144c3823c89e69350bcb2b83c8d0e15865711241f600f011e3d8b0e645664d18577dfb14', 1, 3, 'appToken', '[]', 0, '2021-04-06 13:00:13', '2021-04-06 13:00:13', '2022-04-06 13:00:13'),
 	('aab1881063a2325ad239c798ea8f46566418aea8ad4a9a5d11e6c5490fd9da7cd5f87955bc88acb5', 4, 1, 'appToken', '[]', 0, '2021-03-28 04:47:43', '2021-03-28 04:47:43', '2022-03-28 04:47:43'),
 	('abbe3761fea14a09ba60e4fe9e4031952856bf79db3a5352f666605932b0f00df3e368f87ba64b93', 1, 3, 'appToken', '[]', 1, '2021-04-19 11:15:06', '2021-04-19 11:15:06', '2022-04-19 11:15:06'),
+	('aeaf745c49394ff7462cdced060d12b5043b1840445258daf7493f61c42299aeb9cd465a3fbdbf01', 1, 3, 'appToken', '[]', 0, '2021-05-03 10:35:32', '2021-05-03 10:35:32', '2022-05-03 10:35:32'),
 	('af42dd204693b580a68cb000d8854d6f7a4ada359b193fdc69dbc0886d95a56f508ee12abe75f307', NULL, 1, 'appToken', '[]', 0, '2021-04-03 12:43:29', '2021-04-03 12:43:29', '2022-04-03 12:43:29'),
 	('b83a303aaeb651ef1d9769c6f3407e2fe95e3b0cbb86d0b5a11cbdb62b48e7689e5092b39aa7fdcb', 1, 1, 'appToken', '[]', 0, '2021-03-29 13:28:49', '2021-03-29 13:28:49', '2022-03-29 13:28:49'),
 	('b8404898990029aa1b67c9b9e37cdc84f9c9259806159821504a288f251baa95a1bd584bb42f5a54', 3, 1, 'appToken', '[]', 0, '2021-04-03 13:19:57', '2021-04-03 13:19:57', '2022-04-03 13:19:57'),
@@ -413,13 +448,16 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('e0d36e85386709e37d315346d93e6dd5a295b6983eaa4a5d7303ae34c6237a827028a79a60df2e1a', 4, 1, 'appToken', '[]', 0, '2021-03-27 09:45:59', '2021-03-27 09:45:59', '2022-03-27 09:45:59'),
 	('e0e2bb7199dacd872c172e3c74f6133bacf2816da4ae26311736bfd92bc846fcc82215a4ae14a424', 4, 1, 'appToken', '[]', 0, '2021-03-23 12:23:35', '2021-03-23 12:23:35', '2022-03-23 12:23:35'),
 	('e10a6f14be2f83e614b57330e04c850cf22c86597d6aa00cffcd376ba79b6161a5c6d841d3035493', NULL, 3, 'appToken', '[]', 0, '2021-04-12 17:03:22', '2021-04-12 17:03:22', '2022-04-12 17:03:22'),
+	('e4245ee1cbce03b3c084af69347e363ab5fada9ed4dcc9eb79ee93cc470a5687dc52c36ee1ee7f5c', 1, 3, 'appToken', '[]', 0, '2021-05-01 15:57:17', '2021-05-01 15:57:17', '2022-05-01 15:57:17'),
+	('e717dbd20e484372dd0b7b80dc6b02a2d225ed2cf01c583ec0e3c5faed8373541fcd7950cee0b9f3', 1, 3, 'appToken', '[]', 0, '2021-04-29 07:52:19', '2021-04-29 07:52:19', '2022-04-29 07:52:19'),
 	('e74f9d7aa7f6d3a2fc820fc038dd0e3e817ae38a4e60c31b94a47b28dcded80d1bd3a7f981041747', 4, 1, 'appToken', '[]', 0, '2021-03-27 10:18:14', '2021-03-27 10:18:14', '2022-03-27 10:18:14'),
 	('e7f8f713a8f8490aea2159d0e68aa25a28af2123e63dda6731e5cf84409cacb850c07ae021ff32e3', NULL, 1, 'appToken', '[]', 0, '2021-04-03 13:11:33', '2021-04-03 13:11:33', '2022-04-03 13:11:33'),
 	('eaa30c76d8e193bf1e3b22842f9efedb4301ff337b40ee464f61ac5fd55b3b27cedd7f335c2efa56', 4, 1, 'appToken', '[]', 0, '2021-03-27 10:22:46', '2021-03-27 10:22:46', '2022-03-27 10:22:46'),
 	('ebd6e98afedef79f40e55a09e2984e04527d0511cd6e3e9ddebf05237f1aa0b72faa746c87a975e9', 4, 1, 'appToken', '[]', 0, '2021-03-22 13:28:23', '2021-03-22 13:28:23', '2022-03-22 13:28:23'),
 	('f69a100fafba06c878b04e2616d7d6088b50279b4dc2fc8a2ba62167e61ce662451539094a136d62', 4, 3, 'appToken', '[]', 1, '2021-04-09 10:39:44', '2021-04-09 10:39:44', '2022-04-09 10:39:44'),
 	('f8eaa3bc5d74f3b80b3416efc9b6b050c13d438a8683351a034c91f254b78c6a7f35ed82a313cbeb', 1, 3, 'appToken', '[]', 0, '2021-04-07 11:39:08', '2021-04-07 11:39:08', '2022-04-07 11:39:08'),
-	('f998df865d8b085a8d7e61680fbd5cb7ebfa0c1fb4efe640e0048ac415c24cab5e6a8bf020108e02', 1, 3, 'appToken', '[]', 1, '2021-04-08 08:29:50', '2021-04-08 08:29:50', '2022-04-08 08:29:50');
+	('f998df865d8b085a8d7e61680fbd5cb7ebfa0c1fb4efe640e0048ac415c24cab5e6a8bf020108e02', 1, 3, 'appToken', '[]', 1, '2021-04-08 08:29:50', '2021-04-08 08:29:50', '2022-04-08 08:29:50'),
+	('fd93aaa9e806f846e1020686014ae3c76fc19fd50acee4439ff3bb2b149c234342b3645edd1061d4', 1, 3, 'appToken', '[]', 0, '2021-04-28 16:25:42', '2021-04-28 16:25:42', '2022-04-28 16:25:42');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.oauth_auth_codes
@@ -518,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post: ~21 rows (approximately)
+-- Dumping data for table caycanhapi.post: ~18 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `deleted_at`, `updated_at`) VALUES
 	(1, 'abccc', 'Sometimes you may wish to retrieve the first result of a query or perform some other action if no results are found. The firstOr method will return the first result matching the query or, if no results are found, execute the given closure. The value returned by the closure will be considered the result of the firstOr method', '2021-04-06 00:00:00', 1, 4, NULL, '2021-04-22'),
@@ -533,12 +571,12 @@ INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `
 	(10, 'bài post 8', 'When issuing a mass update via Eloquent, the saving, saved, updating, and updated model events will not be fired for the updated models. This is because the models are never actually retrieved when issuing a mass update.', '2021-04-09 09:42:09', 1, 1, NULL, '2021-04-09'),
 	(11, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'bbbbbb', '2021-04-10 08:37:11', 1, 1, NULL, '2021-04-21'),
 	(12, 'bài post 10', 'The wasChanged method determines if any attributes were changed when the model was last saved within the current request cycle. If needed, you may pass an attribute name to see if a particular attribute was changed:', '2021-04-10 08:46:16', 1, 1, NULL, '2021-04-13'),
-	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 1, 4, NULL, '2021-04-13'),
+	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 0, 4, NULL, '2021-05-01'),
 	(14, 'bài post 12', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-10 08:47:53', 1, 4, NULL, '2021-04-12'),
-	(15, 'bài post 13', 'vvv', '2021-04-10 08:49:04', 1, 1, NULL, '2021-04-18'),
-	(16, 'bài post 14', 'vvv', '2021-04-10 08:49:27', 1, 1, NULL, '2021-04-19'),
+	(15, 'bài post 13', 'vvv', '2021-04-10 08:49:04', 1, 1, NULL, '2021-04-27'),
+	(16, 'bài post 14', 'vvv', '2021-04-10 08:49:27', 1, 1, '2021-05-01 21:29:35', '2021-05-01'),
 	(17, 'bài post 15', 'Well depends on what you look for.\nThere are facts in history. We have overlapping sources that confirms that a certain person existed, a certain event took a place, a certain thing was caused by the other, a certain object was in use in a certain way. It\'s just true.\nNow, then we have a thing without enough overlapping sources, mostly covered by something that someone wrote or depicted in other way. With this we have to take in account if that\'s a first-hand relation and if the person could have an agenda in writing less accurately. On this basis we say something probably took place, or could have, or that someone depicted such thing... Just levels of likeness. We know it\'s not really surely true.\nThen we have less clear sources - just mentions of things without further descriptions, pictures, objects, archaeological sites... Those are interpreted. They don\'t lie on purpose, but we only can rely on of what we currently know is most likely. This can be changed with new findings.', '2021-04-10 08:51:57', 1, 1, NULL, '2021-04-21'),
-	(18, 'bài post 16', 'In the TextFormField validator function you must return null, it indicates the field has correct value and there are no errors. Returning anything other than null will indicate that the field has an invalid value, i\'ve shared the corrected code of the validator function.', '2021-04-10 08:53:23', 1, 1, NULL, '2021-04-22'),
+	(18, 'bài post 16', 'In the TextFormField validator function you must return null, it indicates the field has correct value and there are no errors. Returning anything other than null will indicate that the field has an invalid value, i\'ve shared the corrected code of the validator function.', '2021-04-10 08:53:23', 1, 1, NULL, '2021-05-03'),
 	(19, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:07:08', 1, 1, '2021-04-22 17:14:58', '2021-04-22'),
 	(20, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:08:03', 1, 1, '2021-04-22 17:14:40', '2021-04-22'),
 	(21, 'abc', 'zyz', '2021-04-22 11:09:00', 1, 1, '2021-04-22 17:12:01', '2021-04-22');
@@ -550,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `post_tag` (
   `tag_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post_tag: ~132 rows (approximately)
+-- Dumping data for table caycanhapi.post_tag: ~118 rows (approximately)
 /*!40000 ALTER TABLE `post_tag` DISABLE KEYS */;
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(1, 1),
@@ -694,10 +732,14 @@ CREATE TABLE IF NOT EXISTS `role` (
   `created_date` date NOT NULL DEFAULT '0000-00-00',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table caycanhapi.role: ~0 rows (approximately)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` (`id`, `name`, `created_date`, `is_deleted`) VALUES
+	(1, 'user', '0000-00-00', 0),
+	(2, 'expert', '0000-00-00', 0),
+	(3, 'admin', '0000-00-00', 0);
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.saved_post
@@ -709,7 +751,6 @@ CREATE TABLE IF NOT EXISTS `saved_post` (
 -- Dumping data for table caycanhapi.saved_post: ~5 rows (approximately)
 /*!40000 ALTER TABLE `saved_post` DISABLE KEYS */;
 INSERT INTO `saved_post` (`post_id`, `user_id`) VALUES
-	(18, 1),
 	(17, 1),
 	(14, 1),
 	(21, 1),
@@ -721,34 +762,72 @@ CREATE TABLE IF NOT EXISTS `server_plant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `common_name` varchar(50) NOT NULL DEFAULT '',
   `scientific_name` varchar(50) DEFAULT NULL,
-  `image_url` varchar(50) DEFAULT NULL,
+  `image_url` varchar(800) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `pet_friendly` tinyint(4) DEFAULT '0',
-  `difficulty` int(11) DEFAULT '0',
-  `water_level` int(11) DEFAULT '0',
-  `information` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `sunlight` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `feed_information` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `difficulty` int(11) DEFAULT '1',
+  `water_level` int(11) DEFAULT '1',
+  `information` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sunlight` int(11) DEFAULT NULL,
+  `feed_information` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `common_issue` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `min_temperature` double DEFAULT NULL,
-  `max_temperature` double DEFAULT NULL,
+  `min_temperature` double(22,0) DEFAULT '1',
+  `max_temperature` double(22,0) DEFAULT '1',
   `min_ph` double DEFAULT NULL,
   `max_ph` double DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
+  `accepted` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.server_plant: ~0 rows (approximately)
+-- Dumping data for table caycanhapi.server_plant: ~12 rows (approximately)
 /*!40000 ALTER TABLE `server_plant` DISABLE KEYS */;
-INSERT INTO `server_plant` (`id`, `common_name`, `scientific_name`, `image_url`, `pet_friendly`, `difficulty`, `water_level`, `information`, `sunlight`, `feed_information`, `common_issue`, `min_temperature`, `max_temperature`, `min_ph`, `max_ph`, `deleted_at`, `updated_at`, `created_at`) VALUES
-	(26, '5fIZqiMKYF', 'h3L6OfkevT', '/storage/image_for_server_plant/1.png', 0, 2, 0, 'OBicLTexoNDJVFeHoy8BZy4fESZRzeAj5HALkSSAPGLICY6DXFkSxmgaLKPcWH8rrucyiZYJ7i77GXRhCajY1gbnPTSQ2mLECAXN', 'T0tBiI1cwFQm6WAdviyqEgYDVIbKiuduhXTqVMM8fp2W8nUkXlfFdSesm8YolR7Qdaacv1p7i89UohRpQCJalXUmMGZsCFK98hv9', 'Mc0U7yskZj9RfpLARfPTYMxlIOPTN9uaf0mPi3qDutUTYNxOi0gmQoPQC3Plirt3uffEWzAfU95SDwvxeL4iGEwJow1q7N3ADNmh', 'y4oozr4FO3kbsBsqO5AGuwDHlqShRP6FedqORZet2MIZsnUEHSRMA05Z4NnE8V6Pm7YpxyuB3ffe49Mn4fEZEajCQQpsD3b0pElW', 21, 31, 5.8, 6.1, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26'),
-	(27, 'cây nha đam', 'aloe vera', '/storage/image_for_server_plant/2.png', 1, 2, 4, 'XFbsg1wkCFBpAo275zEBxD5ANBmnbFweyTmlfKnAHXkCCZPv0lY8audQBoSDKPUVXKQBRjvqRmtM3gLs8AiKv61iDgzH6rlRJ17F', 'MlGnbSAH0HvOHS8U30QGoOXaTQRZD4kz3qE64IuruEvLkYydRwnd4aE25Q2RzAtAXvfZCAkp086Gdw2xzS0Tcumg42e9vZRNw6qT', 'fUfTSiGzBDbITJg1XlYqS4ZWgXKBxS3BsZJORPks8uJjbOZ0Fk159YDyYB5EXHW0iyIr4QnvCjWdiJzYLAjbWZ51dYErZrA9CRf3', '7I1rc7grBQhJ0Ot5RXh030Ai3AyCKk17j0ddvJKfbr3qw4Q6WQPBqCqniWs4cLItX0SqihgB3s32QFXYY0CCGkakjkcrgOj2lDVo', 20, 30, 5.6, 6.7, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26'),
-	(28, 'WMKlcTswm1', 'ek4viwpTe0', '/storage/image_for_server_plant/3.png', 0, 0, 0, 'SXVMWyEoVyvIh58ELeVOmEv7yuZ9X6XyiFQOOYn4HFxLA8362Rx93ubXpggEw1TMmaJODWkuPLCocI3YJMh2Vqd9Z2eEOU0Md0lk', '2RNpSqLGXg9NcjJGp43N2gtlRgSz38foJpFg5K5YLwTJPsrZBkHa2ryhSO6AXZojw9VRlA3QY0tUz9UoDrWXPXB4Acq71fOKrLn3', '7uSEj99YkuY2P8hugVLsotyEdbzeDHj91oBFdiO3XSM4W6JJfRz5oQwgHA3pyxXJC76GuhIBxMR182F3IYBeVSjet5RYrstX3ksN', 'KSAXZDZtvQAkyLPVzsHW922Df7GjqGnEo6MBIc3haVLMI0Os2NgjGiQedRSPAGheB1ahbBvvZo3YFGqj05zChxvUAtWGd0MzZ2vu', 20, 30, 5.3, 6.8, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26'),
-	(29, 'coA1Ih1D7j', '90MO3mbuG0', '/storage/image_for_server_plant/4.png', 1, 2, 3, 'PvPmMHIUrnpwStikbgmrF6F9c30dHh84NOyQYoEFS1y2ioV28YD1d1eSZl1zU592FPRPz8LFDtkWhQy9lQ9TWgTwAZTlXN0cl9Kn', 'jV33oH4kU7TR8TN2lqbj7IZ8OZXeopVT8frrWGdTKCATwxVGihBU5ll2WlvGOHJLnChHXjFqiZ546mhApTNZNBWV0wY6bLOykLPf', 'oXENGkIzpLemHTWJsL85eA2GfLPpeB2Zspm6D4KZ8sCeTjvrXnx6AuWbkQyVrAndBhnwtNnLiqFtDIJLhEQZVQgZuFJwEbTZgftq', '7022bhmF2c2q2CFsVXG38WEkYQpbfg5PJmL2M3RIDCF8Ks1b7cjdq7oli5LHPotBViss8gKfsCPnRrpqdUOuOMb3FGVOsHdLJC4n', 22, 33, 5.5, 6.7, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26'),
-	(30, 'tQqYiI6vHp', '0gBCy7h812', '/storage/image_for_server_plant/5.png', 1, 3, 5, 'Ys1l5TDDLsF9onxPiYzNUN320zU8CnQW2X34D6sHZbh5ydjJlb5PtD8XONLH4aHKZiyYJWsOnBKjWusEMfehe1CEr8lkhN2RSt53', 'AesaedQWNzCYspdqjmwuLyvYHJlNpRxjE1n7BI3xOCcWDaj5RIl3rXCLLWo5KKWxtLg42wIzM3bhZFcdgl9NIC6PqgDI8LCL1gVT', 'sZOejzkxzSknJSfncJat0HNzTnVROBKhVR0Lo4UKSVYMqBFC9P3iv5DhuKin4WjpmQx1zlnElalVCza2Lzwh9b9jzScwzckXbeL6', 'mFFmP93BKO3tuhXNqptW2uEXyTmPjVkSJUI4Mc4JstJwoGxCTNhV9o5D3mHbbny3PeVXAqDM8UcgD5S1SUI9ZZfkyXu8xXIOdyp7', 21, 32, 5.9, 7, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26'),
-	(31, 'mH3tEHarkV', 'gGdFP6oPZT', '/storage/image_for_server_plant/6.png', 0, 2, 0, 'ALjTg725CHR8MX1vUGpaHfW5TeRq512g89kR42t9DmpdNsjtUpHm0zY1muWczHlOP4iRXVYMMXKSNGnU8CxrcTl2xUfQQDlO40Zc', 'wBqjvZzdxtbOWJi3HT7sW0wkBalgYXR8DkhD35DJUOymyu8jJJe6WSEbjrAmR84xvNfd1Y67xxvaCQKDGhsvJgpsQtfBYUKEAFIn', '6lDNnUqvpNUM5ZjqVNMgDDC0oQCmdsooyv0xwaozZBJlTr6qXTQGpQ0sn5BEHkOdxMCjBLhg82fz8z4MginqO3CxU4Nhqn5Rj0OZ', 'YFBBfDyyxBIBenMnB2ZiC7s6yKK11jl4sg0pIbMuLEayO3Ngyrzw177x0V7rbGENhJndE9Pf0z6rsSfrc6vF2B7iorLU7yyqd6by', 22, 30, 5.4, 6.4, NULL, '2021-04-26 20:20:26', '2021-04-26 20:20:26');
+INSERT INTO `server_plant` (`id`, `common_name`, `scientific_name`, `image_url`, `pet_friendly`, `difficulty`, `water_level`, `information`, `sunlight`, `feed_information`, `common_issue`, `min_temperature`, `max_temperature`, `min_ph`, `max_ph`, `deleted_at`, `updated_at`, `created_at`, `accepted`) VALUES
+	(44, 'cây xương rồng', 'various Cactaceae', '/storage/image_for_server_plant/1.png', 1, 2, 4, 'Họ Xương rồng (danh pháp khoa học: Cactaceae) thường là các loài cây mọng nước hai lá mầm và có hoa. Họ Cactaceae có từ 25 đến 220 chi, tùy theo nguồn (90 chi phổ biến nhất), trong đó có từ 1.500 đến 1.800 loài. Những cây xương rồng được biết đến như là có nguồn gốc từ châu Mỹ, nhất là ở những vùng sa mạc. Cũng có một số loại biểu sinh trong rừng nhiệt đới, những loại đó mọc trên những cành cây, vì ở đó mưa rơi xuống đất nhanh, cho nên ở đó thường xuyên bị khô. Cây xương rồng có gai và thân để chứa nước dự trữ.', 1, 'lil3CblFDW26pVTU7MakVddxcE2RbDWIscaBwzywvHNeTgKrv8OAn748QoDDsPE73bN1frelMtdHmOZNOZtDALnGctRlDYT7d4DN', '2yeAfelsiNe83GBOfEijj4SCBts23AaJ0c4SXBMj9a0UuflS4cWSXzWnxIPAWiJEZMQ6qqUOh4liMUN0IfDeqBVxp4NwyhDdjzCX', 22, 31, 5.3, 6.5, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(45, 'cây nha đam', 'aloe barbadensis miller', '/storage/image_for_server_plant/2.png', 0, 1, 1, 'Có nguồn gốc từ Bắc Phi. Theo truyền thuyết Ai Cập thì nữ hoàng Cléopâtre đã sử dụng nha đam để tạo ra một làn da mịn màng, tươi tắn. Còn đại đế Hy Lạp Alexandros đã dùng nha đam để chữa vết thương cho binh lính của mình trong những cuộc viễn chinh. Những dòng chữ tượng hình và những hình vẽ còn lưu lại trên những bức tường ở những đền đài Ai Cập cho thấy cây nha đam đã được biết đến và sử dụng cách đây hơn 3000 năm. Cho đến tận ngày hôm nay con người đã chứng minh và khẳng định được vai trò của cây nha đam trong cuộc sống con người. Cụ thể hơn là trong lĩnh vực dược phẩm, thực phẩm và mỹ phẩm.', 2, 'rP1GoMmPBLSzj0d32YUFqXKFhnE8WT6U6e5VJnXu8ijBAJMpVo7uyH1ok5EzKyMZRQg5jSWOfg67CRMnQQ1n7iGj2TLPIlFn6OrU', 'RbrAR7hboe5iFpFgXrT8outmUxE39nEYc6CS3TAytsJNPtwxclUQaOw4LuAQ5HtJyl8P5nGEOo9HxRbGdEVH9RJ2t99AnaLcHMyG', 21, 33, 5.1, 6.8, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(46, 'HupVYkPcSc', 'ybSdXlYr3b', '/storage/image_for_server_plant/3.png', 1, 2, 4, '2Osd3mSN8Tbvz1dAasCDEAQCvOkNiFwNkRnsmDITKOcCfcuhbHI8DrD4vtVba9E9geqdkEaGtLnHrssGbqvp1vtBqqftzLQkrCoy', 2, 'OMJXT50HMTbxuiBweYeXAJUpnykDD6aWPvdI499vstA5VjqvpE0p3TQm60DTUtUIqJkVVUQ3nQhYOHsHoeVhAQFRU5ACiKxTri0Q', 'NSzCJ7y9hnsSg7mWTSvtPyxpzIJ2BLipntCcI4HwLXiXBpZTTihEYVLLInQAIzYAbQnRuMbMOVsl4f4ZO4i8OYhR2i0RWi2O4bRq', 20, 33, 5.7, 6.3, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(47, 'MYl9m44ciP', '6sLy2fKidM', '/storage/image_for_server_plant/4.png', 0, 2, 3, 'STuAiZxJ4KUVNhqJVBAU9s1q6PlfuPUYCCH1oaM1NQeE8zPHa9d0TBjjX9cOLqGO20KnSzYlJsFpRIgVlIcjIYjOtzhoO21Ejyid', 3, 'AWEOOmox9ISb3dzgMo7L1Xd2RyiqnmtGh2DIwe8wlmEoqPOq01t4rxZzHSCHXulwLxrY2lqCEMPz8QvkB9vUbPbRbzdi1qI4vsXN', 'KNeGNmKvVWX6VdIz4MRGJyI7ThZfhcxB90KQE2Op9k2xb9OPFaOlA1CLM06oZo5l9yGS8AesjLdL0jOnQHgQXZ8bJf9Rv3ffdeQt', 21, 30, 5.2, 6.1, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(48, 'cây đa búp đỏ', 'ficus elastica', '/storage/image_for_server_plant/5.png', 1, 5, 3, 'Đa búp đỏ hay còn gọi là đa cao su, đa dai (danh pháp hai phần: Ficus elastica) là một loài thực vật có hoa trong chi Đa đề (Ficus), có nguồn gốc ở vùng đông bắc Ấn Độ (Assam), kéo dài về phía nam tới Indonesia (Sumatra và Java).\r\n\r\nNó là loài cây thân gỗ lớn trong nhóm đa đề, có thể cao tới 30–40 m (ít khi thấy cao tới 60 m), với đường kính thân cây tới 2 m, với thân cây phát triển ra từ các rễ khí và rễ trụ để giữ chặt nó vào trong đất và giữ các cành to và nặng. Các lá của nó hình ôvan, bóng mặt, dài khoảng 10–35 cm và rộng 5–15 cm; kích thước lá lớn nhất có ở các cây non (đôi khi dài tới 45 cm), nhưng nhỏ hơn nhiều ở các cây già (thông thường khoảng 10 cm dài). Các lá phát triển ở bên trong một vỏ bọc tại mô phân sinh ở ngọn, gọi là búp đa, và nó sẽ phát triển lớn hơn khi lá mới được phát triển. Khi lá phát triển, nó mở ra và vỏ bọc rụng xuống. Bên trong của lá mới thì một lá non khác đang chờ để được phát triển.\r\n\r\nGiống như các thành viên khác của chi Ficus, hoa của đa búp đỏ cần phải có các loài ong đa đề (họ Agaonidae) chuyên biệt để thụ phấn trong quan hệ đồng tiến hóa. Do mối quan hệ này, đa búp đỏ không sản sinh ra các hoa nhiều màu sắc hay có hương thơm để dẫn dụ các loài côn trùng thụ phấn cho nó. Quả hình ôvan, nhỏ, màu lục-vàng, dài khoảng 1 cm, ăn được nhưng ít khi ăn; nó chứa các hạt và trong đó thì các ấu trùng của loài ong bắp cày thụ phấn cho đa đề có mặt.', 4, 'NratyOGBBIIykYHubvtwdE0WAGHRewy19IWfZZcW7SQMH6dvI85eVCEgRqAnRfNHKxQ61q3HRleM4A0Uemo3giboSei1CPPSQUqk', 'S77pQj40nioDt0Hl1425zCmZJNOk4IPwxBjRW2NUrZcDfuYLtuOVSSWUScrpMHmnAPEzPdHsgVRfC1mNSxO4dc8yUKvLFEAUtRrJ', 22, 30, 5.5, 6.9, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(49, 'CGoV382UK3', 'VILSriNCnN', '/storage/image_for_server_plant/6.png', 1, 3, 4, 'R2DkXxzs32tPYuFIrrVmsYPStrM7xxyhzJ1OgpqD0EAq3dR9tfC50xWwNFpmmjMiSMzy0LZSvT5goWiBZdiIVkMWO1WX7QKq0ET0', 5, 'wVALETb1W7Ry6ahZnatYY0UXlOfyBNM64CdaF9XaJw8zxlb2fpZJSLcYF8Mp1k3juycAFgxZga2onY1PyTFG30EpbqIhOT53AJ2K', 'cU4psIRoBCvWXxC15zdDpRBYq5r1MuwZVTDIN1m5TLT8RXQ1d0XQ16nvH14v1UMzanIJPin2OJG9OW6OG86gWX8mpVDNvHPWNwyn', 21, 32, 5.5, 7, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(50, 'pJYeiOeEaW', 'Dsj7JF8HEp', '/storage/image_for_server_plant/7.png', 1, 1, 1, 'JCCIO71TtvYW1reOylWEKcHhwh5I1EUBVjGRP23Rw4n2Iu5uymbKlF7I8YbGOHqSCkBejI0wAiqVFIlGbJnR28R21130KwR55dI2', 3, 'grfgRmzNAoCoJVw11iNAWgL0J50h2PDG4odm5Npm6xFJOZN7tkugDicXe7Is2U9RbeQ82v8kIMk7S2i1vhKUBFvBJxlkr4bLAL1V', 'JPJyzIjoTZJ5SeC1bHHtyq29gbBVJpuAfEnHpOJFa7wsyqsEBkqTfGpx0dbpI9OZoCBz04TJkdeL5iJm4NKRwhuR0EQ5RnhtdKwa', 21, 30, 5.4, 6.1, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(51, 'cây chuỗi ngọc trai', 'curio rowleyanus', '/storage/image_for_server_plant/8.png', 0, 0, 2, 'Chuỗi ngọc hay được biết đến là cây thanh quan, cây rìa xanh, cây chuỗi vàng, có tên khoa học là Duranta repens thuộc họ cỏ roi ngựa (Verbenaceae). Chuỗi ngọc là cây có khả năng sinh trưởng và phát triển nhanh (có thể cao từ 0.2 – 3m) thường được sử dụng trồng làm cây công trình như: ở công viên, vỉa hè, khu đô thị,…\r\nChuỗi ngọc là loài cây cảnh thường sống theo bụi, có nguồn gốc từ Tây Ấn và Nam Mỹ. Cây có kích thước nhỏ, lá hình bầu dục dài từ 2 – 5cm, lá mọc đối xứng nhau hoặc vòng 3 lá, lá cây thường có màu vàng óng khi non và xanh nhẵn khi về già. Vì là cây phát triển nhanh nên để kìm hãm cây mọc thì người ta có thể cắt tỉa bớt cành lá của cây hoặc tạo hòn non bộ với dáng khác nhau.', 4, '5zk5zHIyorOlbZv8lZyL1ZagBZblbt3EwbifJdD2Qxe2kqyPLQeLrD3tsXEyNNS3R6gf5wyejZcPiA2NAkDbRMLxPYN5fESaMBg8', 'DJFHQw8xQT46HYKj99LiWAwVpmAPH6JadCEo1JeNCv1WJujyDAMgSYKi8gnuRCaRarG9QhMPjLpI8CilPTjrgFvqsLeScsGQruah', 21, 31, 5.1, 6.9, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(52, 'QAKGDuMN7y', 'HXH8H5zU6S', '/storage/image_for_server_plant/9.png', 0, 5, 2, 'R9iykHyS5H52fmPD7hlofPxYHJr2BiWd52uu2i14K4UYJD8jRwnFvDqdDf8pPGHXJ23h6LaMslf1eQbxejeixtFWk5efv3M8MTwK', 1, 'g8yOPYGZ0bfu7RK07wOhCjueHLHlFIMgz0ceIHDVQR6MxKfGSNWJQUFOVECIytC4IECZC7Uhx9PQVXVH23x8uXJFjJWahFgN31NB', 'Vu0lO6Th3UQiJGaYYLWzzpTmC2tjTyvKd20k0Ufh5Z5ZIFdKJDCwEoQiypERCOOmSrjgPldkYd3E1O7xIlOIR5v39Nubv4y7n5Rg', 20, 33, 5.4, 6, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(53, 'trầu bà Nam Mỹ', 'monstera', '/storage/image_for_server_plant/10.png', 0, 5, 2, 'TtTMuwwCzLeW34GDjmCGnwfONAUAsI3vhas52vREJ2KJZJpF5juLh1a9hlxW6F8mD1MlDQUuoZ7fMQOk8eUywnOgagPcR8tcnwed', 4, 'gVpzTAf4XNMJE3HUuQ2R3NmUfuJ07PiLWd49xBnBEkpUOR4Y9LrENm5M1RY84Hfrir6BSijgjvGsQtNZEUMGfBJs0uPCjCcPdeiM', '9Qzvb7kbN3n0nW5uYiJN6jS8UvNRGRwEARghCwoC5fEUcxET7hJVYLV9H7LFfgmYoXuN90Zngr0FxTQWfChiGzhlnK9kG9rqs1Fw', 20, 32, 5.5, 6.5, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(54, 'MfER8R350F', 'IVGjM98dOh', '/storage/image_for_server_plant/11.png', 0, 5, 1, 'my3Tc28Ckk6xgBcQeJVDDCFhFq4xbXcTXLkbBHomqoiqmHaSTBqRpSrxLNtvd6289VWreWuVirIdt7EzJfaBrNLKaxVH6Lyk3tcR', 3, 'wc4aqlUxjo2FXJOeVZmNQZpw7y3VlMT8NE5w6C03L5haokoc95RF57DGXeYstF8KGdCDYMcPNfBrJyhQICwzAty0HYlIkJ7cB8if', '0LcSBltfhq3OGHm0Zgerfk4gJuH7GzxYf8W3tOroTnvABRBQVQrosN9xCJDJMvvqpuNuPPlDrGfpiiA1omBYuUNB1NS4anRPjBo5', 22, 32, 5.4, 6.3, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 1),
+	(55, 'y1y2IQqeBy', 'zWRkMDW6nh', '/storage/image_for_server_plant/12.png', 0, 5, 5, 'j5AV01Ag3EClKy0pTwFmhlHzYhe5YI8IlCM3d9MGXSNO3SROKmxNujbYWJTWzTD5B4DtsvDa3sNVJM5WNsQ8NJQrib0z8Gpdubl6', 2, 'LoUBQcGIAzfruZ1kXcXuGK2bLhFXoLNCt0da3GDtBROA29RGllmBugNISHHkQqWNhGSPBRnNyZJUNN4GRkNo6cW1JgNx8xSHmm6s', 'gOqMPmAPepyze00Zse0fxJvOoi9UCpQ12cm8MWUgjVYy2xNJJ1YSyV3MTYPFNI2yckt8ySjlGEVJfkVGpRjJDsu3XGreFkGYSd5G', 21, 29, 5.2, 7, NULL, '2021-04-27 09:55:28', '2021-04-27 09:55:28', 0);
 /*!40000 ALTER TABLE `server_plant` ENABLE KEYS */;
+
+-- Dumping structure for table caycanhapi.server_plant_user_edit
+CREATE TABLE IF NOT EXISTS `server_plant_user_edit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `server_plant_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `common_name` varchar(50) NOT NULL DEFAULT '',
+  `scientific_name` varchar(50) DEFAULT NULL,
+  `pet_friendly` tinyint(4) DEFAULT '0',
+  `difficulty` int(11) DEFAULT '1',
+  `water_level` int(11) DEFAULT '1',
+  `information` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sunlight` int(11) DEFAULT NULL,
+  `feed_information` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `common_issue` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `min_temperature` double(22,0) DEFAULT '1',
+  `max_temperature` double(22,0) DEFAULT '1',
+  `min_ph` double DEFAULT NULL,
+  `max_ph` double DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `accepted` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.server_plant_user_edit: ~0 rows (approximately)
+/*!40000 ALTER TABLE `server_plant_user_edit` DISABLE KEYS */;
+INSERT INTO `server_plant_user_edit` (`id`, `server_plant_id`, `user_id`, `common_name`, `scientific_name`, `pet_friendly`, `difficulty`, `water_level`, `information`, `sunlight`, `feed_information`, `common_issue`, `min_temperature`, `max_temperature`, `min_ph`, `max_ph`, `deleted_at`, `updated_at`, `created_at`, `accepted`) VALUES
+	(66, 44, 1, 'cây xương rồng', 'various Cactaceae', 1, 1, 4, 'Họ Xương rồng (danh pháp khoa học: Cactaceae) thường là các loài cây mọng nước hai lá mầm và có hoa. Họ Cactaceae có từ 25 đến 220 chi, tùy theo nguồn (90 chi phổ biến nhất), trong đó có từ 1.500 đến 1.800 loài. Những cây xương rồng được biết đến như là có nguồn gốc từ châu Mỹ, nhất là ở những vùng sa mạc. Cũng có một số loại biểu sinh trong rừng nhiệt đới, những loại đó mọc trên những cành cây, vì ở đó mưa rơi xuống đất nhanh, cho nên ở đó thường xuyên bị khô. Cây xương rồng có gai và thân để chứa nước dự trữ.', 1, 'lil3CblFDW26pVTU7MakVddxcE2RbDWIscaBwzywvHNeTgKrv8OAn748QoDDsPE73bN1frelMtdHmOZNOZtDALnGctRlDYT7d4DN', '2yeAfelsiNe83GBOfEijj4SCBts23AaJ0c4SXBMj9a0UuflS4cWSXzWnxIPAWiJEZMQ6qqUOh4liMUN0IfDeqBVxp4NwyhDdjzCX', 31, 22, NULL, NULL, NULL, '2021-04-30 15:26:33', '2021-04-30 15:26:33', 0);
+/*!40000 ALTER TABLE `server_plant_user_edit` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.tag
 CREATE TABLE IF NOT EXISTS `tag` (
@@ -816,7 +895,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
   `bio` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `role_id` int(11) NOT NULL DEFAULT '0',
+  `role_id` int(11) NOT NULL DEFAULT '1',
   `is_deleted` tinyint(4) DEFAULT '0',
   `name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_ai_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -830,11 +909,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table caycanhapi.user: ~5 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `bio`, `role_id`, `is_deleted`, `name`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'chronicle11109', 'chronicle1951@gmail.com', '$2y$10$hbysJrQYpZhOTzNT6JffcuAoyZDnzz2NdnDpYvwq7AePlY8U.BtCu', 'Welcome to my feed, where people come for enjoyment.', 0, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-03-31 14:55:40', '2021-04-17 15:50:23', NULL),
-	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 0, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-04-08 08:28:07', NULL),
-	(5, 'z', 'dangkhoa@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', ' I’m not ashamed to be me. What’s wrong with being amazingly unique?', 0, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-04-11 16:46:45', '2021-04-11 16:46:46', NULL),
-	(6, 'plantcare', 'plantcare@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I’m writing my autobiography on my Facebook account.', 0, 0, 'Plant Care', NULL, NULL, '2021-04-11 16:47:30', '2021-04-11 16:47:31', NULL),
-	(7, 'chronicle1111', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 0, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL);
+	(1, 'chronicle11109', 'chronicle1951@gmail.com', '$2y$10$hbysJrQYpZhOTzNT6JffcuAoyZDnzz2NdnDpYvwq7AePlY8U.BtCu', 'Welcome to my feed, where people come for enjoyment.', 2, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-03-31 14:55:40', '2021-04-17 15:50:23', NULL),
+	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 1, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-04-08 08:28:07', NULL),
+	(5, 'z', 'dangkhoa@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', ' I’m not ashamed to be me. What’s wrong with being amazingly unique?', 1, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-04-11 16:46:45', '2021-04-11 16:46:46', NULL),
+	(6, 'plantcare', 'plantcare@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I’m writing my autobiography on my Facebook account.', 1, 0, 'Plant Care', NULL, NULL, '2021-04-11 16:47:30', '2021-04-11 16:47:31', NULL),
+	(7, 'chronicle1111', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 1, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.user_follow_user
@@ -843,7 +922,7 @@ CREATE TABLE IF NOT EXISTS `user_follow_user` (
   `follower_user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.user_follow_user: ~6 rows (approximately)
+-- Dumping data for table caycanhapi.user_follow_user: ~5 rows (approximately)
 /*!40000 ALTER TABLE `user_follow_user` DISABLE KEYS */;
 INSERT INTO `user_follow_user` (`user_id`, `follower_user_id`) VALUES
 	(1, 4),
