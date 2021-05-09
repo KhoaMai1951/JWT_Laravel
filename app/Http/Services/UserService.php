@@ -57,4 +57,13 @@ class UserService
         $user['avatar_link']= asset($avatarLink->url) ;
         return $user;
     }
+
+    // GET ROLE ID
+    public function getRoleId($userId)
+    {
+        $roleId = User::select('role_id')->where('id', '=', $userId)->get()->toArray();
+
+        //return $roleId != null ? $roleId[0]['role_id'] : null;
+        return $roleId[0]['role_id'];
+    }
 }

@@ -439,7 +439,8 @@ class UserController extends Controller implements FilePathInterface
         ], 200);
     }
 
-    public function getAvatarUrl(Request $request){
+    public function getAvatarUrl(Request $request)
+    {
         //get avatar link
         $avatarLink = $this->imageForUserService->getAvatarUrl($request->get('id'));
         //check null
@@ -459,5 +460,11 @@ class UserController extends Controller implements FilePathInterface
     public function getUserInfoForComment(Request $request)
     {
         return $this->userService->getUserInfoForComment($request->get('id'));
+    }
+
+    // DATA FOR CLIENT TO REQUEST EXPERT ROLE
+    public function dataForClientToRequestExpertRole()
+    {
+        return array("experience_in" => "", "bio" => "");
     }
 }

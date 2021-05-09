@@ -159,4 +159,23 @@ class CommentController extends Controller
             ], 200);
         }
     }
+
+    public function deleteComment(Request $request)
+    {
+        //1.Lấy cmt từ id
+        $result = $this->commentService->getComment($request->get('id'));
+        //2.Nếu có cmt
+        if ($result) {
+            //2.1.Xóa cmt
+            $result->delete();
+            //3.Trả mã 200
+            return Response::json([
+                'message' => 'delete success',
+            ], 200);
+        }
+        //2.2.Trả mã 500
+        return Response::json([
+            'message' => 'delete fail',
+        ], 500);
+    }
 }

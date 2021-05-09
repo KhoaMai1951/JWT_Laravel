@@ -28,7 +28,7 @@ Route::get('/send-mail', function () {
     dd("Email is Sent.");
 });
 
-Route::group(['prefix' => '/admin'], function () {
+Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function () {
     //SERVER PLANT
     Route::group(['prefix' => '/server_plant'], function () {
         //DS PLANT
@@ -42,5 +42,12 @@ Route::group(['prefix' => '/admin'], function () {
         //ADMIN UPDATE CHI TIẾT PLANT
         Route::post('/admin_update', 'ServerPlantController@adminUpdate')->name('server_plant.update');
     });
+    //PENDING EXPERT
+    Route::group(['prefix' => '/expert_pending'], function () {
+        //DS PLANT
+        Route::get('/list_pending', 'PendingExpertController@pendingExpertPage')->name('expert_pending.list_pending');
+        //CHI TIẾT PLANT
+        Route::get('/pending_detail/{id}', 'PendingExpertController@pendingExpertDetailPage');
 
+    });
 });

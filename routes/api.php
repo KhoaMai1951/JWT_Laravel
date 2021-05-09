@@ -47,8 +47,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_avatar_url', 'UserController@getAvatarUrl');
         Route::get('/get_avatar_url', 'UserController@getAvatarUrl');
         Route::get('/get_user_info_for_comment', 'UserController@getUserInfoForComment');
+        // DATA FOR CLIENT TO REQUEST EXPERT ROLE
+        Route::get('/data_for_client_to_request_expert_role', 'UserController@dataForClientToRequestExpertRole');
     });
-
     // POST
     Route::group(['prefix' => '/post'], function () {
 
@@ -90,13 +91,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/delete_post', 'PostController@deletePost');
 
     });
-
     // TAG
     Route::group(['prefix' => '/tag'], function () {
         Route::get('/get_all_tags', 'TagController@getAllTags');
         Route::get('/get_all_tags_by_type_id', 'TagController@getAllTagsByTypeId');
     });
-
     // COMMENT
     Route::group(['prefix' => '/comment'], function () {
         Route::get('/get_all_comments_by_post_id', 'CommentController@getAllCommentsByPostId');
@@ -109,8 +108,10 @@ Route::group(['prefix' => 'v1'], function () {
         // LIKE COMMENT
         Route::get('/like_comment', 'CommentController@likeComment');
         Route::post('/like_comment', 'CommentController@likeComment');
+        // DELETE COMMENT
+        Route::get('/delete_comment', 'CommentController@deleteComment');
+        Route::post('/delete_comment', 'CommentController@deleteComment');
     });
-
     // SERVER PLANT
     Route::group(['prefix' => '/server_plant'], function () {
         // SEEDER
@@ -128,5 +129,18 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => '/server_plant_user_edit'], function () {
         // UPLOAD EDIT THÔNG TIN CÂY CẢNH
         Route::post('/upload_plant', 'ServerPlantUserEditController@uploadPlant');
+    });
+    // EXPERT PENDING
+    Route::group(['prefix' => '/expert_pending'], function () {
+        // UPLOAD YÊU CẦU LÀM EXPERT
+        Route::post('/request_expert', 'PendingExpertController@handleRequestExpert');
+        Route::get('/request_expert', 'PendingExpertController@handleRequestExpert');
+        // GET DS YÊU CẦU EXPERT
+        // GET CHI TIẾT YÊU CẦU EXPERT THEO ID
+        Route::get('/get_detail', 'PendingExpertController@getDetail');
+        // KIỄM TRA TRẠNG THÁI
+        Route::get('/check_status', 'PendingExpertController@checkStatus');
+        Route::post('/check_status', 'PendingExpertController@checkStatus');
+
     });
 });

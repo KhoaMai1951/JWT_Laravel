@@ -13,7 +13,6 @@ use App\Http\Services\PostService;
 use App\Http\Services\UserService;
 use App\Http\Validators\PostValidator;
 use App\Utilities\S3Helper;
-use App\Validators\UserValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;

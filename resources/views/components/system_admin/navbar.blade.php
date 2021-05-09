@@ -6,6 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <!-- CÂY CẢNH -->
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Cây cảnh
@@ -15,6 +16,15 @@
                     <a class="dropdown-item" href="/admin/server_plant/list_plant_contribute">Yêu cầu đóng góp cây cảnh</a>
                     <a class="dropdown-item" href="#">Thêm mới</a>
 
+                </div>
+            </li>
+            <!-- DUYỆT CHUYÊN GIA -->
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Duyệt chuyên gia
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/admin/expert_pending/list_pending">Danh sách yêu cầu duyệt chuyên gia</a>
                 </div>
             </li>
         </ul>
