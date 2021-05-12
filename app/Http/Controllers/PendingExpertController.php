@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPendingExpert;
 use App\Http\Models\PendingExpert;
+use App\Http\Services\ImageForPendingExpertService;
 use App\Http\Services\PendingExpertService;
 use App\Http\Services\UserService;
 use App\Http\Validators\PostValidator;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -18,22 +20,26 @@ class PendingExpertController extends Controller
 {
     private $pendingExpertService;
     private $userService;
+    private $imageForPendingExpertService;
 
     public function __construct(
         PendingExpertService $pendingExpertService,
-        UserService $userService
+        UserService $userService,
+        ImageForPendingExpertService $imageForPendingExpertService
     )
     {
         $this->pendingExpertService = $pendingExpertService;
         $this->userService = $userService;
+        $this->imageForPendingExpertService = $imageForPendingExpertService;
     }
 
     // HANDLE REQUEST EXPERT
-    public function handleRequestExpert(Request $request){
+    public function handleRequestExpert(Request $request)
+    {
         $pendingExpert = $this->pendingExpertService->find($request->get('user_id'));
 
         // NẾU USER CHƯA REQUEST LÀM EXPERT
-        if($pendingExpert == null)
+        if ($pendingExpert == null)
             return $this->requestExpert($request);
         else {
             return Response::json([
@@ -80,18 +86,16 @@ class PendingExpertController extends Controller
     {
         $requestExpert = PendingExpert::find($request->get('id'));
         //image
-        foreach($requestExpert->imagesForPendingExpert as $image)
-        {
+        foreach ($requestExpert->imagesForPendingExpert as $image) {
             $image->dynamic_url = asset($image->url);
         }
         if ($request != null) {
             return Response::json([
                 'request_expert' => $requestExpert,
             ], 200);
-        }
-        else {
+        } else {
             return Response::json([
-                'request_expert' =>  null,
+                'request_expert' => null,
             ], 500);
         }
     }
@@ -102,16 +106,14 @@ class PendingExpertController extends Controller
     {
         //1.CHECK ĐÃ LÀ EXPERT
         $roleId = $this->userService->getRoleId($request->get('user_id'));
-        if($roleId == 2)
-        {
+        if ($roleId == 2) {
             return Response::json([
                 'status' => 2,
                 'message' => 'is expert',
             ], 200);
         }
         //2.CHECK ĐANG PENDING
-        if($this->pendingExpertService->find($request->get('user_id')))
-        {
+        if ($this->pendingExpertService->find($request->get('user_id'))) {
             return Response::json([
                 'status' => 1,
                 'message' => 'pending',
@@ -125,21 +127,58 @@ class PendingExpertController extends Controller
     }
 
     // PENDING LIST PAGE
-    public function pendingExpertPage() {
+    public function pendingExpertPage()
+    {
         $pendings = PendingExpert::paginate(10);
-        foreach ($pendings as $pending)
-        {
+        foreach ($pendings as $pending) {
 
             $pending->username = 'a';
         }
-        return view('/admin_pages/pending_expert/list_pending',compact('pendings'));
+        return view('/admin_pages/pending_expert/list_pending', compact('pendings'));
     }
 
     // PENDING EXPERT DETAIL PAGE
-    public function pendingExpertDetailPage($id) {
+    public function pendingExpertDetailPage($id)
+    {
 
         $pendingExpert = PendingExpert::find($id);
+        $pendingExpert->imagesForPendingExpert;
+        foreach ($pendingExpert->imagesForPendingExpert as $image) {
+            $image['dynamic_url'] = asset($image['url']);
+        }
+        return view('/admin_pages/pending_expert/detail_pending', [
+            'pendingExpert' => $pendingExpert,
+        ]);
+    }
 
-        return view('/admin_pages/pending_expert/detail_pending')->with('pendingExpert', $pendingExpert);
+    // GRANT EXPERT ROLE FOR USER
+    public function grantExpert(Request $request)
+    {
+        $input = $request->except('_token');
+        //1.đổi role id cho user
+        $this->userService->changeRoleId($input['user_id'], 2);
+        //2.xóa file hình trong image for pending expert
+        $images = $this->imageForPendingExpertService->getImagesFromPendingExpertId($input['id']);
+        foreach ($images as $image)
+        {
+            preg_match('/([^\/]+)$/', $image->url, $matches);
+            Storage::disk('public')->delete('image_for_pending_expert/' . $matches[0]);
+        }
+        //3.xóa record image for pending expert
+        $this->imageForPendingExpertService->deleteByPendingExpertId($input['id']);
+        //4.xóa record pending expert
+        $this->pendingExpertService->delete($input['id']);
+        //5.redirect trang list
+        return redirect('/admin/expert_pending/list_pending');
+    }
+
+    // LIST EXPERT PAGE
+    public function listExpertPage(){
+        $users = User::select('id', 'username', 'name', 'email')
+            ->where('role_id', '=', 2)
+            ->paginate(10);
+        return view('/admin_pages/pending_expert/list_expert', [
+            'users' => $users,
+        ]);
     }
 }

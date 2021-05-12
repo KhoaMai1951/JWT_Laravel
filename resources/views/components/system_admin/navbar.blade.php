@@ -25,6 +25,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/admin/expert_pending/list_pending">Danh sách yêu cầu duyệt chuyên gia</a>
+                    <a class="dropdown-item" href="/admin/expert_pending/list_expert">Danh sách chuyên gia</a>
                 </div>
             </li>
         </ul>

@@ -18,13 +18,21 @@
             </div>
         @endif
         <div class="card-body">
-            <form method="POST" action="/admin/server-plant/admin_update">
+            <form method="POST" action="/admin/expert_pending/grant_expert">
                 @csrf
-
                 <div class="form-group ">
                     <!--ID -->
                     <input hidden type="text"
                            name="id" value="{{ $pendingExpert->id }}" autocomplete="name" autofocus>
+                    <!--USER ID -->
+                    <input hidden type="text"
+                           name="user_id" value="{{ $pendingExpert->user_id }}" autocomplete="name" autofocus>
+                    <!--IMAGES -->
+                    <input hidden type="text"
+                           name="images" value="{{ $pendingExpert->imagesForPendingExpert }}" autocomplete="name" autofocus>
+
+                    <!-- Bio -->
+                    <label><b>User id: </b></label> <p>{{$pendingExpert->user_id}}</p>
                     <!-- Bio -->
                     <label><b>Bio: </b></label> <p>{{$pendingExpert->bio}}</p>
 
@@ -34,28 +42,18 @@
                     <!-- HÌNH ẢNH-->
                     <label><b>Hình ảnh: </b></label>
                     <div class="row">
-                        <div class="column">
-                            <img src="https://img-9gag-fun.9cache.com/photo/ajmOyWG_460swp.webp" alt="Snow" style="width:100%">
-                        </div>
-                        <div class="column">
-                            <img src="https://img-9gag-fun.9cache.com/photo/ajmOyWG_460swp.webp" alt="Forest" style="width:100%">
-                        </div>
-                        <div class="column">
-                            <img src="https://img-9gag-fun.9cache.com/photo/ajmOyWG_460swp.webp" alt="Mountains" style="width:100%">
-                        </div>
-                        <div class="column">
-                            <img src="https://img-9gag-fun.9cache.com/photo/ajmOyWG_460swp.webp" alt="Mountains" style="width:100%">
-                        </div>
-                        <div class="column">
-                            <img src="https://img-9gag-fun.9cache.com/photo/ajmOyWG_460swp.webp" alt="Mountains" style="width:100%">
-                        </div>
+                        @foreach($pendingExpert->imagesForPendingExpert as $image)
+                            <div class="column">
+                                <img src="{{$image->dynamic_url}}" alt="Snow" style="width:100%">
+                            </div>
+                        @endforeach
                     </div>
 
                 </div>
 
-                <a class="btn btn-danger ml-2" href="/admin/server_plant/list_plant" role="button">Quay lại</a>
+                <a class="btn btn-warning ml-2" href="/admin/expert_pending/list_pending" role="button">Quay lại</a>
 
-                <a class="btn btn-danger ml-2" href="" role="button">Duyệt</a>
+                <button type="submit" class="btn btn-primary">Duyệt</button>
 
                 <a class="btn btn-danger ml-2" href="" role="button">Xóa</a>
 

@@ -37,6 +37,21 @@ class UserController extends Controller implements FilePathInterface
         $this->imageForUserService = $imageForUserService;
     }
 
+    // tạo nhanh user
+    public function createUserInstant(Request $request)
+    {
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+
+        return response()->json(
+            [
+                'user' => User::create($input)
+            ],
+            200,
+            ['Content-type' => 'application/json;charset=utf-8'],
+            JSON_UNESCAPED_UNICODE);
+    }
+
     public function appLogin(Request $request)
     {
         $validate_admin = DB::table('user')

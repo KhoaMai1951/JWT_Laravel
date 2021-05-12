@@ -34,6 +34,10 @@ Route::group(['prefix' => 'v1'], function () {
     });
     // USER
     Route::group(['prefix' => '/user'], function () {
+        //TẠO NHANH USER
+        Route::get('/create_user_instant', 'UserController@createUserInstant');
+        Route::post('/create_user_instant', 'UserController@createUserInstant');
+        //LẤY INFO USER THEO ID
         Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
         Route::post('/check_follow', 'UserController@checkFollow');
         Route::post('/follow_user', 'UserController@followUser');
@@ -72,10 +76,14 @@ Route::group(['prefix' => 'v1'], function () {
         // LẤY DS BÀI VIẾT THEO CỤM cho trang newsfeed
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
+        // LẤY DS BÀI VIẾT CHO TRANG HOEM NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
         Route::post('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
+        Route::get('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
+        // LIKE POST
         Route::get('/like_post', 'PostController@likePost');
+        // KIỂM TRA LIKE POST
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
-        // LẤY DS BÀI VIẾT CHO TRANG DISCOVER
+        // LẤY DS BÀI VIẾT CHO TRANG GLOBAL NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
         Route::post('/test_search', 'PostController@testSearch');
         Route::get('/test_search', 'PostController@testSearch');
         // LƯU BÀI VIẾT

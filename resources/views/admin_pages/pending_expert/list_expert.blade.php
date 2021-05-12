@@ -5,7 +5,7 @@
 @section('content')
     <!-- TITLE -->
     <div class="alert alert-primary" role="alert">
-        <h1>Danh sách đang chờ duyệt chuyên gia</h1>
+        <h1>Danh sách chuyên gia</h1>
     </div>
 
     @if(session()->has('deleted'))
@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    @if(count($pendings) == 0)
+    @if(count($users) == 0)
         <div class="alert alert-warning">
             Không có dữ liệu
         </div>
@@ -22,21 +22,19 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>id user</th>
-                <th>username</th>
-                <th>bio</th>
-                <th>kinh nghiệm trong</th>
+                <th>STT</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th width="300px;">Action</th>
             </tr>
             </thead>
             <tbody>
-            @if(!empty($pendings) && $pendings->count())
-                @foreach($pendings as $key => $value)
+            @if(!empty($users) && $users->count())
+                @foreach($users as $key => $value)
                     <tr>
-                        <td>{{ $value->user_id }}</td>
-                        <td>{{ $value->test }}</td>
-                        <td>{{ $value->bio }}</td>
-                        <td>{{ $value->experience_in }}</td>
+                        <td>{{ $value->id }}</td>
+                        <td>{{ $value->username }}</td>
+                        <td>{{ $value->email }}</td>
                         <td>
                             <a class="btn btn-info" href="/admin/expert_pending/pending_detail/{{$value->id}}">Chi tiết</a>
                             <button class="btn btn-danger">Xóa</button>
@@ -51,7 +49,7 @@
             </tbody>
         </table>
 
-        {!! $pendings->links() !!}
+        {!! $users->links() !!}
     @endif
 @endsection
 

@@ -8,11 +8,17 @@ use App\Http\Models\PendingExpert;
 
 class PendingExpertService
 {
+    // TÌM THEO USER ID
     public function find($userId)
     {
         return PendingExpert::select('user_id')
             ->where('user_id', '=', $userId)
             ->get()
             ->toArray();
+    }
+
+    // XÓA RECORD
+    public function delete($id) {
+        PendingExpert::where('id', '=', $id)->delete();
     }
 }

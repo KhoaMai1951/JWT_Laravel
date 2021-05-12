@@ -44,10 +44,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function 
     });
     //PENDING EXPERT
     Route::group(['prefix' => '/expert_pending'], function () {
-        //DS PLANT
+        //DS PENDING EXPERT
         Route::get('/list_pending', 'PendingExpertController@pendingExpertPage')->name('expert_pending.list_pending');
-        //CHI TIẾT PLANT
+        //CHI TIẾT PENDING EXPERT
         Route::get('/pending_detail/{id}', 'PendingExpertController@pendingExpertDetailPage');
-
+        //DUYỆT EXPERT
+        Route::post('/grant_expert', 'PendingExpertController@grantExpert');
+        //DS EXPERT
+        Route::get('/list_expert', 'PendingExpertController@listExpertPage');
     });
 });

@@ -20,7 +20,7 @@ class UserService
         // CREATE AN ARRAY TO STORE THE IDS
         $followingUsersIds = [];
         // PUSH THE CURRENT USER ID TO THE ARRAY
-        array_push($followingUsersIds, $userId);
+        //array_push($followingUsersIds, $userId);
         // PUSH ALL THE FOLLOWING USER IDS TO THE ARRAY
         foreach ($queryFollowingUsersIds as $followingUsersId) {
             array_push($followingUsersIds, $followingUsersId->user_id);
@@ -63,7 +63,12 @@ class UserService
     {
         $roleId = User::select('role_id')->where('id', '=', $userId)->get()->toArray();
 
-        //return $roleId != null ? $roleId[0]['role_id'] : null;
         return $roleId[0]['role_id'];
+    }
+
+    // CHANGE ROLE ID
+    public function changeRoleId($userId, $roleIdToChange)
+    {
+        User::where('id', $userId)->update(['role_id' => $roleIdToChange]);
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Services\ImageForUserService;
 use App\Http\Services\PostService;
 use App\Http\Services\UserService;
 use App\Http\Validators\PostValidator;
+use App\User;
 use App\Utilities\S3Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -342,15 +343,30 @@ class PostController extends Controller
 
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
         $posts = $this->postService->getPostsByUsersIdsArrayByChunk(
+            $userId,
             $followingUsersIds,
             $request->get('skip'),
-            $request->get('take'),
+            $request->get('take') - 1,
             $request->get('keyword')
         );
-        // GET ALL POSTS BY CHUNK OF THE USERS
+        // GET 1 SUGGESTED POST BY EXPERT
+        // 1.get 1 random expert
+        $randomExpert = User::select('id')->where('role_id', '=', 2)->inRandomOrder()->limit(1)->first();
+        // 2.get 1 post from that expert
+        $suggestedPost = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+            ->where(function ($query) {
+                $query->max('like');
+            })
+            ->where('user_id', '=', $randomExpert->id)
+            ->first();
+
+        // 3.if result != null then add to posts list
+        $suggestedPost != null ? $posts->add($suggestedPost) : null;
+        $suggestedPost != null ? $suggestedPost->is_suggested = true : null;
 
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
+            $post->is_suggested == null ? $post->is_suggested = false :  $post->is_suggested = true;
             // HANDLE SHORT CONTENT
             $post->short_content .= '...';
 
