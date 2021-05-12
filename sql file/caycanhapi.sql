@@ -11,11 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for caycanhapi
-CREATE DATABASE IF NOT EXISTS `caycanhapi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `caycanhapi`;
-
 -- Dumping structure for table caycanhapi.comment
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -30,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.comment: ~65 rows (approximately)
+-- Dumping data for table caycanhapi.comment: ~66 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `image_url`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 4, 9, 'cmt 1', 1, NULL, '2021-03-01 03:18:48', '2021-05-03 20:07:18', NULL),
@@ -91,15 +86,15 @@ INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `image_url
 	(56, 1, 15, 'test', 0, '/storage/image_for_comment/4e675267-1409-45c9-9c6f-083355b0d2deFB_IMG_1620022781265.jpg', '2021-05-03 15:38:13', '2021-05-03 15:38:13', NULL),
 	(57, 1, 12, 'test', 0, '/storage/image_for_comment/5d73636e-1202-4555-831d-7ca1d26f5a7ereceived_320142529731007.jpeg', '2021-05-03 15:39:02', '2021-05-03 15:39:02', NULL),
 	(58, 1, 18, 'haha', 0, '/storage/image_for_comment/74bc035a-937f-453f-830e-dd0e1ffe51aereceived_320142529731007.jpeg', '2021-05-03 15:40:47', '2021-05-03 15:40:47', NULL),
-	(59, 1, 18, 'haha', 0, '/storage/image_for_comment/43d0feb9-3a35-4fd2-bf27-5add97a1333freceived_320142529731007.jpeg', '2021-05-03 15:41:13', '2021-05-03 15:41:13', NULL),
-	(60, 1, 18, 'j', 1, '/storage/image_for_comment/b616d887-7d54-48ff-9ed4-b8021b0049cb51bfcab.jpg', '2021-05-03 15:41:28', '2021-05-03 21:24:13', NULL),
-	(61, 4, 18, 'ok', 0, '/storage/image_for_comment/36713d54-802b-4abe-b5b6-2db9e7d1661ereceived_476726877111067.jpeg', '2021-05-03 15:42:38', '2021-05-03 21:32:21', NULL),
-	(62, 1, 18, 'hay', 1, '/storage/image_for_comment/95c9d617-39cd-4763-871c-7129d488c909received_215422520013161.jpeg', '2021-05-03 15:43:38', '2021-05-03 20:10:29', NULL),
+	(59, 1, 18, 'haha', 0, '/storage/image_for_comment/43d0feb9-3a35-4fd2-bf27-5add97a1333freceived_320142529731007.jpeg', '2021-05-03 15:41:13', '2021-05-07 15:59:15', NULL),
+	(60, 1, 18, 'j', 1, '/storage/image_for_comment/b616d887-7d54-48ff-9ed4-b8021b0049cb51bfcab.jpg', '2021-05-03 15:41:28', '2021-05-07 16:27:50', NULL),
+	(61, 4, 18, 'ok', 1, '/storage/image_for_comment/36713d54-802b-4abe-b5b6-2db9e7d1661ereceived_476726877111067.jpeg', '2021-05-03 15:42:38', '2021-05-09 19:04:39', NULL),
+	(62, 1, 18, 'hay', 1, '/storage/image_for_comment/95c9d617-39cd-4763-871c-7129d488c909received_215422520013161.jpeg', '2021-05-03 15:43:38', '2021-05-07 16:26:38', NULL),
 	(63, 4, 18, 'dc', 0, '/storage/image_for_comment/0e633f74-8f08-4ebf-aca6-b1c16763934502eb0f7422d2b8e01aee4f5692abf76a--kid-memes-funny-memes.jpg', '2021-05-03 15:47:52', '2021-05-05 20:09:07', NULL),
 	(64, 1, 17, 'ok', 1, '/storage/image_for_comment/4b4185b8-63f9-4abf-8dd2-33068c1e9c04received_169417195090844.jpeg', '2021-05-03 15:50:44', '2021-05-03 21:31:31', NULL),
 	(65, 1, 17, 'hi', 0, NULL, '2021-05-03 16:01:50', '2021-05-03 21:31:18', NULL),
 	(66, 1, 14, 'test upload image for comment', 0, '/storage/image_for_comment/a81f18d1-4955-462a-ba73-45af4fa5c4b0172735254_453645012364061_2647792259269094266_n.jpg', '2021-05-05 19:03:34', '2021-05-05 19:03:34', NULL),
-	(67, 1, 18, 'hay', 0, NULL, '2021-05-05 20:09:19', '2021-05-05 20:09:19', NULL);
+	(67, 1, 18, 'test bình luận đã xóa', 0, NULL, '2021-05-05 20:09:19', '2021-05-07 17:38:55', '2021-05-07 17:38:55');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.email_activate
@@ -145,6 +140,20 @@ CREATE TABLE IF NOT EXISTS `image` (
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.image_for_pending_expert
+CREATE TABLE IF NOT EXISTS `image_for_pending_expert` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pending_expert_id` int(11) NOT NULL DEFAULT '0',
+  `url` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `created_date` date NOT NULL DEFAULT '0000-00-00',
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.image_for_pending_expert: ~0 rows (approximately)
+/*!40000 ALTER TABLE `image_for_pending_expert` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_for_pending_expert` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.image_for_plant
 CREATE TABLE IF NOT EXISTS `image_for_plant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -167,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `image_for_post` (
   `created_date` date NOT NULL DEFAULT '0000-00-00',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table caycanhapi.image_for_post: ~42 rows (approximately)
 /*!40000 ALTER TABLE `image_for_post` DISABLE KEYS */;
@@ -214,7 +223,11 @@ INSERT INTO `image_for_post` (`id`, `post_id`, `url`, `created_date`, `is_delete
 	(55, 20, '/storage/image_for_post/70cd2172-adb2-4a7d-985b-f86b9a633cdf168712583_303393897846080_4442338897972467778_n.jpg', '0000-00-00', 0),
 	(56, 20, '/storage/image_for_post/d95d9a67-4653-4e5e-aef6-a830e55e409b166589791_318810386284838_1732472508849436995_n.jpg', '0000-00-00', 0),
 	(57, 20, '/storage/image_for_post/acc3f1e7-b948-4ab2-8094-a92c6a31cc26166278299_1567702360105482_2163745118861548136_n.jpg', '0000-00-00', 0),
-	(58, 21, '/storage/image_for_post/66e89163-3650-4575-b0c8-4d4cba6c8466received_532844317676190.jpeg', '0000-00-00', 0);
+	(58, 21, '/storage/image_for_post/66e89163-3650-4575-b0c8-4d4cba6c8466received_532844317676190.jpeg', '0000-00-00', 0),
+	(59, 22, '/storage/image_for_post/52a99894-498a-435f-bc70-110ccc2350d3FB_IMG_1620821019221.jpg', '0000-00-00', 0),
+	(60, 22, '/storage/image_for_post/a74bec23-5496-4e2f-9afa-18d03d7e07f2FB_IMG_1620820395215.jpg', '0000-00-00', 0),
+	(61, 22, '/storage/image_for_post/83b8f848-64ff-4a34-8b43-472c0a9a6a9dFB_IMG_1620806742668.jpg', '0000-00-00', 0),
+	(62, 22, '/storage/image_for_post/075c96bc-35ba-45eb-8701-950f67f002e5FB_IMG_1620803811654.jpg', '0000-00-00', 0);
 /*!40000 ALTER TABLE `image_for_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.image_for_user
@@ -240,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `liked_comment` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.liked_comment: ~8 rows (approximately)
+-- Dumping data for table caycanhapi.liked_comment: ~10 rows (approximately)
 /*!40000 ALTER TABLE `liked_comment` DISABLE KEYS */;
 INSERT INTO `liked_comment` (`comment_id`, `user_id`) VALUES
 	(1, 2),
@@ -250,7 +263,9 @@ INSERT INTO `liked_comment` (`comment_id`, `user_id`) VALUES
 	(52, 1),
 	(51, 1),
 	(64, 1),
-	(37, 1);
+	(37, 1),
+	(67, 1),
+	(61, 1);
 /*!40000 ALTER TABLE `liked_comment` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.liked_post
@@ -317,10 +332,11 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table caycanhapi.oauth_access_tokens: ~113 rows (approximately)
+-- Dumping data for table caycanhapi.oauth_access_tokens: ~114 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('01012f025561d895a6a4bd117c3b51dc51af6af5da85a8540c92117aaf2567e4e5ba3b6c6da88d5c', 1, 3, 'appToken', '[]', 1, '2021-04-09 19:04:17', '2021-04-09 19:04:17', '2022-04-09 19:04:17'),
+	('01cc1c0b6c0cea5d945a2ee3eb1a701198eab375bcb7c3b2564cb3405eea25e39baabf58c106cb39', 1, 3, 'appToken', '[]', 0, '2021-05-06 08:44:21', '2021-05-06 08:44:21', '2022-05-06 08:44:21'),
 	('049a47374c0932f062c0bade0047569758d1cf51ce0ebb3f388fcf5a55a5126bc3f3cd4ece99f420', NULL, 1, 'appToken', '[]', 0, '2021-04-03 12:34:11', '2021-04-03 12:34:11', '2022-04-03 12:34:11'),
 	('0502a5e2410625f0bd53ca32d197a2bbc3d59579f6779515fe00100d67f2a9ba9b9124497201c982', 3, 3, 'appToken', '[]', 0, '2021-04-03 13:59:14', '2021-04-03 13:59:14', '2022-04-03 13:59:14'),
 	('051684a08b4297743da5a9551a96d044bbe5d28338bae5d41c2a25efe626ce7c56abb15863405d74', 4, 1, 'appToken', '[]', 1, '2021-03-27 11:24:24', '2021-03-27 11:24:24', '2022-03-27 11:24:24'),
@@ -342,6 +358,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('19ce185f6f1ce518a5c7246a6177a6d8cae6fe5983383301c4be15901e2c5581966a016d1d7cd372', 3, 3, 'appToken', '[]', 1, '2021-04-03 13:46:07', '2021-04-03 13:46:07', '2022-04-03 13:46:07'),
 	('1a40d3996fe8a7a0650f31feb13192f912dec04a88a00664a6ba60ab92d53d32db03a654dbba6795', 4, 1, NULL, '[]', 0, '2021-03-22 12:35:29', '2021-03-22 12:35:29', '2022-03-22 12:35:29'),
 	('1b34e0053f2de48c160cb53259be20bec98401576283a676dde2a2d47dcc9b4ddf0b55e646ccc41a', 1, 1, 'appToken', '[]', 0, '2021-03-28 13:51:36', '2021-03-28 13:51:36', '2022-03-28 13:51:36'),
+	('1bc273beff450e922648cfa73388640234159b4616c9ccf25bfe7cd446e762664b6e465b15871283', 1, 3, 'appToken', '[]', 0, '2021-05-12 09:30:19', '2021-05-12 09:30:19', '2022-05-12 09:30:19'),
 	('1cc8bf47fba02c0bb21bf490ccf8c334fee7cb6ef6b07acc7d66bd2e0e732cc7a7b4309779142fbe', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:27:24', '2021-03-29 13:27:24', '2022-03-29 13:27:24'),
 	('1cce811c2130b3329d68aab83ed4a4ee61aa66d3f785caf4eb108d29e87b9c6337900d43f0d753fc', 1, 3, 'appToken', '[]', 1, '2021-04-08 05:11:33', '2021-04-08 05:11:33', '2022-04-08 05:11:33'),
 	('1ebabf5d84097911d86bf0572f3336bcddc9ec9a10a5417b4e8035f0235e5a15940be9e451e73940', 1, 3, 'appToken', '[]', 1, '2021-04-10 16:51:39', '2021-04-10 16:51:39', '2022-04-10 16:51:39'),
@@ -543,6 +560,22 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.pending_expert
+CREATE TABLE IF NOT EXISTS `pending_expert` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `bio` varchar(3000) DEFAULT NULL,
+  `experience_in` varchar(3000) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.pending_expert: ~0 rows (approximately)
+/*!40000 ALTER TABLE `pending_expert` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pending_expert` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.post
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -551,35 +584,37 @@ CREATE TABLE IF NOT EXISTS `post` (
   `created_at` timestamp NULL DEFAULT NULL,
   `like` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) DEFAULT NULL,
+  `audience` int(11) NOT NULL DEFAULT '1',
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post: ~18 rows (approximately)
+-- Dumping data for table caycanhapi.post: ~21 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `deleted_at`, `updated_at`) VALUES
-	(1, 'abccc', 'Sometimes you may wish to retrieve the first result of a query or perform some other action if no results are found. The firstOr method will return the first result matching the query or, if no results are found, execute the given closure. The value returned by the closure will be considered the result of the firstOr method', '2021-04-06 00:00:00', 1, 4, NULL, '2021-04-22'),
-	(2, 'abccc', 'The firstOrNew method, like firstOrCreate, will attempt to locate a record in the database matching the given attributes. However, if a model is not found, a new model instance will be returned. Note that the model returned by firstOrNew has not yet been persisted to the database. You will need to manually call the save method to persist it:', '2021-04-06 00:00:00', 0, 7, NULL, '2021-04-06'),
-	(3, 'bài post 1', 'In this example, we assign the name field from the incoming HTTP request to the name attribute of the App\\Models\\Flight model instance. When we call the save method, a record will be inserted into the database. The model\'s created_at and updated_at timestamps will automatically be set when the save method is called, so there is no need to set them manually.', '2021-04-06 00:00:00', 0, 1, NULL, '2021-04-06'),
-	(4, 'bài post 2', 'Of course, when using Eloquent, we don\'t only need to retrieve models from the database. We also need to insert new records. Thankfully, Eloquent makes it simple. To insert a new record into the database, you should instantiate a new model instance and set attributes on the model. Then, call the save method on the model instance:', '2021-04-06 00:00:00', 0, 1, NULL, '2021-04-06'),
-	(5, 'bài post 3', 'tststs', '2021-04-06 00:00:00', 0, 1, NULL, '2021-04-06'),
-	(6, 'bài post 4', 'The save method may also be used to update models that already exist in the database. To update a model, you should retrieve it and set any attributes you wish to update. Then, you should call the model\'s save method. Again, the updated_at timestamp will automatically be updated, so there is no need to manually set its value:', '2021-04-08 00:00:00', 1, 1, NULL, '2021-04-19'),
-	(7, 'bài post 5', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-08 00:00:00', 1, 1, NULL, '2021-04-14'),
-	(8, 'bài post 6', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-08 00:00:00', 1, 1, NULL, '2021-04-17'),
-	(9, 'bài post 7', 'Cây cảnh đặt trong nhà sẽ có cách chăm sóc khác với cây cảnh đặt ngoài trời hay trồng trong đất vườn. Bởi các yếu tố như ánh sáng, độ ẩm sẽ khác nhau, vì vậy việc chăm sóc cây cảnh trong nhà cũng sẽ cầu kỳ hơn. Trong bài viết này, Quang Cảnh Xanh sẽ chia sẻ tới các bạn 8 cách chăm sóc và bảo vệ cây cảnh trong nhà để cây luôn xanh và phát triển tốt.', '2021-04-08 00:00:00', 1, 1, NULL, '2021-04-17'),
-	(10, 'bài post 8', 'When issuing a mass update via Eloquent, the saving, saved, updating, and updated model events will not be fired for the updated models. This is because the models are never actually retrieved when issuing a mass update.', '2021-04-09 09:42:09', 1, 1, NULL, '2021-04-09'),
-	(11, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'bbbbbb', '2021-04-10 08:37:11', 1, 1, NULL, '2021-04-21'),
-	(12, 'bài post 10', 'The wasChanged method determines if any attributes were changed when the model was last saved within the current request cycle. If needed, you may pass an attribute name to see if a particular attribute was changed:', '2021-04-10 08:46:16', 1, 1, NULL, '2021-04-13'),
-	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 0, 4, NULL, '2021-05-01'),
-	(14, 'bài post 12', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-10 08:47:53', 1, 4, NULL, '2021-04-12'),
-	(15, 'bài post 13', 'vvv', '2021-04-10 08:49:04', 1, 1, NULL, '2021-04-27'),
-	(16, 'bài post 14', 'vvv', '2021-04-10 08:49:27', 1, 1, '2021-05-01 21:29:35', '2021-05-01'),
-	(17, 'bài post 15', 'Well depends on what you look for.\nThere are facts in history. We have overlapping sources that confirms that a certain person existed, a certain event took a place, a certain thing was caused by the other, a certain object was in use in a certain way. It\'s just true.\nNow, then we have a thing without enough overlapping sources, mostly covered by something that someone wrote or depicted in other way. With this we have to take in account if that\'s a first-hand relation and if the person could have an agenda in writing less accurately. On this basis we say something probably took place, or could have, or that someone depicted such thing... Just levels of likeness. We know it\'s not really surely true.\nThen we have less clear sources - just mentions of things without further descriptions, pictures, objects, archaeological sites... Those are interpreted. They don\'t lie on purpose, but we only can rely on of what we currently know is most likely. This can be changed with new findings.', '2021-04-10 08:51:57', 1, 1, NULL, '2021-04-21'),
-	(18, 'bài post 16', 'In the TextFormField validator function you must return null, it indicates the field has correct value and there are no errors. Returning anything other than null will indicate that the field has an invalid value, i\'ve shared the corrected code of the validator function.', '2021-04-10 08:53:23', 1, 1, NULL, '2021-05-03'),
-	(19, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:07:08', 1, 1, '2021-04-22 17:14:58', '2021-04-22'),
-	(20, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:08:03', 1, 1, '2021-04-22 17:14:40', '2021-04-22'),
-	(21, 'abc', 'zyz', '2021-04-22 11:09:00', 1, 1, '2021-04-22 17:12:01', '2021-04-22');
+INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `audience`, `deleted_at`, `updated_at`) VALUES
+	(1, 'abccc', 'Sometimes you may wish to retrieve the first result of a query or perform some other action if no results are found. The firstOr method will return the first result matching the query or, if no results are found, execute the given closure. The value returned by the closure will be considered the result of the firstOr method', '2021-04-06 00:00:00', 100, 4, 1, NULL, '2021-04-22'),
+	(2, 'abccc', 'The firstOrNew method, like firstOrCreate, will attempt to locate a record in the database matching the given attributes. However, if a model is not found, a new model instance will be returned. Note that the model returned by firstOrNew has not yet been persisted to the database. You will need to manually call the save method to persist it:', '2021-04-06 00:00:00', 0, 7, 1, NULL, '2021-04-06'),
+	(3, 'bài post 1', 'In this example, we assign the name field from the incoming HTTP request to the name attribute of the App\\Models\\Flight model instance. When we call the save method, a record will be inserted into the database. The model\'s created_at and updated_at timestamps will automatically be set when the save method is called, so there is no need to set them manually.', '2021-04-06 00:00:00', 100, 1, 1, NULL, '2021-04-06'),
+	(4, 'bài post 2', 'Of course, when using Eloquent, we don\'t only need to retrieve models from the database. We also need to insert new records. Thankfully, Eloquent makes it simple. To insert a new record into the database, you should instantiate a new model instance and set attributes on the model. Then, call the save method on the model instance:', '2021-04-06 00:00:00', 0, 1, 2, NULL, '2021-04-06'),
+	(5, 'bài post 3', 'tststs', '2021-04-06 00:00:00', 0, 1, 2, NULL, '2021-04-06'),
+	(6, 'bài post 4', 'The save method may also be used to update models that already exist in the database. To update a model, you should retrieve it and set any attributes you wish to update. Then, you should call the model\'s save method. Again, the updated_at timestamp will automatically be updated, so there is no need to manually set its value:', '2021-04-08 00:00:00', 1, 1, 2, NULL, '2021-04-19'),
+	(7, 'bài post 5', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-08 00:00:00', 1, 1, 2, NULL, '2021-04-14'),
+	(8, 'bài post 6', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-08 00:00:00', 1, 1, 2, NULL, '2021-04-17'),
+	(9, 'bài post 7', 'Cây cảnh đặt trong nhà sẽ có cách chăm sóc khác với cây cảnh đặt ngoài trời hay trồng trong đất vườn. Bởi các yếu tố như ánh sáng, độ ẩm sẽ khác nhau, vì vậy việc chăm sóc cây cảnh trong nhà cũng sẽ cầu kỳ hơn. Trong bài viết này, Quang Cảnh Xanh sẽ chia sẻ tới các bạn 8 cách chăm sóc và bảo vệ cây cảnh trong nhà để cây luôn xanh và phát triển tốt.', '2021-04-08 00:00:00', 1, 1, 2, NULL, '2021-04-17'),
+	(10, 'bài post 8', 'When issuing a mass update via Eloquent, the saving, saved, updating, and updated model events will not be fired for the updated models. This is because the models are never actually retrieved when issuing a mass update.', '2021-04-09 09:42:09', 1, 1, 2, NULL, '2021-04-09'),
+	(11, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'bbbbbb', '2021-04-10 08:37:11', 1, 1, 2, NULL, '2021-04-21'),
+	(12, 'bài post 10', 'The wasChanged method determines if any attributes were changed when the model was last saved within the current request cycle. If needed, you may pass an attribute name to see if a particular attribute was changed:', '2021-04-10 08:46:16', 1, 1, 2, NULL, '2021-04-13'),
+	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 0, 4, 1, NULL, '2021-05-01'),
+	(14, 'bài post 12', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-10 08:47:53', 1, 4, 1, NULL, '2021-04-12'),
+	(15, 'bài post 13', 'vvv', '2021-04-10 08:49:04', 1, 1, 2, NULL, '2021-04-27'),
+	(16, 'bài post 14', 'vvv', '2021-04-10 08:49:27', 1, 1, 2, '2021-05-01 21:29:35', '2021-05-01'),
+	(17, 'bài post 15', 'Well depends on what you look for.\nThere are facts in history. We have overlapping sources that confirms that a certain person existed, a certain event took a place, a certain thing was caused by the other, a certain object was in use in a certain way. It\'s just true.\nNow, then we have a thing without enough overlapping sources, mostly covered by something that someone wrote or depicted in other way. With this we have to take in account if that\'s a first-hand relation and if the person could have an agenda in writing less accurately. On this basis we say something probably took place, or could have, or that someone depicted such thing... Just levels of likeness. We know it\'s not really surely true.\nThen we have less clear sources - just mentions of things without further descriptions, pictures, objects, archaeological sites... Those are interpreted. They don\'t lie on purpose, but we only can rely on of what we currently know is most likely. This can be changed with new findings.', '2021-04-10 08:51:57', 1, 1, 2, NULL, '2021-05-07'),
+	(18, 'bài post 16', 'In the TextFormField validator function you must return null, it indicates the field has correct value and there are no errors. Returning anything other than null will indicate that the field has an invalid value, i\'ve shared the corrected code of the validator function.', '2021-04-10 08:53:23', 1, 1, 2, NULL, '2021-05-07'),
+	(19, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:07:08', 1, 1, 2, '2021-04-22 17:14:58', '2021-04-22'),
+	(20, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:08:03', 1, 1, 2, '2021-04-22 17:14:40', '2021-04-22'),
+	(21, 'abc', 'zyz', '2021-04-22 11:09:00', 1, 1, 2, '2021-04-22 17:12:01', '2021-04-22'),
+	(22, 'test cho chuyên gia', 'test cho chuyên gia', '2021-05-12 20:35:56', 0, 1, 2, NULL, '2021-05-12');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.post_tag
@@ -722,7 +757,10 @@ INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(21, 5),
 	(21, 9),
 	(21, 5),
-	(21, 9);
+	(21, 9),
+	(22, 2),
+	(22, 8),
+	(22, 9);
 /*!40000 ALTER TABLE `post_tag` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.role
@@ -734,7 +772,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.role: ~0 rows (approximately)
+-- Dumping data for table caycanhapi.role: ~2 rows (approximately)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `role` (`id`, `name`, `created_date`, `is_deleted`) VALUES
 	(1, 'user', '0000-00-00', 0),
@@ -904,16 +942,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.user: ~5 rows (approximately)
+-- Dumping data for table caycanhapi.user: ~6 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `bio`, `role_id`, `is_deleted`, `name`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'chronicle11109', 'chronicle1951@gmail.com', '$2y$10$hbysJrQYpZhOTzNT6JffcuAoyZDnzz2NdnDpYvwq7AePlY8U.BtCu', 'Welcome to my feed, where people come for enjoyment.', 2, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-03-31 14:55:40', '2021-04-17 15:50:23', NULL),
-	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 1, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-04-08 08:28:07', NULL),
+	(1, 'chronicle11109', 'chronicle1951@gmail.com', '$2y$10$hbysJrQYpZhOTzNT6JffcuAoyZDnzz2NdnDpYvwq7AePlY8U.BtCu', 'Welcome to my feed, where people come for enjoyment.', 2, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-03-31 14:55:40', '2021-05-10 17:34:41', NULL),
+	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 2, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-05-10 11:27:19', NULL),
 	(5, 'z', 'dangkhoa@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', ' I’m not ashamed to be me. What’s wrong with being amazingly unique?', 1, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-04-11 16:46:45', '2021-04-11 16:46:46', NULL),
-	(6, 'plantcare', 'plantcare@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I’m writing my autobiography on my Facebook account.', 1, 0, 'Plant Care', NULL, NULL, '2021-04-11 16:47:30', '2021-04-11 16:47:31', NULL),
-	(7, 'chronicle1111', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 1, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL);
+	(6, 'plantcare', 'plantcare@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I’m writing my autobiography on my Facebook account.', 2, 0, 'Plant Care', NULL, NULL, '2021-04-11 16:47:30', '2021-05-10 15:46:18', NULL),
+	(7, 'chronicle1111', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 1, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL),
+	(8, 'admin', 'admin@gmail.com', '$2y$10$LsLLHLjQwhV.lWNyo7YmXOz7rJY/qKKdYWrz6lyNf.1YICRBeSWwK', '', 3, 0, 'Khoa', NULL, NULL, '2021-05-10 09:23:06', '2021-05-10 09:23:06', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.user_follow_user
@@ -929,7 +968,8 @@ INSERT INTO `user_follow_user` (`user_id`, `follower_user_id`) VALUES
 	(1, 5),
 	(1, 6),
 	(1, 7),
-	(7, 1);
+	(7, 1),
+	(4, 1);
 /*!40000 ALTER TABLE `user_follow_user` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.user_plant

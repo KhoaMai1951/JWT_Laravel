@@ -80,6 +80,7 @@ class PostController extends Controller
         }
     }
 
+    //ĐĂNG BÀI POST
     public
     function submitPost(Request $request)
     {
@@ -119,6 +120,7 @@ class PostController extends Controller
         $post->title = $request->get('title');
         $post->content = $request->get('content');
         $post->user_id = $request->get('user_id');
+        $post->audience = $request->get('audience');
         $post->save();
         //tag field handle
         $post->tags()->attach($request->get('tag_ids'));
@@ -169,6 +171,7 @@ class PostController extends Controller
         $post->title = $request->get('title');
         $post->content = $request->get('content');
         $post->user_id = $request->get('user_id');
+        $post->audience = $request->get('audience');
         $post->save();
         //tag field handle
         $post->tags()->attach($request->get('tag_ids'));
