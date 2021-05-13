@@ -59,8 +59,8 @@ class PostService
             ->get();
     }
 
-    // LẤY DS POST THEO MẢNG USER ID THEO CỤM DÀNH CHO USER THƯỜNG
-    public function getPostsByUsersIdsArrayByChunk(
+    // GET POSTS FOR HOME NEWSFEED
+    public function getPostForHomeNewsfeed(
         int $userId,
         array $followingUserIds,
         $audienceList,
@@ -69,31 +69,6 @@ class PostService
         $keyword
 )
     {
-       /* return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
-            //Lấy toàn bộ record có title hoặc content theo keyword
-            ->where(function ($query) use ($keyword)
-            {
-                $query->where('content', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-
-            })
-            // chỉ lấy các post có giới hạn theo dõi là toàn bộ người dùng, của các user đang theo dõi
-            ->where(function ($query) use ($followingUserIds, $audienceList)
-            {
-                $query->whereIn('user_id', $followingUserIds) //record có user id nằm trong mảng userIds
-                ->whereIn('audience', $audienceList) ; //và record có audience nằm trong mảng
-            })
-            //Lấy toàn bộ record của chính user có giới hạn theo dõi là toàn bộ role + chỉ expert
-            ->orWhere(function ($query) use ($userId)
-            {
-                $query->where('user_id', '=', $userId) //record có user id nằm trong mảng userIds
-                ->whereIn('audience', [1, 2]) ;//và record có audience nằm trong mảng
-            })
-            ->orderBy('created_at', 'DESC')
-            ->skip($skip)
-            ->take($take)
-            ->get();*/
-
         return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
             // where ( where(title/content = keyword) and where(user_id = following user ids) and whereIn(audience, audience list) )
             ->where(function ($query) use ($keyword, $followingUserIds, $audienceList) {
@@ -116,6 +91,43 @@ class PostService
                 })
                     ->where('user_id', '=', $userId) //record có user id nằm trong mảng userIds
                     ->whereIn('audience', [1, 2]) ;//và record có audience nằm trong mảng
+            })
+            ->orderBy('created_at', 'DESC')
+            ->skip($skip)
+            ->take($take)
+            ->get();
+    }
+
+    // GET POSTS FOR GLOBAL NEWSFEED
+    public function getPostForGlobalNewsfeed(
+        int $userId,
+        $audienceList,
+        int $skip,
+        int $take,
+        $keyword
+    ) {
+        return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            // where( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
+            ->where(function ($query) use ($keyword, $audienceList, $userId) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->whereIn('audience', $audienceList) //và record có audience nằm trong mảng
+                    ->where('user_id', '!=', $userId) ; //user_id != current user id
+            })
+            // orWhere( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
+            ->orWhere(function ($query) use ($keyword, $audienceList, $userId) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->whereIn('audience', [1, 2]) //và record có audience nằm trong mảng
+                    ->where('user_id', '=', $userId) ; //user_id != current user id
             })
             ->orderBy('created_at', 'DESC')
             ->skip($skip)

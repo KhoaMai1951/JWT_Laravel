@@ -76,9 +76,9 @@ Route::group(['prefix' => 'v1'], function () {
         // LẤY DS BÀI VIẾT THEO CỤM cho trang newsfeed
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
-        // LẤY DS BÀI VIẾT CHO TRANG HOEM NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
-        Route::post('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
-        Route::get('/get_all_posts_of_following_users_by_chunk_by_user_id', 'PostController@getAllPostsOfFollowingUsersByChunkByUserId');
+        // LẤY DS BÀI VIẾT CHO TRANG HOME NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
+        Route::post('/home_newsfeed', 'PostController@getPostForHomeNewsfeed');
+        Route::get('/home_newsfeed', 'PostController@getPostForHomeNewsfeed');
         // LIKE POST
         Route::get('/like_post', 'PostController@likePost');
         // KIỂM TRA LIKE POST

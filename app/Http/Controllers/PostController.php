@@ -338,7 +338,7 @@ class PostController extends Controller
 
     // LẤY DS BÀI VIẾT CHO TRANG NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
     public
-    function getAllPostsOfFollowingUsersByChunkByUserId(Request $request)
+    function getPostForHomeNewsfeed(Request $request)
     {
         $userId = $request->get('user_id');
         // GET FOLLOWING USERS IDS
@@ -348,7 +348,7 @@ class PostController extends Controller
         $role_id = $this->userService->getRoleId($userId);
         $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2];
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
-        $posts = $this->postService->getPostsByUsersIdsArrayByChunk(
+        $posts = $this->postService->getPostForHomeNewsfeed(
             $userId,
             $followingUsersIds,
             $audienceList,
@@ -550,47 +550,18 @@ class PostController extends Controller
     public
     function getPostForGlobalNewsfeed(Request $request)
     {
-        $keyword =  $request->get('keyword');
         $userId = $request->get('user_id');
         // GET USER ROLE
         $role_id = $this->userService->getRoleId($userId);
         $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2]; //Nếu là expert thì được xem hết, user chỉ được xem dành cho user
-        /*$posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            ->where(function ($query) use ($keyword) {
-                $query->where('content', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-            })
-            ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))
-            ->take($request->get('take'))
-            ->get();*/
-        $posts = Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            // where( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
-            ->where(function ($query) use ($keyword, $audienceList, $userId) {
-                $query->where(function ($query) use ($keyword)
-                {
-                    $query->where('content', 'LIKE', '%' . $keyword . '%')
-                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-
-                })
-                    ->whereIn('audience', $audienceList) //và record có audience nằm trong mảng
-                    ->where('user_id', '!=', $userId) ; //user_id != current user id
-            })
-            // orWhere( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
-            ->orWhere(function ($query) use ($keyword, $audienceList, $userId) {
-                $query->where(function ($query) use ($keyword)
-                {
-                    $query->where('content', 'LIKE', '%' . $keyword . '%')
-                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-
-                })
-                    ->whereIn('audience', [1, 2]) //và record có audience nằm trong mảng
-                    ->where('user_id', '=', $userId) ; //user_id != current user id
-            })
-            ->orderBy('created_at', 'DESC')
-            ->skip($request->get('skip'))
-            ->take($request->get('take'))
-            ->get();
+        // GET POSTS
+        $posts = $this->postService->getPostForGlobalNewsfeed(
+            $userId,
+            $audienceList,
+            $request->get('skip'),
+            $request->get('take'),
+            $request->get('keyword')
+        );
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
             // HANDLE SHORT CONTENT
@@ -610,13 +581,13 @@ class PostController extends Controller
             $post->comments_number = $commentsNumber;
 
             // USER HANDLE
+            $post->user;
             $avatar_url = $this->imageForUserService->getAvatarUrl($post->user->id);
             if ($avatar_url != '' && $avatar_url != null)
                 $post->user->avatar_url = asset($avatar_url->url);
             else $post->user->avatar_url = '';
 
             // CHECK LIKED POST OR NOT
-            $userId = $request->get('user_id');
             $postId = $post->id;
             $post->is_liked = $this->postService->checkLikedPost($userId, $postId);
         }
