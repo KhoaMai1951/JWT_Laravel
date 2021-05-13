@@ -63,41 +63,59 @@ class PostService
     public function getPostsByUsersIdsArrayByChunk(
         int $userId,
         array $followingUserIds,
+        $audienceList,
         int $skip,
         int $take,
         $keyword
 )
     {
-//       return Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
-//           //Lấy toàn bộ record có title hoặc content theo keyword
-//        ->where(function ($query) use ($keyword) {
-//            $query->where('content', 'LIKE', '%' . $keyword . '%')
-//                ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-//
-//        })
-//            ->whereIn('user_id', $followingUserIds) //record có user id nằm trong mảng userIds
-//            ->whereIn('audience', [1, 2]) //và record có audience nằm trong mảng
-//            ->orderBy('created_at', 'DESC')
-//            ->skip($skip)
-//            ->take($take)
-//            ->get();
-
-        return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+       /* return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
             //Lấy toàn bộ record có title hoặc content theo keyword
-            ->where(function ($query) use ($keyword) {
+            ->where(function ($query) use ($keyword)
+            {
                 $query->where('content', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('title', 'LIKE', '%' . $keyword . '%');
 
             })
-            //Lấy toàn bộ record của user đang theo dõi có giới hạn theo dõi là toàn bộ role
-            ->where(function ($query) use ($followingUserIds) {
+            // chỉ lấy các post có giới hạn theo dõi là toàn bộ người dùng, của các user đang theo dõi
+            ->where(function ($query) use ($followingUserIds, $audienceList)
+            {
                 $query->whereIn('user_id', $followingUserIds) //record có user id nằm trong mảng userIds
-                ->whereIn('audience', [1]) ;//và record có audience nằm trong mảng
+                ->whereIn('audience', $audienceList) ; //và record có audience nằm trong mảng
             })
             //Lấy toàn bộ record của chính user có giới hạn theo dõi là toàn bộ role + chỉ expert
-            ->orWhere(function ($query) use ($userId) {
+            ->orWhere(function ($query) use ($userId)
+            {
                 $query->where('user_id', '=', $userId) //record có user id nằm trong mảng userIds
                 ->whereIn('audience', [1, 2]) ;//và record có audience nằm trong mảng
+            })
+            ->orderBy('created_at', 'DESC')
+            ->skip($skip)
+            ->take($take)
+            ->get();*/
+
+        return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
+            // where ( where(title/content = keyword) and where(user_id = following user ids) and whereIn(audience, audience list) )
+            ->where(function ($query) use ($keyword, $followingUserIds, $audienceList) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->whereIn('user_id', $followingUserIds) //record có user id nằm trong mảng userIds
+                    ->whereIn('audience', $audienceList) ; //và record có audience nằm trong mảng
+            })
+            // orWhere ( where(title/content = keyword) and where(user_id = current user id) and whereIn(audience, [1, 2]) )
+            ->orWhere(function ($query) use ($keyword, $userId) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->where('user_id', '=', $userId) //record có user id nằm trong mảng userIds
+                    ->whereIn('audience', [1, 2]) ;//và record có audience nằm trong mảng
             })
             ->orderBy('created_at', 'DESC')
             ->skip($skip)

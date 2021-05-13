@@ -344,10 +344,14 @@ class PostController extends Controller
         // GET FOLLOWING USERS IDS
         $followingUsersIds = $this->userService->getIdsOfFollowingUser($userId);
 
+        // GET USER ROLE
+        $role_id = $this->userService->getRoleId($userId);
+        $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2];
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
         $posts = $this->postService->getPostsByUsersIdsArrayByChunk(
             $userId,
             $followingUsersIds,
+            $audienceList,
             $request->get('skip'),
             $request->get('take') - 1,
             $request->get('keyword')
@@ -544,11 +548,45 @@ class PostController extends Controller
 
     // TÌM KIẾM DS BÀI VIẾT GLOBAL THEO CỤM
     public
-    function testSearch(Request $request)
+    function getPostForGlobalNewsfeed(Request $request)
     {
-        $posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
-            ->where('content', 'LIKE', '%' . $request->get('keyword') . '%')
-            ->orWhere('title', 'LIKE', '%' . $request->get('keyword') . '%')
+        $keyword =  $request->get('keyword');
+        $userId = $request->get('user_id');
+        // GET USER ROLE
+        $role_id = $this->userService->getRoleId($userId);
+        $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2]; //Nếu là expert thì được xem hết, user chỉ được xem dành cho user
+        /*$posts = Post::select('id', 'user_id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            ->where(function ($query) use ($keyword) {
+                $query->where('content', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+            })
+            ->orderBy('created_at', 'DESC')
+            ->skip($request->get('skip'))
+            ->take($request->get('take'))
+            ->get();*/
+        $posts = Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            // where( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
+            ->where(function ($query) use ($keyword, $audienceList, $userId) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->whereIn('audience', $audienceList) //và record có audience nằm trong mảng
+                    ->where('user_id', '!=', $userId) ; //user_id != current user id
+            })
+            // orWhere( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
+            ->orWhere(function ($query) use ($keyword, $audienceList, $userId) {
+                $query->where(function ($query) use ($keyword)
+                {
+                    $query->where('content', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('title', 'LIKE', '%' . $keyword . '%');
+
+                })
+                    ->whereIn('audience', [1, 2]) //và record có audience nằm trong mảng
+                    ->where('user_id', '=', $userId) ; //user_id != current user id
+            })
             ->orderBy('created_at', 'DESC')
             ->skip($request->get('skip'))
             ->take($request->get('take'))

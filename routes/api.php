@@ -84,8 +84,8 @@ Route::group(['prefix' => 'v1'], function () {
         // KIỂM TRA LIKE POST
         Route::get('/check_like_post', 'PostController@checkLikePostOrNot');
         // LẤY DS BÀI VIẾT CHO TRANG GLOBAL NEWSFEED THEO CỤM VÀ THEO TỪ KHÓA TÌM KIẾM
-        Route::post('/test_search', 'PostController@testSearch');
-        Route::get('/test_search', 'PostController@testSearch');
+        Route::post('/global_newsfeed', 'PostController@getPostForGlobalNewsfeed');
+        Route::get('/global_newsfeed', 'PostController@getPostForGlobalNewsfeed');
         // LƯU BÀI VIẾT
         Route::post('/save_post', 'PostController@savePost');
         // BỎ LƯU BÀI VIẾT
