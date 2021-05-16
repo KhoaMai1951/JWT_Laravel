@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPost;
 use App\Http\Models\Post;
+use App\Http\Models\Tag;
 use App\Http\Services\CommentService;
 use App\Http\Services\ImageForPostService;
 use App\Http\Services\ImageForUserService;
@@ -117,12 +118,14 @@ class PostController extends Controller
 
         $post = new Post();
         //fields handle
+        $tag = Tag::find(-1); 
         $post->title = $request->get('title');
         $post->content = $request->get('content');
         $post->user_id = $request->get('user_id');
         $post->audience = $request->get('audience');
         $post->save();
         //tag field handle
+        $post->tags()->attach($tag);
         $post->tags()->attach($request->get('tag_ids'));
         //image for post handle
         // handle multiple images
@@ -168,12 +171,14 @@ class PostController extends Controller
 
         $post = new Post();
         //fields handle
+        $tag = Tag::find(-1);
         $post->title = $request->get('title');
         $post->content = $request->get('content');
         $post->user_id = $request->get('user_id');
         $post->audience = $request->get('audience');
         $post->save();
         //tag field handle
+        $post->tags()->attach($tag);
         $post->tags()->attach($request->get('tag_ids'));
 
         DB::commit();
@@ -270,13 +275,18 @@ class PostController extends Controller
 
     // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
     public
-    function getAllPostsByChunkByUserId(Request $request)
+    function getUserPosts(Request $request)
     {
         $userId = $request->get('user_id');
+        $currentUserId = $request->get('current_user_id');
         $skip = $request->get('skip');
         $take = $request->get('take');
 
-        $posts = $this->postService->getAllPostsByChunkByUserId($userId, $skip, $take);
+        // Nếu user đang xem tường chính mình, cho thấy hết
+        // Nếu user đang xem tường user khác, xét theo role để thấy
+        $userId == $currentUserId ? $audience = [1,2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId) ;
+
+        $posts = $this->postService->getUserPosts($audience, $userId, $skip, $take);
 
         foreach ($posts as $post) {
             // get first image for post
@@ -304,17 +314,22 @@ class PostController extends Controller
 
     // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
     public
-    function getAllSavedPostsByChunkByUserId(Request $request)
+    function getSavedPosts(Request $request)
     {
         $userId = $request->get('user_id');
+        $currentUserId = $request->get('current_user_id');
 
         // LẤY DS ID CỦA CÁC POST ĐƯỢC SAVE
         $postIds = $this->postService->getSavedPostIdsFromUserId($userId);
 
+        // Nếu user đang xem tường chính mình, cho thấy hết
+        // Nếu user đang xem tường user khác, xét theo role để thấy
+        $userId == $currentUserId ? $audience = [1,2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId) ;
+
         // LẤY DS POST TỪ DS ID CỦA CÁC POST ĐƯỢC SAVE Ở TRÊN
-        $posts = $this->postService->getSavedPostFromIdsArray($postIds, $request->get('skip'), $request->get('take'));
+        $posts = $this->postService->getSavedPostFromIdsArray($audience, $postIds, $request->get('skip'), $request->get('take'));
         foreach ($posts as $post) {
-            // LẤY HÌNH ẢNH ĐẦU TIỀN
+            // LẤY HÌNH ẢNH ĐẦU TIÊN
             $first_image_for_post = $this->imageForPostService->getFirstImageForPostByPostId($post->id);
 
             if ($first_image_for_post != null)
@@ -340,22 +355,9 @@ class PostController extends Controller
     public
     function getPostForHomeNewsfeed(Request $request)
     {
-        $userId = $request->get('user_id');
-        // GET FOLLOWING USERS IDS
-        $followingUsersIds = $this->userService->getIdsOfFollowingUser($userId);
-
-        // GET USER ROLE
-        $role_id = $this->userService->getRoleId($userId);
-        $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2];
         // GET ALL POSTS BY CHUNK BY USER ID and FOLLOWING USERS IDS
-        $posts = $this->postService->getPostForHomeNewsfeed(
-            $userId,
-            $followingUsersIds,
-            $audienceList,
-            $request->get('skip'),
-            $request->get('take') - 1,
-            $request->get('keyword')
-        );
+        $posts = $this->postService->getPostForHomeNewsfeed($request);
+
         // GET 1 SUGGESTED POST BY EXPERT
         // 1.get 1 random expert
         $randomExpert = User::select('id')->where('role_id', '=', 2)->inRandomOrder()->limit(1)->first();
@@ -376,6 +378,9 @@ class PostController extends Controller
             $post->is_suggested == null ? $post->is_suggested = false :  $post->is_suggested = true;
             // HANDLE SHORT CONTENT
             $post->short_content .= '...';
+
+            // GET TAGS
+              $post->tags;
 
             // IMAGES FOR POST HANDLE
             $imagesForPost = $post->imagesForPost;

@@ -69,10 +69,11 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
-        Route::post('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
-        Route::get('/get_all_posts_by_chunk_by_user_id', 'PostController@getAllPostsByChunkByUserId');
+        Route::post('/user_posts', 'PostController@getUserPosts');
+        Route::get('/user_posts', 'PostController@getUserPosts');
         // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
-        Route::post('/get_all_saved_posts_by_chunk_by_user_id', 'PostController@getAllSavedPostsByChunkByUserId');
+        Route::post('/get_saved_posts', 'PostController@getSavedPosts');
+        Route::get('/get_saved_posts', 'PostController@getSavedPosts');
         // LẤY DS BÀI VIẾT THEO CỤM cho trang newsfeed
         Route::post('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
         Route::get('/get_all_posts_by_chunk', 'PostController@getAllPostsByChunk');
