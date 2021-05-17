@@ -21,4 +21,10 @@ class TagController extends Controller
             ->where('tag_type_id', '=', $request->get('tag_type_id'))
             ->get();
     }
+
+//    public function getTagsByPostId($postId)
+//    {
+//        return Tag::select('id', 'name')
+//            ->where('post_id')
+//    }
 }

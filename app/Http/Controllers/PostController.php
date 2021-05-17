@@ -92,7 +92,6 @@ class PostController extends Controller
                 'message' => $validator->errors(),
             ], 401);
         }
-
         //if ($request->file('images_for_post') != null) {
         if ($request->file('files') != null) {
             return $this->submitPostWithImage($request);
@@ -118,7 +117,7 @@ class PostController extends Controller
 
         $post = new Post();
         //fields handle
-        $tag = Tag::find(-1); 
+        $tag = Tag::find(-1);
         $post->title = $request->get('title');
         $post->content = $request->get('content');
         $post->user_id = $request->get('user_id');
@@ -183,7 +182,7 @@ class PostController extends Controller
 
         DB::commit();
         return Response::json([
-            'success' => true,
+            'status' => true,
             'message' => 'Post without image submit successfully',
             'post_id' => $post->id,
         ], 200);
@@ -380,7 +379,12 @@ class PostController extends Controller
             $post->short_content .= '...';
 
             // GET TAGS
-              $post->tags;
+            //$post->tags->where('id','!=', -1);
+//            $post::with(array('tags' => function($q)
+//            {
+//                $q->where('id','!=', -1);
+//
+//            }));
 
             // IMAGES FOR POST HANDLE
             $imagesForPost = $post->imagesForPost;
