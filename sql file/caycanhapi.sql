@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.comment: ~66 rows (approximately)
+-- Dumping data for table caycanhapi.comment: ~64 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `image_url`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 4, 9, 'cmt 1', 1, NULL, '2021-03-01 03:18:48', '2021-05-03 20:07:18', NULL),
@@ -86,16 +86,34 @@ INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `like`, `image_url
 	(56, 1, 15, 'test', 0, '/storage/image_for_comment/4e675267-1409-45c9-9c6f-083355b0d2deFB_IMG_1620022781265.jpg', '2021-05-03 15:38:13', '2021-05-03 15:38:13', NULL),
 	(57, 1, 12, 'test', 0, '/storage/image_for_comment/5d73636e-1202-4555-831d-7ca1d26f5a7ereceived_320142529731007.jpeg', '2021-05-03 15:39:02', '2021-05-03 15:39:02', NULL),
 	(58, 1, 18, 'haha', 0, '/storage/image_for_comment/74bc035a-937f-453f-830e-dd0e1ffe51aereceived_320142529731007.jpeg', '2021-05-03 15:40:47', '2021-05-03 15:40:47', NULL),
-	(59, 1, 18, 'haha', 0, '/storage/image_for_comment/43d0feb9-3a35-4fd2-bf27-5add97a1333freceived_320142529731007.jpeg', '2021-05-03 15:41:13', '2021-05-07 15:59:15', NULL),
-	(60, 1, 18, 'j', 1, '/storage/image_for_comment/b616d887-7d54-48ff-9ed4-b8021b0049cb51bfcab.jpg', '2021-05-03 15:41:28', '2021-05-07 16:27:50', NULL),
-	(61, 4, 18, 'ok', 1, '/storage/image_for_comment/36713d54-802b-4abe-b5b6-2db9e7d1661ereceived_476726877111067.jpeg', '2021-05-03 15:42:38', '2021-05-09 19:04:39', NULL),
+	(59, 1, 18, 'haha', 1, '/storage/image_for_comment/43d0feb9-3a35-4fd2-bf27-5add97a1333freceived_320142529731007.jpeg', '2021-05-03 15:41:13', '2021-05-16 19:53:20', NULL),
+	(60, 1, 18, 'j', 1, '/storage/image_for_comment/b616d887-7d54-48ff-9ed4-b8021b0049cb51bfcab.jpg', '2021-05-03 15:41:28', '2021-05-16 19:53:18', NULL),
+	(61, 4, 18, 'ok', 0, '/storage/image_for_comment/36713d54-802b-4abe-b5b6-2db9e7d1661ereceived_476726877111067.jpeg', '2021-05-03 15:42:38', '2021-05-16 19:53:12', NULL),
 	(62, 1, 18, 'hay', 1, '/storage/image_for_comment/95c9d617-39cd-4763-871c-7129d488c909received_215422520013161.jpeg', '2021-05-03 15:43:38', '2021-05-07 16:26:38', NULL),
-	(63, 4, 18, 'dc', 0, '/storage/image_for_comment/0e633f74-8f08-4ebf-aca6-b1c16763934502eb0f7422d2b8e01aee4f5692abf76a--kid-memes-funny-memes.jpg', '2021-05-03 15:47:52', '2021-05-05 20:09:07', NULL),
+	(63, 4, 18, 'dc', 1, '/storage/image_for_comment/0e633f74-8f08-4ebf-aca6-b1c16763934502eb0f7422d2b8e01aee4f5692abf76a--kid-memes-funny-memes.jpg', '2021-05-03 15:47:52', '2021-05-16 19:53:08', NULL),
 	(64, 1, 17, 'ok', 1, '/storage/image_for_comment/4b4185b8-63f9-4abf-8dd2-33068c1e9c04received_169417195090844.jpeg', '2021-05-03 15:50:44', '2021-05-03 21:31:31', NULL),
 	(65, 1, 17, 'hi', 0, NULL, '2021-05-03 16:01:50', '2021-05-03 21:31:18', NULL),
 	(66, 1, 14, 'test upload image for comment', 0, '/storage/image_for_comment/a81f18d1-4955-462a-ba73-45af4fa5c4b0172735254_453645012364061_2647792259269094266_n.jpg', '2021-05-05 19:03:34', '2021-05-05 19:03:34', NULL),
 	(67, 1, 18, 'test bình luận đã xóa', 0, NULL, '2021-05-05 20:09:19', '2021-05-07 17:38:55', '2021-05-07 17:38:55');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+
+-- Dumping structure for table caycanhapi.comment_for_user_plant
+CREATE TABLE IF NOT EXISTS `comment_for_user_plant` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_plant_id` int(11) NOT NULL DEFAULT '0',
+  `content` varchar(225) NOT NULL DEFAULT '0',
+  `like` int(11) NOT NULL DEFAULT '0',
+  `image_url` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.comment_for_user_plant: ~0 rows (approximately)
+/*!40000 ALTER TABLE `comment_for_user_plant` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment_for_user_plant` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.email_activate
 CREATE TABLE IF NOT EXISTS `email_activate` (
@@ -176,9 +194,9 @@ CREATE TABLE IF NOT EXISTS `image_for_post` (
   `created_date` date NOT NULL DEFAULT '0000-00-00',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.image_for_post: ~42 rows (approximately)
+-- Dumping data for table caycanhapi.image_for_post: ~44 rows (approximately)
 /*!40000 ALTER TABLE `image_for_post` DISABLE KEYS */;
 INSERT INTO `image_for_post` (`id`, `post_id`, `url`, `created_date`, `is_deleted`) VALUES
 	(1, 1, '/uploads/images/store/b63f0060-7024-4cd5-8bad-162a2107ed8bpjaeaec2ppq61.jpg', '0000-00-00', 0),
@@ -227,7 +245,12 @@ INSERT INTO `image_for_post` (`id`, `post_id`, `url`, `created_date`, `is_delete
 	(59, 22, '/storage/image_for_post/52a99894-498a-435f-bc70-110ccc2350d3FB_IMG_1620821019221.jpg', '0000-00-00', 0),
 	(60, 22, '/storage/image_for_post/a74bec23-5496-4e2f-9afa-18d03d7e07f2FB_IMG_1620820395215.jpg', '0000-00-00', 0),
 	(61, 22, '/storage/image_for_post/83b8f848-64ff-4a34-8b43-472c0a9a6a9dFB_IMG_1620806742668.jpg', '0000-00-00', 0),
-	(62, 22, '/storage/image_for_post/075c96bc-35ba-45eb-8701-950f67f002e5FB_IMG_1620803811654.jpg', '0000-00-00', 0);
+	(62, 22, '/storage/image_for_post/075c96bc-35ba-45eb-8701-950f67f002e5FB_IMG_1620803811654.jpg', '0000-00-00', 0),
+	(63, 26, '/storage/image_for_post/8ca8d09e-a22f-41ef-96cb-b2f7f7767e1e1619847938000.jpg', '0000-00-00', 0),
+	(64, 26, '/storage/image_for_post/20a5573f-5674-4604-b76a-b88e000615ffStory-ov-my-corona-life.jpg', '0000-00-00', 0),
+	(65, 37, '/storage/image_for_post/a8ce811f-bcc5-44cd-80da-0874409fa620The-Mommy-is-sad-because-all-her-kids-turned-out-to-be-criminals.jpg', '0000-00-00', 0),
+	(66, 38, '/storage/image_for_post/6d148aac-0533-42b3-a105-4e8710cab1c7The-Mommy-is-sad-because-all-her-kids-turned-out-to-be-criminals.jpg', '0000-00-00', 0),
+	(67, 39, '/storage/image_for_post/1e82bbcb-348c-40d9-bee3-97b910b76e31FB_IMG_1621316731798.jpg', '0000-00-00', 0);
 /*!40000 ALTER TABLE `image_for_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.image_for_user
@@ -247,25 +270,51 @@ INSERT INTO `image_for_user` (`id`, `user_id`, `url`, `created_at`, `is_deleted`
 	(27, 1, '/storage/image_for_user/e9e8daaa-62ba-4fd3-8d32-95f3d1d07896images (1).jpeg', '0000-00-00 00:00:00', 0);
 /*!40000 ALTER TABLE `image_for_user` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.image_for_user_plant
+CREATE TABLE IF NOT EXISTS `image_for_user_plant` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_plant_id` int(11) NOT NULL DEFAULT '0',
+  `url` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `created_date` date NOT NULL DEFAULT '0000-00-00',
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.image_for_user_plant: ~10 rows (approximately)
+/*!40000 ALTER TABLE `image_for_user_plant` DISABLE KEYS */;
+INSERT INTO `image_for_user_plant` (`id`, `user_plant_id`, `url`, `created_date`, `is_deleted`) VALUES
+	(1, 3, '/storage/image_for_user_plant/51e255d9-eb50-4112-9a58-4a8b4821f242188465091_492964015189389_6273254574965887753_n.jpg', '0000-00-00', 0),
+	(4, 6, '/storage/image_for_user_plant/d390b63c-47f3-4db7-8971-aef3287695e141iagp14xtt61.jpg', '0000-00-00', 0),
+	(5, 7, '/storage/image_for_user_plant/e96753a1-cd2d-4478-beda-b63ea766add4p02zn2md.jpg', '0000-00-00', 0),
+	(6, 8, '/storage/image_for_user_plant/f34639a4-0376-46ba-ad95-53167e8fd1c5zamioculcas-zamiifolia-zz-plant-pistils-nursery-733x949.jpg', '0000-00-00', 0),
+	(7, 9, '/storage/image_for_user_plant/36442c15-3e87-481d-b244-4f9f1e1a57abimages (1).jpg', '0000-00-00', 0),
+	(8, 11, '/storage/image_for_user_plant/3b0b633d-0cf3-46bc-bf88-5d8bd2728974a76LKn0E_700w_0.jpg', '0000-00-00', 0),
+	(9, 12, '/storage/image_for_user_plant/98a3a374-4340-4ebb-91d0-7d93078064eda76LKn0E_700w_0.jpg', '0000-00-00', 0),
+	(10, 13, '/storage/image_for_user_plant/3200ee16-b9e9-44d8-b142-9287538d95e8145310139_435083847726250_6323447123393892101_n.jpg', '0000-00-00', 0),
+	(11, 14, '/storage/image_for_user_plant/b4a1ee13-33b8-4ec9-a19a-4bb03e0305f3150534618_421495215625812_4778847134011146192_n.jpg', '0000-00-00', 0),
+	(12, 15, '/storage/image_for_user_plant/441f26a7-ba9c-498e-b15a-b4431713da13The-Mommy-is-sad-because-all-her-kids-turned-out-to-be-criminals.jpg', '0000-00-00', 0);
+/*!40000 ALTER TABLE `image_for_user_plant` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.liked_comment
 CREATE TABLE IF NOT EXISTS `liked_comment` (
   `comment_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.liked_comment: ~10 rows (approximately)
+-- Dumping data for table caycanhapi.liked_comment: ~11 rows (approximately)
 /*!40000 ALTER TABLE `liked_comment` DISABLE KEYS */;
 INSERT INTO `liked_comment` (`comment_id`, `user_id`) VALUES
 	(1, 2),
 	(62, 1),
-	(60, 1),
 	(53, 1),
 	(52, 1),
 	(51, 1),
 	(64, 1),
 	(37, 1),
 	(67, 1),
-	(61, 1);
+	(63, 1),
+	(60, 1),
+	(59, 1);
 /*!40000 ALTER TABLE `liked_comment` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.liked_post
@@ -274,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `liked_post` (
   `user_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.liked_post: ~16 rows (approximately)
+-- Dumping data for table caycanhapi.liked_post: ~18 rows (approximately)
 /*!40000 ALTER TABLE `liked_post` DISABLE KEYS */;
 INSERT INTO `liked_post` (`post_id`, `user_id`) VALUES
 	(1, 1),
@@ -292,7 +341,9 @@ INSERT INTO `liked_post` (`post_id`, `user_id`) VALUES
 	(19, 1),
 	(20, 1),
 	(15, 1),
-	(18, 1);
+	(18, 1),
+	(22, 1),
+	(28, 1);
 /*!40000 ALTER TABLE `liked_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.migrations
@@ -332,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table caycanhapi.oauth_access_tokens: ~114 rows (approximately)
+-- Dumping data for table caycanhapi.oauth_access_tokens: ~112 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('01012f025561d895a6a4bd117c3b51dc51af6af5da85a8540c92117aaf2567e4e5ba3b6c6da88d5c', 1, 3, 'appToken', '[]', 1, '2021-04-09 19:04:17', '2021-04-09 19:04:17', '2022-04-09 19:04:17'),
@@ -363,6 +414,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('1cce811c2130b3329d68aab83ed4a4ee61aa66d3f785caf4eb108d29e87b9c6337900d43f0d753fc', 1, 3, 'appToken', '[]', 1, '2021-04-08 05:11:33', '2021-04-08 05:11:33', '2022-04-08 05:11:33'),
 	('1ebabf5d84097911d86bf0572f3336bcddc9ec9a10a5417b4e8035f0235e5a15940be9e451e73940', 1, 3, 'appToken', '[]', 1, '2021-04-10 16:51:39', '2021-04-10 16:51:39', '2022-04-10 16:51:39'),
 	('1f98692ba5edd46281f44af4faa1c8b58a0a430dee4729dee65b928160a02e4f090a84147a6a79bb', 1, 3, 'appToken', '[]', 0, '2021-04-21 14:24:49', '2021-04-21 14:24:49', '2022-04-21 14:24:49'),
+	('20bcc361596cba0c30b849f394ea55c9d0ec253c601989188d6b966305204ddd3329e1e85aee7239', 7, 3, 'appToken', '[]', 1, '2021-05-20 13:59:57', '2021-05-20 13:59:57', '2022-05-20 13:59:57'),
 	('21bb207848543e3224ee71f3078411c423851c1e600b170202c5c5974685b0b511c203a392707a4c', 4, 3, 'appToken', '[]', 1, '2021-04-09 01:52:25', '2021-04-09 01:52:25', '2022-04-09 01:52:25'),
 	('2405a9eaf50936dab297cbca3a28703f32ab263dacc8eb34b34c634ef03449c6ec405de3796d2a71', 1, 3, 'appToken', '[]', 1, '2021-04-10 17:10:31', '2021-04-10 17:10:31', '2022-04-10 17:10:31'),
 	('242569108fd074469b22e200cd5a4ef1cbdae581b636e83da9a04243259d6cbaf04ec6f69f4e7ee5', 3, 1, 'appToken', '[]', 0, '2021-04-03 13:23:22', '2021-04-03 13:23:22', '2022-04-03 13:23:22'),
@@ -376,6 +428,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('2b76d897cf6352e9664d6c13a2a9468df9bd0417bab9e45d2c21afc8b4b3c57e177e8fdcd2005c57', NULL, 1, 'appToken', '[]', 0, '2021-04-03 12:29:31', '2021-04-03 12:29:31', '2022-04-03 12:29:31'),
 	('31a043a826c8036e1f5c2c29f994549fba9ec6c331c88d3c67dff94bea64c117589666b248ddea19', 3, 3, 'appToken', '[]', 0, '2021-04-04 00:40:52', '2021-04-04 00:40:52', '2022-04-04 00:40:52'),
 	('31c236e5bc8f57d51d5012418034a44fca3909c9db9e874958fd0f8134e611008b256e054d9e083e', 7, 3, 'appToken', '[]', 1, '2021-04-12 17:03:51', '2021-04-12 17:03:51', '2022-04-12 17:03:51'),
+	('32e6a8b19a18480a98f47efaa1dfdc1becdcdcf34c8c6729813f5ba0370af1f1acbf040dc2250c56', 1, 3, 'appToken', '[]', 0, '2021-05-20 14:28:36', '2021-05-20 14:28:36', '2022-05-20 14:28:36'),
 	('32f8dcc615b28a7d96c9b09c81caf00682b66e9d285561484700bcdab6a5979811c07ad37e117950', 1, 3, 'appToken', '[]', 0, '2021-04-26 19:38:26', '2021-04-26 19:38:26', '2022-04-26 19:38:26'),
 	('37810ff23314c5527568ada0fba898348e1be4bdd866635be1527cc97d3ea7951fd7db74e5262ca5', 4, 1, 'appToken', '[]', 0, '2021-03-27 13:41:28', '2021-03-27 13:41:28', '2022-03-27 13:41:28'),
 	('379b7f58a80c6985acc03d6291b1fe7bb78982e158ebd080c06bc03ae85f1cbefcb201447ed0d326', NULL, 1, 'appToken', '[]', 0, '2021-03-31 14:18:41', '2021-03-31 14:18:41', '2022-03-31 14:18:41'),
@@ -465,7 +518,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('e0d36e85386709e37d315346d93e6dd5a295b6983eaa4a5d7303ae34c6237a827028a79a60df2e1a', 4, 1, 'appToken', '[]', 0, '2021-03-27 09:45:59', '2021-03-27 09:45:59', '2022-03-27 09:45:59'),
 	('e0e2bb7199dacd872c172e3c74f6133bacf2816da4ae26311736bfd92bc846fcc82215a4ae14a424', 4, 1, 'appToken', '[]', 0, '2021-03-23 12:23:35', '2021-03-23 12:23:35', '2022-03-23 12:23:35'),
 	('e10a6f14be2f83e614b57330e04c850cf22c86597d6aa00cffcd376ba79b6161a5c6d841d3035493', NULL, 3, 'appToken', '[]', 0, '2021-04-12 17:03:22', '2021-04-12 17:03:22', '2022-04-12 17:03:22'),
-	('e4245ee1cbce03b3c084af69347e363ab5fada9ed4dcc9eb79ee93cc470a5687dc52c36ee1ee7f5c', 1, 3, 'appToken', '[]', 0, '2021-05-01 15:57:17', '2021-05-01 15:57:17', '2022-05-01 15:57:17'),
+	('e4245ee1cbce03b3c084af69347e363ab5fada9ed4dcc9eb79ee93cc470a5687dc52c36ee1ee7f5c', 1, 3, 'appToken', '[]', 1, '2021-05-01 15:57:17', '2021-05-01 15:57:17', '2022-05-01 15:57:17'),
 	('e717dbd20e484372dd0b7b80dc6b02a2d225ed2cf01c583ec0e3c5faed8373541fcd7950cee0b9f3', 1, 3, 'appToken', '[]', 0, '2021-04-29 07:52:19', '2021-04-29 07:52:19', '2022-04-29 07:52:19'),
 	('e74f9d7aa7f6d3a2fc820fc038dd0e3e817ae38a4e60c31b94a47b28dcded80d1bd3a7f981041747', 4, 1, 'appToken', '[]', 0, '2021-03-27 10:18:14', '2021-03-27 10:18:14', '2022-03-27 10:18:14'),
 	('e7f8f713a8f8490aea2159d0e68aa25a28af2123e63dda6731e5cf84409cacb850c07ae021ff32e3', NULL, 1, 'appToken', '[]', 0, '2021-04-03 13:11:33', '2021-04-03 13:11:33', '2022-04-03 13:11:33'),
@@ -572,7 +625,7 @@ CREATE TABLE IF NOT EXISTS `pending_expert` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.pending_expert: ~0 rows (approximately)
+-- Dumping data for table caycanhapi.pending_expert: ~1 rows (approximately)
 /*!40000 ALTER TABLE `pending_expert` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pending_expert` ENABLE KEYS */;
 
@@ -588,14 +641,14 @@ CREATE TABLE IF NOT EXISTS `post` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post: ~21 rows (approximately)
+-- Dumping data for table caycanhapi.post: ~36 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `audience`, `deleted_at`, `updated_at`) VALUES
 	(1, 'abccc', 'Sometimes you may wish to retrieve the first result of a query or perform some other action if no results are found. The firstOr method will return the first result matching the query or, if no results are found, execute the given closure. The value returned by the closure will be considered the result of the firstOr method', '2021-04-06 00:00:00', 100, 4, 1, NULL, '2021-04-22'),
 	(2, 'abccc', 'The firstOrNew method, like firstOrCreate, will attempt to locate a record in the database matching the given attributes. However, if a model is not found, a new model instance will be returned. Note that the model returned by firstOrNew has not yet been persisted to the database. You will need to manually call the save method to persist it:', '2021-04-06 00:00:00', 0, 7, 1, NULL, '2021-04-06'),
-	(3, 'bài post 1', 'In this example, we assign the name field from the incoming HTTP request to the name attribute of the App\\Models\\Flight model instance. When we call the save method, a record will be inserted into the database. The model\'s created_at and updated_at timestamps will automatically be set when the save method is called, so there is no need to set them manually.', '2021-04-06 00:00:00', 100, 1, 1, NULL, '2021-04-06'),
+	(3, 'bài post 1', 'test', '2021-04-06 00:00:00', 100, 1, 2, NULL, '2021-04-06'),
 	(4, 'bài post 2', 'Of course, when using Eloquent, we don\'t only need to retrieve models from the database. We also need to insert new records. Thankfully, Eloquent makes it simple. To insert a new record into the database, you should instantiate a new model instance and set attributes on the model. Then, call the save method on the model instance:', '2021-04-06 00:00:00', 0, 1, 2, NULL, '2021-04-06'),
 	(5, 'bài post 3', 'tststs', '2021-04-06 00:00:00', 0, 1, 2, NULL, '2021-04-06'),
 	(6, 'bài post 4', 'The save method may also be used to update models that already exist in the database. To update a model, you should retrieve it and set any attributes you wish to update. Then, you should call the model\'s save method. Again, the updated_at timestamp will automatically be updated, so there is no need to manually set its value:', '2021-04-08 00:00:00', 1, 1, 2, NULL, '2021-04-19'),
@@ -605,8 +658,8 @@ INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `
 	(10, 'bài post 8', 'When issuing a mass update via Eloquent, the saving, saved, updating, and updated model events will not be fired for the updated models. This is because the models are never actually retrieved when issuing a mass update.', '2021-04-09 09:42:09', 1, 1, 2, NULL, '2021-04-09'),
 	(11, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'bbbbbb', '2021-04-10 08:37:11', 1, 1, 2, NULL, '2021-04-21'),
 	(12, 'bài post 10', 'The wasChanged method determines if any attributes were changed when the model was last saved within the current request cycle. If needed, you may pass an attribute name to see if a particular attribute was changed:', '2021-04-10 08:46:16', 1, 1, 2, NULL, '2021-04-13'),
-	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 0, 4, 1, NULL, '2021-05-01'),
-	(14, 'bài post 12', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-10 08:47:53', 1, 4, 1, NULL, '2021-04-12'),
+	(13, 'bài post 11', 'The getOriginal method returns an array containing the original attributes of the model regardless of any changes to the model since it was retrieved. If needed, you may pass a specific attribute name to get the original value of a particular attribute:', '2021-04-10 08:46:46', 0, 4, 2, NULL, '2021-05-01'),
+	(14, 'bài post 12', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-10 08:47:53', 1, 4, 2, NULL, '2021-04-12'),
 	(15, 'bài post 13', 'vvv', '2021-04-10 08:49:04', 1, 1, 2, NULL, '2021-04-27'),
 	(16, 'bài post 14', 'vvv', '2021-04-10 08:49:27', 1, 1, 2, '2021-05-01 21:29:35', '2021-05-01'),
 	(17, 'bài post 15', 'Well depends on what you look for.\nThere are facts in history. We have overlapping sources that confirms that a certain person existed, a certain event took a place, a certain thing was caused by the other, a certain object was in use in a certain way. It\'s just true.\nNow, then we have a thing without enough overlapping sources, mostly covered by something that someone wrote or depicted in other way. With this we have to take in account if that\'s a first-hand relation and if the person could have an agenda in writing less accurately. On this basis we say something probably took place, or could have, or that someone depicted such thing... Just levels of likeness. We know it\'s not really surely true.\nThen we have less clear sources - just mentions of things without further descriptions, pictures, objects, archaeological sites... Those are interpreted. They don\'t lie on purpose, but we only can rely on of what we currently know is most likely. This can be changed with new findings.', '2021-04-10 08:51:57', 1, 1, 2, NULL, '2021-05-07'),
@@ -614,7 +667,24 @@ INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `
 	(19, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:07:08', 1, 1, 2, '2021-04-22 17:14:58', '2021-04-22'),
 	(20, 'Tiêu đề chăm sóc cây cảnh', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2021-04-22 11:08:03', 1, 1, 2, '2021-04-22 17:14:40', '2021-04-22'),
 	(21, 'abc', 'zyz', '2021-04-22 11:09:00', 1, 1, 2, '2021-04-22 17:12:01', '2021-04-22'),
-	(22, 'test cho chuyên gia', 'test cho chuyên gia', '2021-05-12 20:35:56', 0, 1, 2, NULL, '2021-05-12');
+	(22, 'test cho chuyên gia', 'test cho chuyên gia', '2021-05-12 20:35:56', 1, 1, 2, NULL, '2021-05-13'),
+	(23, 'bài không hình', 'cfdfd', '2021-05-16 18:49:46', 0, 1, 1, NULL, '2021-05-16'),
+	(24, 'bài không hình', 'cfdfd', '2021-05-16 18:49:51', 0, 1, 1, NULL, '2021-05-16'),
+	(25, 'bài không hình', 'cfdfd', '2021-05-16 18:50:09', 0, 1, 1, NULL, '2021-05-16'),
+	(26, 'bài có hình', 'abc', '2021-05-16 18:54:21', 0, 1, 1, NULL, '2021-05-16'),
+	(27, 'test không tag', 'ggg', '2021-05-16 19:38:34', 0, 1, 1, NULL, '2021-05-16'),
+	(28, 'cay canh', NULL, '2021-05-16 19:40:30', 1, 1, 1, NULL, '2021-05-17'),
+	(29, 'Tieu de', 'aaaa', '2021-05-17 09:56:29', 0, 1, 1, NULL, '2021-05-17'),
+	(30, 'Tieu de', NULL, '2021-05-17 10:13:32', 0, 1, 1, NULL, '2021-05-17'),
+	(31, 'aaaa', NULL, '2021-05-17 10:13:41', 0, 1, 1, NULL, '2021-05-17'),
+	(32, 'Tieu de', NULL, '2021-05-17 10:13:45', 0, 1, 1, NULL, '2021-05-17'),
+	(33, 'Bai viet khong noi dung', NULL, '2021-05-17 10:14:34', 0, 1, 1, NULL, '2021-05-17'),
+	(34, 'Bai viet khong noi dung', NULL, '2021-05-17 10:15:31', 0, 1, 1, NULL, '2021-05-17'),
+	(35, 'cây lan', NULL, '2021-05-17 21:53:52', 0, 1, 1, NULL, '2021-05-17'),
+	(36, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'Cactus spines are produced from specialized structures called areoles, a kind of highly reduced branch. Areoles are an identifying feature of cacti. As well as spines, areoles give rise to flowers, which are usually tubular and multipetaled. Many cacti have short growing seasons and long dormancies, and are able to react quickly to any rainfall, helped by an extensive but relatively shallow root system that quickly absorbs any water reaching the ground surface. Cactus stems are often ribbed or fluted, which allows them to expand and contract easily for quick water absorption after rain, followed by long drought periods. Like other succulent plants, most cacti employ a special mechanism called "crassulacean acid metabolism" (CAM) as part of photosynthesis. Transpiration, during which carbon dioxide enters the plant and water escapes, does not take place during the day at the same time as photosynthesis, but instead occurs at night. The plant stores the carbon dioxide it takes in as malic acid, retaining it until daylight returns, and only then using it in photosynthesis. Because transpiration takes place during the cooler, more humid night hours, water loss is significantly reduced.', '2021-05-18 09:24:55', 0, 1, 1, NULL, '2021-05-18'),
+	(37, 'cây để trao đổi', 'trao đổi cây', '2021-05-20 11:37:47', 0, 1, 1, '2021-05-20 11:39:55', '2021-05-20'),
+	(38, 'trao đổi cây', 'trao đổi cây', '2021-05-20 11:40:22', 0, 1, 1, NULL, '2021-05-20'),
+	(39, 'sdss', 'xffc', '2021-05-20 14:04:19', 0, 7, 1, NULL, '2021-05-20');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.post_tag
@@ -623,7 +693,7 @@ CREATE TABLE IF NOT EXISTS `post_tag` (
   `tag_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post_tag: ~118 rows (approximately)
+-- Dumping data for table caycanhapi.post_tag: ~168 rows (approximately)
 /*!40000 ALTER TABLE `post_tag` DISABLE KEYS */;
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(1, 1),
@@ -760,7 +830,47 @@ INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(21, 9),
 	(22, 2),
 	(22, 8),
-	(22, 9);
+	(22, 9),
+	(26, 9),
+	(23, -1),
+	(24, -1),
+	(25, -1),
+	(27, -1),
+	(28, -1),
+	(29, -1),
+	(30, -1),
+	(30, 1),
+	(30, 1),
+	(30, 1),
+	(30, 1),
+	(30, 1),
+	(30, 1),
+	(31, -1),
+	(32, -1),
+	(32, 1),
+	(32, 1),
+	(32, 1),
+	(32, 1),
+	(32, 1),
+	(32, 1),
+	(32, 1),
+	(33, -1),
+	(34, -1),
+	(35, -1),
+	(35, 1),
+	(35, 10),
+	(36, -1),
+	(36, 1),
+	(36, 2),
+	(36, 8),
+	(36, 11),
+	(37, -1),
+	(38, -1),
+	(38, 12),
+	(39, -1),
+	(39, 9),
+	(39, 8),
+	(39, 12);
 /*!40000 ALTER TABLE `post_tag` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.role
@@ -786,13 +896,14 @@ CREATE TABLE IF NOT EXISTS `saved_post` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.saved_post: ~5 rows (approximately)
+-- Dumping data for table caycanhapi.saved_post: ~6 rows (approximately)
 /*!40000 ALTER TABLE `saved_post` DISABLE KEYS */;
 INSERT INTO `saved_post` (`post_id`, `user_id`) VALUES
 	(17, 1),
 	(14, 1),
 	(21, 1),
-	(8, 1);
+	(8, 1),
+	(17, 4);
 /*!40000 ALTER TABLE `saved_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.server_plant
@@ -875,11 +986,12 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `created_date` date NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.tag: ~11 rows (approximately)
+-- Dumping data for table caycanhapi.tag: ~12 rows (approximately)
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
 INSERT INTO `tag` (`id`, `tag_type_id`, `name`, `created_date`, `deleted_at`) VALUES
+	(-1, 3, 'default', '2021-05-16', NULL),
 	(1, 1, 'cây Lan', '2021-03-26', NULL),
 	(2, 1, 'cây văn phòng', '2021-03-26', NULL),
 	(3, 1, 'trầu bà', '2021-03-26', NULL),
@@ -890,7 +1002,8 @@ INSERT INTO `tag` (`id`, `tag_type_id`, `name`, `created_date`, `deleted_at`) VA
 	(8, 2, 'tâm sự', '2021-03-26', NULL),
 	(9, 2, 'nâng cao', '2021-03-26', NULL),
 	(10, 2, 'kiến thức', '2021-03-26', NULL),
-	(11, 2, 'cơ bản', '2021-03-26', NULL);
+	(11, 2, 'cơ bản', '2021-03-26', NULL),
+	(12, 4, 'trao đổi', '2021-05-20', NULL);
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.tag_type
@@ -900,13 +1013,15 @@ CREATE TABLE IF NOT EXISTS `tag_type` (
   `created_date` date NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.tag_type: ~2 rows (approximately)
+-- Dumping data for table caycanhapi.tag_type: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tag_type` DISABLE KEYS */;
 INSERT INTO `tag_type` (`id`, `name`, `created_date`, `is_deleted`) VALUES
 	(1, 'Loại Cây', '2021-03-26', 0),
-	(2, 'Nội dung', '2021-03-26', 0);
+	(2, 'Nội dung', '2021-03-26', 0),
+	(3, 'Default', '2021-05-17', 0),
+	(4, 'Trao đổi', '2021-05-20', 0);
 /*!40000 ALTER TABLE `tag_type` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.task
@@ -944,14 +1059,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.user: ~6 rows (approximately)
+-- Dumping data for table caycanhapi.user: ~5 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `bio`, `role_id`, `is_deleted`, `name`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'chronicle11109', 'chronicle1951@gmail.com', '$2y$10$hbysJrQYpZhOTzNT6JffcuAoyZDnzz2NdnDpYvwq7AePlY8U.BtCu', 'Welcome to my feed, where people come for enjoyment.', 2, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-03-31 14:55:40', '2021-05-10 17:34:41', NULL),
-	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 2, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-05-10 11:27:19', NULL),
+	(4, 'lampart', 'dangkhoa.lampart@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I am a rare species, not a stereotype.', 1, 0, 'Nguyễn Văn A', NULL, NULL, '2021-04-08 08:28:07', '2021-05-10 11:27:19', NULL),
 	(5, 'z', 'dangkhoa@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', ' I’m not ashamed to be me. What’s wrong with being amazingly unique?', 1, 0, 'Mai Đăng Khoa', NULL, NULL, '2021-04-11 16:46:45', '2021-04-11 16:46:46', NULL),
 	(6, 'plantcare', 'plantcare@gmail.com', '$2y$10$1vyNg.NWLf0AP3S8LtcyVOZ8eDs3MCiKHUUjY4G/ww0e2RvQHdqEK', 'I’m writing my autobiography on my Facebook account.', 2, 0, 'Plant Care', NULL, NULL, '2021-04-11 16:47:30', '2021-05-10 15:46:18', NULL),
-	(7, 'chronicle1111', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 1, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL),
+	(7, 'khoa', 'khoa@gmail.com', '$2y$10$apLDytxUt8rOU/jxWRsSHOBm.f2EyQ5KKOUETXD6Rd6tYGUkKS9dC', '', 1, 0, 'khoa', NULL, NULL, '2021-04-12 17:03:22', '2021-04-12 17:03:22', NULL),
 	(8, 'admin', 'admin@gmail.com', '$2y$10$LsLLHLjQwhV.lWNyo7YmXOz7rJY/qKKdYWrz6lyNf.1YICRBeSWwK', '', 3, 0, 'Khoa', NULL, NULL, '2021-05-10 09:23:06', '2021-05-10 09:23:06', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
@@ -976,15 +1091,40 @@ INSERT INTO `user_follow_user` (`user_id`, `follower_user_id`) VALUES
 CREATE TABLE IF NOT EXISTS `user_plant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
-  `created_date` date NOT NULL DEFAULT '0000-00-00',
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `common_name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `scientific_name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '',
+  `description` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `available` tinyint(4) DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.user_plant: ~9 rows (approximately)
+/*!40000 ALTER TABLE `user_plant` DISABLE KEYS */;
+INSERT INTO `user_plant` (`id`, `user_id`, `common_name`, `scientific_name`, `description`, `available`, `created_at`, `deleted_at`, `updated_at`) VALUES
+	(3, 1, 'xương rồng', 'cactus', 'xương rồng trao đổi', 1, '2021-05-19 10:42:06', NULL, '2021-05-19 10:42:06'),
+	(6, 1, 'xương rồng', ' ', 'xương rồng trao đổi', 1, '2021-05-19 16:51:07', NULL, '2021-05-19 16:51:07'),
+	(7, 1, 'cây cảnh', ' ', 'xương rồng trao đổi', 1, '2021-05-19 19:27:52', NULL, '2021-05-19 19:27:52'),
+	(8, 1, 'cây cảnh', ' ', 'xương rồng trao đổi', 1, '2021-05-19 19:28:03', NULL, '2021-05-19 19:28:03'),
+	(9, 1, 'cây cảnh', ' ', 'xương rồng trao đổi', 1, '2021-05-19 19:28:12', NULL, '2021-05-19 19:28:12'),
+	(11, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:30:48', NULL, '2021-05-19 19:30:48'),
+	(12, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:35:40', NULL, '2021-05-19 19:35:40'),
+	(13, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:35:57', NULL, '2021-05-19 19:35:57'),
+	(14, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:37:31', NULL, '2021-05-19 19:37:31'),
+	(15, 1, 'cây sen', 'vhhhhh', NULL, 1, '2021-05-20 15:19:28', NULL, '2021-05-20 15:19:28');
+/*!40000 ALTER TABLE `user_plant` ENABLE KEYS */;
+
+-- Dumping structure for table caycanhapi.user_plant_pending_exchange
+CREATE TABLE IF NOT EXISTS `user_plant_pending_exchange` (
+  `user_plant_id` int(11) DEFAULT NULL,
+  `user_plant_pending_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.user_plant: ~0 rows (approximately)
-/*!40000 ALTER TABLE `user_plant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_plant` ENABLE KEYS */;
+-- Dumping data for table caycanhapi.user_plant_pending_exchange: ~0 rows (approximately)
+/*!40000 ALTER TABLE `user_plant_pending_exchange` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_plant_pending_exchange` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

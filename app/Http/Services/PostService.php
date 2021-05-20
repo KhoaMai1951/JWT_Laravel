@@ -97,7 +97,7 @@ class PostService
         return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 1000) AS short_content'))
             // GET TAGS EXCEPT ID = -1
             ->with(array('tags' => function ($q) {
-                $q->select('name', 'id') 
+                $q->select('name', 'id', 'tag_type_id')
                     ->where('id', '!=', -1);
             }))
             // WHERE 1
@@ -157,6 +157,11 @@ class PostService
     )
     {
         return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            // GET TAGS EXCEPT ID = -1
+            ->with(array('tags' => function ($q) {
+                $q->select('name', 'id', 'tag_type_id')
+                    ->where('id', '!=', -1);
+            }))
             // where( where(title / content = keyword) andWhereIn(audience, audienceList) andWhere(user_id != current user id) )
             ->where(function ($query) use ($keyword, $audienceList, $userId) {
                 $query->where(function ($query) use ($keyword) {

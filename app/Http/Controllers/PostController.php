@@ -230,6 +230,11 @@ class PostController extends Controller
     {
         $id = $request->get('id');
 
+//        $post = Post::find($id)->with(array('tags' => function ($q) {
+//            $q->select('name', 'id')
+//                ->where('id', '!=', -1);
+//        }))->get();
+
         $post = Post::find($id);
 
         //NẾU KHÔNG TÌM ĐC POST
@@ -377,14 +382,6 @@ class PostController extends Controller
             $post->is_suggested == null ? $post->is_suggested = false :  $post->is_suggested = true;
             // HANDLE SHORT CONTENT
             $post->short_content .= '...';
-
-            // GET TAGS
-            //$post->tags->where('id','!=', -1);
-//            $post::with(array('tags' => function($q)
-//            {
-//                $q->where('id','!=', -1);
-//
-//            }));
 
             // IMAGES FOR POST HANDLE
             $imagesForPost = $post->imagesForPost;

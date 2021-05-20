@@ -152,4 +152,16 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/check_status', 'PendingExpertController@checkStatus');
 
     });
+    // USER PLANT
+    Route::group(['prefix' => '/user_plant'], function () {
+        // UPLOAD USER PLANT
+        Route::post('/submit', 'UserPlantController@submitPlant');
+        Route::get('/submit', 'UserPlantController@submitPlant');
+        // GET ALL USER PLANTS
+        Route::post('/get_all_user_plants', 'UserPlantController@getAllUserPlants');
+        Route::get('/get_all_user_plants', 'UserPlantController@getAllUserPlants');
+        // GET USER PLANT BY ID
+        Route::post('/get_user_plant', 'UserPlantController@getUserPlantById');
+        Route::get('/get_user_plant', 'UserPlantController@getUserPlantById');
+    });
 });
