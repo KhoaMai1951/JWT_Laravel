@@ -167,7 +167,6 @@ class PostService
                 $query->where(function ($query) use ($keyword) {
                     $query->where('content', 'LIKE', '%' . $keyword . '%')
                         ->orWhere('title', 'LIKE', '%' . $keyword . '%');
-
                 })
                     ->whereIn('audience', $audienceList) //và record có audience nằm trong mảng
                     ->where('user_id', '!=', $userId); //user_id != current user id

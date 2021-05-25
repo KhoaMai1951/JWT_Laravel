@@ -28,6 +28,22 @@ class UserService
         return $followingUsersIds;
     }
 
+    // SEARCH USER FOR CHAT LIST
+    public function searchUserForChatList($keyword, $skip, $take, $userIdList) {
+        return User::select('id', 'name', 'username', 'role_id')
+            ->where(function ($query) use ($keyword) {
+                // subqueries
+                $query->where('username', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->whereIn('id', $userIdList)
+            ->orderBy('username', 'DESC')
+            ->skip($skip)
+            ->take($take)
+            ->get();
+    }
+
+
     // SEARCH USER
     public function searchUser($keyword, $skip, $take, $roleIdArray)
     {

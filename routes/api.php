@@ -164,4 +164,16 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_user_plant', 'UserPlantController@getUserPlantById');
         Route::get('/get_user_plant', 'UserPlantController@getUserPlantById');
     });
+    // CHAT
+    Route::group(['prefix' => '/chat'], function () {
+        // GET CHATTING USERS LIST
+        Route::post('/get_chatting_list', 'ChatController@getChattingUsersList');
+        Route::get('/get_chatting_list', 'ChatController@getChattingUsersList');
+        // CREATE
+        Route::post('/create', 'ChatController@createRecordForBoth');
+        Route::get('/create', 'ChatController@createRecordForBoth');
+        // DELETE CHAT
+        Route::post('/delete_chat', 'ChatController@deleteChat');
+        Route::get('/delete_chat', 'ChatController@deleteChat');
+    });
 });
