@@ -11,6 +11,25 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for table caycanhapi.chat
+CREATE TABLE IF NOT EXISTS `chat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `chat_id` varchar(50) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_to_chat_with_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.chat: ~5 rows (approximately)
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+INSERT INTO `chat` (`id`, `chat_id`, `user_id`, `user_to_chat_with_id`) VALUES
+	(4, '1-2', 4, 1),
+	(5, '1-2', 1, 4),
+	(8, '1-7', 1, 7),
+	(9, '1-7', 7, 1),
+	(10, '1-1', 1, 1);
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.comment
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -196,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `image_for_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.image_for_post: ~44 rows (approximately)
+-- Dumping data for table caycanhapi.image_for_post: ~42 rows (approximately)
 /*!40000 ALTER TABLE `image_for_post` DISABLE KEYS */;
 INSERT INTO `image_for_post` (`id`, `post_id`, `url`, `created_date`, `is_deleted`) VALUES
 	(1, 1, '/uploads/images/store/b63f0060-7024-4cd5-8bad-162a2107ed8bpjaeaec2ppq61.jpg', '0000-00-00', 0),
@@ -278,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `image_for_user_plant` (
   `created_date` date NOT NULL DEFAULT '0000-00-00',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.image_for_user_plant: ~10 rows (approximately)
+-- Dumping data for table caycanhapi.image_for_user_plant: ~8 rows (approximately)
 /*!40000 ALTER TABLE `image_for_user_plant` DISABLE KEYS */;
 INSERT INTO `image_for_user_plant` (`id`, `user_plant_id`, `url`, `created_date`, `is_deleted`) VALUES
 	(1, 3, '/storage/image_for_user_plant/51e255d9-eb50-4112-9a58-4a8b4821f242188465091_492964015189389_6273254574965887753_n.jpg', '0000-00-00', 0),
@@ -292,7 +311,8 @@ INSERT INTO `image_for_user_plant` (`id`, `user_plant_id`, `url`, `created_date`
 	(9, 12, '/storage/image_for_user_plant/98a3a374-4340-4ebb-91d0-7d93078064eda76LKn0E_700w_0.jpg', '0000-00-00', 0),
 	(10, 13, '/storage/image_for_user_plant/3200ee16-b9e9-44d8-b142-9287538d95e8145310139_435083847726250_6323447123393892101_n.jpg', '0000-00-00', 0),
 	(11, 14, '/storage/image_for_user_plant/b4a1ee13-33b8-4ec9-a19a-4bb03e0305f3150534618_421495215625812_4778847134011146192_n.jpg', '0000-00-00', 0),
-	(12, 15, '/storage/image_for_user_plant/441f26a7-ba9c-498e-b15a-b4431713da13The-Mommy-is-sad-because-all-her-kids-turned-out-to-be-criminals.jpg', '0000-00-00', 0);
+	(12, 15, '/storage/image_for_user_plant/441f26a7-ba9c-498e-b15a-b4431713da13The-Mommy-is-sad-because-all-her-kids-turned-out-to-be-criminals.jpg', '0000-00-00', 0),
+	(13, 16, '/storage/image_for_user_plant/97782a5a-815c-473e-a61f-4334d95738b4RDT_20210523_2227534405498798666487069.jpg', '0000-00-00', 0);
 /*!40000 ALTER TABLE `image_for_user_plant` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.liked_comment
@@ -343,7 +363,8 @@ INSERT INTO `liked_post` (`post_id`, `user_id`) VALUES
 	(15, 1),
 	(18, 1),
 	(22, 1),
-	(28, 1);
+	(28, 1),
+	(36, 1);
 /*!40000 ALTER TABLE `liked_post` ENABLE KEYS */;
 
 -- Dumping structure for table caycanhapi.migrations
@@ -383,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table caycanhapi.oauth_access_tokens: ~112 rows (approximately)
+-- Dumping data for table caycanhapi.oauth_access_tokens: ~116 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('01012f025561d895a6a4bd117c3b51dc51af6af5da85a8540c92117aaf2567e4e5ba3b6c6da88d5c', 1, 3, 'appToken', '[]', 1, '2021-04-09 19:04:17', '2021-04-09 19:04:17', '2022-04-09 19:04:17'),
@@ -448,6 +469,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('51f2a127557bc55e79c0fce107e82ff7060c9da5e0f32625e9a19f534d90503845ef70e13c58c730', 1, 3, 'appToken', '[]', 1, '2021-04-05 12:50:06', '2021-04-05 12:50:06', '2022-04-05 12:50:06'),
 	('555cf96dc82d1555b2991522b33f2e560a9ee8fa7bef0940c7d8f6355e4b3c600ae3718d8c997091', 1, 3, 'appToken', '[]', 1, '2021-04-11 20:32:34', '2021-04-11 20:32:34', '2022-04-11 20:32:34'),
 	('577a6ebfedd4234205dad3722fac6dee0ccf0136f2ea5d1c5ac70988edb906d1f8fce8be8f357d99', 5, 1, 'appToken', '[]', 0, '2021-03-22 12:37:55', '2021-03-22 12:37:55', '2022-03-22 12:37:55'),
+	('57e6e4d362ec2ea37ae235d68b1d2d08cb833af90eb40e2018cebe6cfa188a7330b23936182dd05b', 1, 3, 'appToken', '[]', 0, '2021-05-23 15:57:04', '2021-05-23 15:57:04', '2022-05-23 15:57:04'),
 	('5a7efd3801bb46f96ada41e1d60385735ffbf0967a803cb701094a6ef328151e2c36f4d23a58ad2f', 3, 1, 'appToken', '[]', 1, '2021-04-02 03:11:34', '2021-04-02 03:11:34', '2022-04-02 03:11:34'),
 	('5ba03ea8e6b8f0c498013fa6de3c0e8913ed4482e538ec95d0c6385b97d09a09db7e809d2b5f3c4f', 1, 3, 'appToken', '[]', 1, '2021-04-19 11:31:22', '2021-04-19 11:31:22', '2022-04-19 11:31:22'),
 	('5d451451b10958e6ba336b8d93634bd93f08cb58703ec02198d501f713fda49d773d62d3207283bd', 4, 1, 'appToken', '[]', 1, '2021-03-27 11:06:32', '2021-03-27 11:06:32', '2022-03-27 11:06:32'),
@@ -455,6 +477,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('5f2e32cb4d5a136775e7f6dc4a30794d9bb29c255803ae92aa120fbfaf6ea1124ea32e528d12d578', 3, 3, 'appToken', '[]', 1, '2021-04-03 13:56:58', '2021-04-03 13:56:58', '2022-04-03 13:56:58'),
 	('5f83cddd3d06669a496ce7da3c33d48bbdfddddd6a284eb2f57569c28fce7791a8eb2fd95222b0bd', 3, 1, 'appToken', '[]', 0, '2021-04-01 03:14:27', '2021-04-01 03:14:27', '2022-04-01 03:14:27'),
 	('5fd02e74639ba9d17e06494002d8320ef8dec91649a90f6dc8a5cf62f09d6b6b14b56c96fe299ed2', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:29:40', '2021-03-27 12:29:40', '2022-03-27 12:29:40'),
+	('6057ff49af6b8cb9f6396c4ed0387a5c0b2282e87723d7d0fc7fbcac9d551d8420f8264084f74de6', 1, 3, 'appToken', '[]', 1, '2021-05-22 09:54:14', '2021-05-22 09:54:14', '2022-05-22 09:54:14'),
 	('61b34f02bb6880bdf03e56da316dc8a94cae0271215d813f48c175849852e1413f8adcf26afc5413', NULL, 1, 'appToken', '[]', 0, '2021-03-31 14:55:39', '2021-03-31 14:55:39', '2022-03-31 14:55:39'),
 	('627b687165de3484ea2dcb86b44cf486181d8c4543cd2ed3254b63a09e59c42865419bb48192ed6e', 4, 1, 'appToken', '[]', 1, '2021-03-23 12:48:21', '2021-03-23 12:48:21', '2022-03-23 12:48:21'),
 	('63ed0bc101a252a0f9773c7b6678e3114f358615dcb4fa44dad74f360cacf4eab44a105ea7928819', 4, 1, 'appToken', '[]', 0, '2021-03-27 12:38:52', '2021-03-27 12:38:52', '2022-03-27 12:38:52'),
@@ -487,6 +510,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('8aa6f43e4343adb92541067b72d4273519a8bedbc27af91c75820fe60131db5d8aa94c7d62155e22', NULL, 1, 'appToken', '[]', 0, '2021-04-03 12:30:39', '2021-04-03 12:30:39', '2022-04-03 12:30:39'),
 	('8b8b14eaa7e9be7ec0ab21e5c4ff58c2fd312c7d615022380bb36080bb98cc52d512f8c394296143', 1, 3, 'appToken', '[]', 1, '2021-04-11 16:07:50', '2021-04-11 16:07:50', '2022-04-11 16:07:50'),
 	('8e58490a36ccbcf3423d7666aa8cfc798839b625a860fda2696ff51d9a867408f8e26113104581a0', 3, 1, 'appToken', '[]', 0, '2021-04-03 03:04:19', '2021-04-03 03:04:19', '2022-04-03 03:04:19'),
+	('8ffeb9d6369e810390bc74365224c03463739e0d4df0a2b0fe9dffd25aa4ae8012d165104d37dccd', 1, 3, 'appToken', '[]', 1, '2021-05-23 09:34:55', '2021-05-23 09:34:55', '2022-05-23 09:34:55'),
 	('90dc54174029f22ae6e80d75866c272787ff28f6d5b5b97cd652d675497bcaaa9bc328f3bbbaad6f', NULL, 1, 'appToken', '[]', 0, '2021-03-29 13:20:28', '2021-03-29 13:20:28', '2022-03-29 13:20:28'),
 	('918f12de1927f4bbadd3a18d9c2b74bb84d7823aff8360bc4a0130e46fdf56ab38c2722120be2f24', 4, 1, 'appToken', '[]', 1, '2021-03-27 12:23:43', '2021-03-27 12:23:43', '2022-03-27 12:23:43'),
 	('994d4bcefae6a603aabb4da0fb5ee24823e5a4d3ef55d33f3da3c6cc6dd8b0c24f25560a0b8a93d2', 3, 1, 'appToken', '[]', 1, '2021-03-31 14:55:47', '2021-03-31 14:55:47', '2022-03-31 14:55:47'),
@@ -527,6 +551,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('f69a100fafba06c878b04e2616d7d6088b50279b4dc2fc8a2ba62167e61ce662451539094a136d62', 4, 3, 'appToken', '[]', 1, '2021-04-09 10:39:44', '2021-04-09 10:39:44', '2022-04-09 10:39:44'),
 	('f8eaa3bc5d74f3b80b3416efc9b6b050c13d438a8683351a034c91f254b78c6a7f35ed82a313cbeb', 1, 3, 'appToken', '[]', 0, '2021-04-07 11:39:08', '2021-04-07 11:39:08', '2022-04-07 11:39:08'),
 	('f998df865d8b085a8d7e61680fbd5cb7ebfa0c1fb4efe640e0048ac415c24cab5e6a8bf020108e02', 1, 3, 'appToken', '[]', 1, '2021-04-08 08:29:50', '2021-04-08 08:29:50', '2022-04-08 08:29:50'),
+	('fc355b6ff18d7d8ad7694bb8e064cb97ce61e9e9b433ff6d72f5cb51849b239c4742def832bd663f', 7, 3, 'appToken', '[]', 1, '2021-05-23 09:13:28', '2021-05-23 09:13:28', '2022-05-23 09:13:28'),
 	('fd93aaa9e806f846e1020686014ae3c76fc19fd50acee4439ff3bb2b149c234342b3645edd1061d4', 1, 3, 'appToken', '[]', 0, '2021-04-28 16:25:42', '2021-04-28 16:25:42', '2022-04-28 16:25:42');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 
@@ -629,6 +654,23 @@ CREATE TABLE IF NOT EXISTS `pending_expert` (
 /*!40000 ALTER TABLE `pending_expert` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pending_expert` ENABLE KEYS */;
 
+-- Dumping structure for table caycanhapi.plant_pending_exchange
+CREATE TABLE IF NOT EXISTS `plant_pending_exchange` (
+  `post_id` int(11) DEFAULT NULL,
+  `user_plant_pending_id` int(11) DEFAULT NULL,
+  `accepted` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table caycanhapi.plant_pending_exchange: ~2 rows (approximately)
+/*!40000 ALTER TABLE `plant_pending_exchange` DISABLE KEYS */;
+INSERT INTO `plant_pending_exchange` (`post_id`, `user_plant_pending_id`, `accepted`) VALUES
+	(38, 3, NULL),
+	(38, 6, NULL),
+	(1, 3, NULL),
+	(39, 12, NULL),
+	(39, 13, NULL);
+/*!40000 ALTER TABLE `plant_pending_exchange` ENABLE KEYS */;
+
 -- Dumping structure for table caycanhapi.post
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -681,7 +723,7 @@ INSERT INTO `post` (`id`, `title`, `content`, `created_at`, `like`, `user_id`, `
 	(33, 'Bai viet khong noi dung', NULL, '2021-05-17 10:14:34', 0, 1, 1, NULL, '2021-05-17'),
 	(34, 'Bai viet khong noi dung', NULL, '2021-05-17 10:15:31', 0, 1, 1, NULL, '2021-05-17'),
 	(35, 'cây lan', NULL, '2021-05-17 21:53:52', 0, 1, 1, NULL, '2021-05-17'),
-	(36, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'Cactus spines are produced from specialized structures called areoles, a kind of highly reduced branch. Areoles are an identifying feature of cacti. As well as spines, areoles give rise to flowers, which are usually tubular and multipetaled. Many cacti have short growing seasons and long dormancies, and are able to react quickly to any rainfall, helped by an extensive but relatively shallow root system that quickly absorbs any water reaching the ground surface. Cactus stems are often ribbed or fluted, which allows them to expand and contract easily for quick water absorption after rain, followed by long drought periods. Like other succulent plants, most cacti employ a special mechanism called "crassulacean acid metabolism" (CAM) as part of photosynthesis. Transpiration, during which carbon dioxide enters the plant and water escapes, does not take place during the day at the same time as photosynthesis, but instead occurs at night. The plant stores the carbon dioxide it takes in as malic acid, retaining it until daylight returns, and only then using it in photosynthesis. Because transpiration takes place during the cooler, more humid night hours, water loss is significantly reduced.', '2021-05-18 09:24:55', 0, 1, 1, NULL, '2021-05-18'),
+	(36, 'There are a lot of important untold history not taught in schools in the US because of agendas.', 'Cactus spines are produced from specialized structures called areoles, a kind of highly reduced branch. Areoles are an identifying feature of cacti. As well as spines, areoles give rise to flowers, which are usually tubular and multipetaled. Many cacti have short growing seasons and long dormancies, and are able to react quickly to any rainfall, helped by an extensive but relatively shallow root system that quickly absorbs any water reaching the ground surface. Cactus stems are often ribbed or fluted, which allows them to expand and contract easily for quick water absorption after rain, followed by long drought periods. Like other succulent plants, most cacti employ a special mechanism called "crassulacean acid metabolism" (CAM) as part of photosynthesis. Transpiration, during which carbon dioxide enters the plant and water escapes, does not take place during the day at the same time as photosynthesis, but instead occurs at night. The plant stores the carbon dioxide it takes in as malic acid, retaining it until daylight returns, and only then using it in photosynthesis. Because transpiration takes place during the cooler, more humid night hours, water loss is significantly reduced.', '2021-05-18 09:24:55', 1, 1, 1, NULL, '2021-05-20'),
 	(37, 'cây để trao đổi', 'trao đổi cây', '2021-05-20 11:37:47', 0, 1, 1, '2021-05-20 11:39:55', '2021-05-20'),
 	(38, 'trao đổi cây', 'trao đổi cây', '2021-05-20 11:40:22', 0, 1, 1, NULL, '2021-05-20'),
 	(39, 'sdss', 'xffc', '2021-05-20 14:04:19', 0, 7, 1, NULL, '2021-05-20');
@@ -693,7 +735,7 @@ CREATE TABLE IF NOT EXISTS `post_tag` (
   `tag_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.post_tag: ~168 rows (approximately)
+-- Dumping data for table caycanhapi.post_tag: ~158 rows (approximately)
 /*!40000 ALTER TABLE `post_tag` DISABLE KEYS */;
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(1, 1),
@@ -896,7 +938,7 @@ CREATE TABLE IF NOT EXISTS `saved_post` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.saved_post: ~6 rows (approximately)
+-- Dumping data for table caycanhapi.saved_post: ~5 rows (approximately)
 /*!40000 ALTER TABLE `saved_post` DISABLE KEYS */;
 INSERT INTO `saved_post` (`post_id`, `user_id`) VALUES
 	(17, 1),
@@ -988,7 +1030,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.tag: ~12 rows (approximately)
+-- Dumping data for table caycanhapi.tag: ~11 rows (approximately)
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
 INSERT INTO `tag` (`id`, `tag_type_id`, `name`, `created_date`, `deleted_at`) VALUES
 	(-1, 3, 'default', '2021-05-16', NULL),
@@ -1015,7 +1057,7 @@ CREATE TABLE IF NOT EXISTS `tag_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table caycanhapi.tag_type: ~3 rows (approximately)
+-- Dumping data for table caycanhapi.tag_type: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tag_type` DISABLE KEYS */;
 INSERT INTO `tag_type` (`id`, `name`, `created_date`, `is_deleted`) VALUES
 	(1, 'Loại Cây', '2021-03-26', 0),
@@ -1099,7 +1141,7 @@ CREATE TABLE IF NOT EXISTS `user_plant` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table caycanhapi.user_plant: ~9 rows (approximately)
 /*!40000 ALTER TABLE `user_plant` DISABLE KEYS */;
@@ -1113,18 +1155,9 @@ INSERT INTO `user_plant` (`id`, `user_id`, `common_name`, `scientific_name`, `de
 	(12, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:35:40', NULL, '2021-05-19 19:35:40'),
 	(13, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:35:57', NULL, '2021-05-19 19:35:57'),
 	(14, 1, 'cây cảnh', '', 'xương rồng trao đổi', 1, '2021-05-19 19:37:31', NULL, '2021-05-19 19:37:31'),
-	(15, 1, 'cây sen', 'vhhhhh', NULL, 1, '2021-05-20 15:19:28', NULL, '2021-05-20 15:19:28');
+	(15, 1, 'cây sen', 'vhhhhh', NULL, 1, '2021-05-20 15:19:28', NULL, '2021-05-20 15:19:28'),
+	(16, 1, 'test', 'gdgdgd', NULL, 1, '2021-05-30 20:43:36', NULL, '2021-05-30 20:43:36');
 /*!40000 ALTER TABLE `user_plant` ENABLE KEYS */;
-
--- Dumping structure for table caycanhapi.user_plant_pending_exchange
-CREATE TABLE IF NOT EXISTS `user_plant_pending_exchange` (
-  `user_plant_id` int(11) DEFAULT NULL,
-  `user_plant_pending_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table caycanhapi.user_plant_pending_exchange: ~0 rows (approximately)
-/*!40000 ALTER TABLE `user_plant_pending_exchange` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_plant_pending_exchange` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

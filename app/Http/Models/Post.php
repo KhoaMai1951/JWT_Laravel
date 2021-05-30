@@ -28,6 +28,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
+    public function userPlant()
+    {
+        return $this->belongsToMany(UserPlant::class, 'plant_pending_exchange', 'post_id', 'user_plant_pending_id');
+    }
+
     public function imagesForPost(){
         return $this->hasMany(ImageForPost::class);
     }

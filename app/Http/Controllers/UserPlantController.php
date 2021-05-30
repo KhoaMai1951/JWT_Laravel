@@ -132,14 +132,15 @@ class UserPlantController extends Controller
 
     }
 
-    // LẤY DS USER PLANT CHO TRANG TRAO ĐỔI THEO CỤM
+    // LẤY DS CÂY CẢNH CỦA 1 USER DÙNG ĐỂ TRAO ĐỔI
     public
     function getAllUserPlants(Request $request)
     {
         $skip = $request->get('skip');
         $take = $request->get('take');
 
-        $userPlants = UserPlant::select('id', 'user_id', 'common_name', 'scientific_name', 'created_at', DB::raw('SUBSTRING(description, 1, 70) AS short_content'))
+        $userPlants = UserPlant::select('id', 'user_id', 'common_name', 'scientific_name', 'created_at',
+            'description', DB::raw('SUBSTRING(description, 1, 70) AS short_content'))
             ->where('user_id', '=', $request->get('user_id'))
             ->orderBy('created_at', 'DESC')
             ->skip($skip)
@@ -167,7 +168,34 @@ class UserPlantController extends Controller
         };
         return Response::json([
             'user_plants' => $userPlants,
+        ], 200);
+    }
 
+    // YÊU CẦU TRAO ĐỔI CÂY CẢNH
+    public function requestExchange(Request $request) {
+        $postId = $request->get('post_id');
+        $userPlantId = $request->get('user_plant_id');
+        // check if exist
+        $isExist =  DB::table('plant_pending_exchange')
+            ->where('post_id', '=', $postId)
+            ->where('user_plant_pending_id', '=', $userPlantId)
+            ->get();
+        if($isExist->isEmpty())
+        {
+            // if not exist, insert
+            $result = DB::table('plant_pending_exchange')
+                ->insert(
+                    [
+                        'post_id' => $postId,
+                        'user_plant_pending_id' => $userPlantId,
+                    ]
+                );
+            return Response::json([
+                'result' => $result,
+            ], 200);
+        }
+        return Response::json([
+            'status' => 'already inserted',
         ], 200);
     }
 

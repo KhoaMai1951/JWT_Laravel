@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
-
 class PostController extends Controller
 {
     private $postService;
@@ -288,7 +287,7 @@ class PostController extends Controller
 
         // Nếu user đang xem tường chính mình, cho thấy hết
         // Nếu user đang xem tường user khác, xét theo role để thấy
-        $userId == $currentUserId ? $audience = [1,2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId) ;
+        $userId == $currentUserId ? $audience = [1, 2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId);
 
         $posts = $this->postService->getUserPosts($audience, $userId, $skip, $take);
 
@@ -316,6 +315,99 @@ class PostController extends Controller
         ], 200);
     }
 
+    // LẤY DS BÀI VIẾT CÓ TAG TRAO ĐỔI CÂY CỦA USER THEO CỤM
+    public
+    function getUserExchangePosts(Request $request)
+    {
+        $userId = $request->get('user_id');
+        $skip = $request->get('skip');
+        $take = $request->get('take');
+
+        $posts = Post::select('id', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
+            ->where('user_id', '=', $userId)
+            ->whereHas('tags', function ($query) {
+                    $query->whereIn('tag_type_id', [4]);
+                })
+            ->orderBy('created_at', 'DESC')
+            ->skip($skip)
+            ->take($take)
+            ->get();
+
+        foreach ($posts as $post) {
+            $post->tags;
+            // get first image for post
+            $first_image_for_post = $this->imageForPostService->getFirstImageForPostByPostId($post->id);
+
+            if ($first_image_for_post != null)
+                $post->image_url = asset($first_image_for_post->url);
+            else $post->image_url = '';
+
+            // get comments number
+            $commentsNumber = $this->commentService->getNumberOfComments($post->id);
+
+            $post->comments_number = $commentsNumber;
+        }
+
+        foreach ($posts as $post) {
+            $post->short_content .= '...';
+        };
+        return Response::json([
+            'posts' => $posts,
+        ], 200);
+    }
+
+    // LẤY DS CÂY MUỐN TRAO ĐỔI CHO BÀI VIẾT
+    public
+    function getUserPlantsForPost(Request $request) {
+        $postId = $request->get('post_id');
+        $skip = $request->get('skip');
+        $take = $request->get('take');
+
+        return Response::json([
+            'plants' => Post::find($postId)->userPlant->skip($skip)->take($take),
+        ], 200);
+    }
+
+    // CHẤP NHẬN TRAO ĐỔI
+    public
+    function acceptExchangePlant(Request $request) {
+        $postId = $request->get('post_id');
+        $plantId = $request->get('user_plant_pending_id');
+
+        DB::table('plant_pending_exchange')
+            ->where('user_plant_pending_id', $plantId)
+            ->where('post_id', $postId)
+            ->update(
+                array(
+                'accepted' => 1
+                )
+            );
+
+        return Response::json([
+            'status' => true,
+        ], 200);
+    }
+
+    // HỦY TRAO ĐỔI
+    public
+    function cancelExchangePlant(Request $request) {
+        $postId = $request->get('post_id');
+        $plantId = $request->get('user_plant_pending_id');
+
+        DB::table('plant_pending_exchange')
+            ->where('user_plant_pending_id', $plantId)
+            ->where('post_id', $postId)
+            ->update(
+                array(
+                    'accepted' => null
+                )
+            );
+
+        return Response::json([
+            'status' => true,
+        ], 200);
+    }
+
     // LẤY DS BÀI VIẾT USER ĐÃ SAVE CHO TRANG PROFILE THEO CỤM
     public
     function getSavedPosts(Request $request)
@@ -328,7 +420,7 @@ class PostController extends Controller
 
         // Nếu user đang xem tường chính mình, cho thấy hết
         // Nếu user đang xem tường user khác, xét theo role để thấy
-        $userId == $currentUserId ? $audience = [1,2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId) ;
+        $userId == $currentUserId ? $audience = [1, 2] : $audience = $this->postService->getPostAudienceFromUserId($currentUserId);
 
         // LẤY DS POST TỪ DS ID CỦA CÁC POST ĐƯỢC SAVE Ở TRÊN
         $posts = $this->postService->getSavedPostFromIdsArray($audience, $postIds, $request->get('skip'), $request->get('take'));
@@ -379,7 +471,7 @@ class PostController extends Controller
 
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {
-            $post->is_suggested == null ? $post->is_suggested = false :  $post->is_suggested = true;
+            $post->is_suggested == null ? $post->is_suggested = false : $post->is_suggested = true;
             // HANDLE SHORT CONTENT
             $post->short_content .= '...';
 
@@ -559,7 +651,7 @@ class PostController extends Controller
         $userId = $request->get('user_id');
         // GET USER ROLE
         $role_id = $this->userService->getRoleId($userId);
-        $role_id == 1 ? $audienceList = [1] : $audienceList = [1,2]; //Nếu là expert thì được xem hết, user chỉ được xem dành cho user
+        $role_id == 1 ? $audienceList = [1] : $audienceList = [1, 2]; //Nếu là expert thì được xem hết, user chỉ được xem dành cho user
         // GET POSTS
         $posts = $this->postService->getPostForGlobalNewsfeed(
             $userId,

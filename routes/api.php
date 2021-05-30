@@ -56,7 +56,6 @@ Route::group(['prefix' => 'v1'], function () {
     });
     // POST
     Route::group(['prefix' => '/post'], function () {
-
         Route::post('/test_dio', 'PostController@testDio');
         // LẤY CHI TIẾT BÀI VIẾT THEO ID
         Route::get('/get_post', 'PostController@getPostById');
@@ -66,7 +65,6 @@ Route::group(['prefix' => 'v1'], function () {
            // Route::post('/submit_post', 'PostController@submitPost');
         });
         Route::post('/submit_post', 'PostController@submitPost');
-
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
         Route::post('/user_posts', 'PostController@getUserPosts');
@@ -98,7 +96,18 @@ Route::group(['prefix' => 'v1'], function () {
         // XÓA BÀI VIẾT
         Route::post('/delete_post', 'PostController@deletePost');
         Route::get('/delete_post', 'PostController@deletePost');
-
+        // LẤY DS BÀI VIẾT CÓ TAG TRAO ĐỔI CÂY CỦA USER THEO CỤM
+        Route::post('/get_exchange_posts', 'PostController@getUserExchangePosts');
+        Route::get('/get_exchange_posts', 'PostController@getUserExchangePosts');
+        // LẤY DS CÂY CẢNH MUỐN TRAO ĐỔI VỚI BÀI VIẾT
+        Route::post('/get_exchange_plants', 'PostController@getUserPlantsForPost');
+        Route::get('/get_exchange_plants', 'PostController@getUserPlantsForPost');
+        // CHẤP NHẬN TRAO ĐỔI
+        Route::post('/accept_exchange_plant', 'PostController@acceptExchangePlant');
+        Route::get('/accept_exchange_plant', 'PostController@acceptExchangePlant');
+        // HỦY TRAO ĐỔI
+        Route::post('/cancle_exchange_plant', 'PostController@cancelExchangePlant');
+        Route::get('/cancel_exchange_plant', 'PostController@cancelExchangePlant');
     });
     // TAG
     Route::group(['prefix' => '/tag'], function () {
@@ -163,6 +172,9 @@ Route::group(['prefix' => 'v1'], function () {
         // GET USER PLANT BY ID
         Route::post('/get_user_plant', 'UserPlantController@getUserPlantById');
         Route::get('/get_user_plant', 'UserPlantController@getUserPlantById');
+        // REQUEST EXCHANGE PLANT
+        Route::post('/request_exchange', 'UserPlantController@requestExchange');
+        Route::get('/request_exchange', 'UserPlantController@requestExchange');
     });
     // CHAT
     Route::group(['prefix' => '/chat'], function () {
