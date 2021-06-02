@@ -41,6 +41,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function 
         Route::get('/detail_contribute/{id}', 'ServerPlantController@detailContributePage')->name('server_plant.detail');
         //ADMIN UPDATE CHI TIẾT PLANT
         Route::post('/admin_update', 'ServerPlantController@adminUpdate')->name('server_plant.update');
+        //ADMIN CHẤP NHẬN PLANT VÀO DB CHÍNH THỨC
+        Route::get('/accept_contribute/{id}', 'ServerPlantController@acceptContribute')->name('server_plant.update');
     });
     //PENDING EXPERT
     Route::group(['prefix' => '/expert_pending'], function () {

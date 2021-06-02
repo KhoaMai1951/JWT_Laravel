@@ -53,6 +53,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get_user_info_for_comment', 'UserController@getUserInfoForComment');
         // DATA FOR CLIENT TO REQUEST EXPERT ROLE
         Route::get('/data_for_client_to_request_expert_role', 'UserController@dataForClientToRequestExpertRole');
+        // LẤY USERNAME
+        Route::post('/get_username', 'UserController@getUserName');
+        Route::get('/get_username', 'UserController@getUserName');
     });
     // POST
     Route::group(['prefix' => '/post'], function () {
@@ -106,8 +109,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/accept_exchange_plant', 'PostController@acceptExchangePlant');
         Route::get('/accept_exchange_plant', 'PostController@acceptExchangePlant');
         // HỦY TRAO ĐỔI
-        Route::post('/cancle_exchange_plant', 'PostController@cancelExchangePlant');
+        Route::post('/cancel_exchange_plant', 'PostController@cancelExchangePlant');
         Route::get('/cancel_exchange_plant', 'PostController@cancelExchangePlant');
+        // CHECK ĐÃ TRAO ĐỔI HAY CHƯA
+        Route::post('/check_accepted_exchange_plant', 'PostController@checkAcceptedExchangePlant');
+        Route::get('/check_accepted_exchange_plant', 'PostController@checkAcceptedExchangePlant');
     });
     // TAG
     Route::group(['prefix' => '/tag'], function () {

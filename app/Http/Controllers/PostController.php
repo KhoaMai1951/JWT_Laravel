@@ -363,8 +363,29 @@ class PostController extends Controller
         $skip = $request->get('skip');
         $take = $request->get('take');
 
+        $plants = Post::find($postId)->userPlant->skip($skip)->take($take);
+
+        foreach ($plants as $userPlant) {
+            // get first image for user plant
+            $first_image_for_user_plant = DB::table('image_for_user_plant')
+                ->where('user_plant_id', '=', $userPlant->id)
+                ->first();
+
+            if ($first_image_for_user_plant != null)
+                $userPlant->image_url = asset($first_image_for_user_plant->url);
+            else $userPlant->image_url = '';
+
+            // check đã trao đổi
+            $accepted = DB::table('plant_pending_exchange')
+                ->select('accepted')
+                ->where('user_plant_pending_id', $userPlant->id)
+                ->where('post_id', $postId)
+                ->get()[0]->accepted;
+            $accepted == 1 ? $userPlant->accepted = 1 : $userPlant->accepted = 0;
+        }
+
         return Response::json([
-            'plants' => Post::find($postId)->userPlant->skip($skip)->take($take),
+            'plants' => $plants
         ], 200);
     }
 
@@ -372,16 +393,19 @@ class PostController extends Controller
     public
     function acceptExchangePlant(Request $request) {
         $postId = $request->get('post_id');
-        $plantId = $request->get('user_plant_pending_id');
+        $plantId = $request->get('plant_id');
 
+        //CHECK TRAO ĐỔI TRƯỚC ĐÓ VỚI CÂY KHÁC CHƯA, NẾU CÓ THÌ SET NULL
+        DB::table('plant_pending_exchange')
+            ->select('accepted')
+            ->where('accepted', true)
+            ->update(['accepted' => null]);
+
+        //THÊM GIÁ TRỊ MỚI
         DB::table('plant_pending_exchange')
             ->where('user_plant_pending_id', $plantId)
             ->where('post_id', $postId)
-            ->update(
-                array(
-                'accepted' => 1
-                )
-            );
+            ->update(['accepted' => true]);
 
         return Response::json([
             'status' => true,
@@ -392,7 +416,7 @@ class PostController extends Controller
     public
     function cancelExchangePlant(Request $request) {
         $postId = $request->get('post_id');
-        $plantId = $request->get('user_plant_pending_id');
+        $plantId = $request->get('plant_id');
 
         DB::table('plant_pending_exchange')
             ->where('user_plant_pending_id', $plantId)
@@ -405,6 +429,21 @@ class PostController extends Controller
 
         return Response::json([
             'status' => true,
+        ], 200);
+    }
+
+    // CHECK ĐÃ TRAO ĐỔI HAY CHƯA
+    public
+    function checkAcceptedExchangePlant(Request $request) {
+        $postId = $request->get('post_id');
+        $plantId = $request->get('plant_id');
+
+        return Response::json([
+            'accepted' =>  DB::table('plant_pending_exchange')
+                ->select('accepted')
+                ->where('user_plant_pending_id', $plantId)
+                ->where('post_id', $postId)
+                ->get()[0]->accepted,
         ], 200);
     }
 

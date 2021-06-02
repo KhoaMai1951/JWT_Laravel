@@ -29,7 +29,7 @@ class ServerPlantService
             ->skip($skip)
             ->take($take)
             ->orderBy('common_name', 'ASC')
-            ->get();
+            ->paginate(10);
 
         foreach ($plants as $plant) {
             $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
@@ -50,7 +50,7 @@ class ServerPlantService
             ->skip($skip)
             ->take($take)
             ->orderBy('common_name', 'ASC')
-            ->get();
+            ->paginate(10);
 
         foreach ($plants as $plant) {
             $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);

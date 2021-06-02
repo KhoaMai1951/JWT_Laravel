@@ -9,7 +9,7 @@
             <!-- CÂY CẢNH -->
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cây cảnh
+                    Bách khoa cây cảnh
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/admin/server_plant/list_plant">Danh sách cây cảnh</a>

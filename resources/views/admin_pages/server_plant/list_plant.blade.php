@@ -47,6 +47,7 @@
                 </tbody>
             </table>
         </div>
+        {!! $list->links() !!}
     @endif
 @endsection
 

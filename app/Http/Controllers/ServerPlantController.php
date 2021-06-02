@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\ImageUrlHandle;
 use App\Http\Models\ServerPlant;
 use App\Http\Services\ServerPlantService;
 use App\Http\Validators\PostValidator;
@@ -79,6 +80,13 @@ class ServerPlantController extends Controller
         $input = $request->except(['_token']);
         $this->serverPlantService->update($input);
         return redirect('/admin/server-plant/detail/' . $input['id'])->with(['saved' => true]);
+    }
+
+    //CHẤP NHẬN PLANT ĐÓNG GÓP VÀO DB CHÍNH THỨC
+    public function acceptContribute($id){
+        ServerPlant::where('id', '=', $id)
+            ->update(['accepted' => 1]);
+        return redirect('/admin/server_plant/detail/' . $id)->with(['saved' => true]);
     }
 
     // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM

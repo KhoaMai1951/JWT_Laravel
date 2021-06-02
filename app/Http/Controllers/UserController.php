@@ -482,4 +482,12 @@ class UserController extends Controller implements FilePathInterface
     {
         return array("experience_in" => "", "bio" => "");
     }
+
+    // GET USERNAME
+    public function getUserName(Request $request){
+        $userId = $request->get('user_id');
+        return Response::json([
+            'username' => User::select('username')->where('id', $userId)->get()[0]['username'],
+        ], 200);
+    }
 }
