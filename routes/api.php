@@ -68,6 +68,9 @@ Route::group(['prefix' => 'v1'], function () {
            // Route::post('/submit_post', 'PostController@submitPost');
         });
         Route::post('/submit_post', 'PostController@submitPost');
+        Route::group(['middleware' => 'auth:api'], function () {
+
+        });
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
         Route::post('/user_posts', 'PostController@getUserPosts');

@@ -89,7 +89,7 @@ class PostController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors(),
-            ], 401);
+            ], 200);
         }
         //if ($request->file('images_for_post') != null) {
         if ($request->file('files') != null) {
@@ -125,7 +125,7 @@ class PostController extends Controller
         //tag field handle
         $post->tags()->attach($tag);
         $post->tags()->attach($request->get('tag_ids'));
-        //image for post handle
+        // image for post handle
         // handle multiple images
         $uploadIsErrorFlag = false;
         if ($files = $request->file('files')) {

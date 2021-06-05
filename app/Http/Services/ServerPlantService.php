@@ -16,8 +16,29 @@ class ServerPlantService
         return ServerPlant::create($input)->id;
     }
 
-    // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM
+    // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM API
     public function getPlantListByChunk($skip, $take, $keyword)
+    {
+        $plants = ServerPlant::where(function ($query) use ($keyword) {
+            // subqueries
+            $query
+                ->where('common_name', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('scientific_name', 'LIKE', '%' . $keyword . '%');
+        })
+            ->where('accepted', '=', true)
+            ->skip($skip)
+            ->take($take)
+            ->orderBy('common_name', 'ASC')
+            ->get();
+
+        foreach ($plants as $plant) {
+            $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
+        }
+        return $plants;
+    }
+
+    // LẤY DS THÔNG TIN CÂY CẢNH THEO CỤM CHO WEB
+    public function getPlantListByChunkForWeb($skip, $take, $keyword)
     {
         $plants = ServerPlant::where(function ($query) use ($keyword) {
             // subqueries

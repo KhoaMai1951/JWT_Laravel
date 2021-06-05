@@ -10,6 +10,7 @@ use App\Http\Validators\PostValidator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,10 @@ class ServerPlantController extends Controller
         }
     }
 
-    //TRANG LIST PLANT/
-    public function listPlant() {
-        $list = $this->serverPlantService->getPlantListByChunk(0, 100, '');
+    //TRANG LIST PLANT
+    public function listPlant(Request $request) {
+        $keyword = $request->get('keyword');
+        $list = $this->serverPlantService->getPlantListByChunkForWeb(0, 100, $keyword);
         return view('/admin_pages/server_plant/list_plant')->with('list', $list);
     }
 
@@ -59,6 +61,11 @@ class ServerPlantController extends Controller
         return view('/admin_pages/server_plant/list_plant_contribute',[
             'list' => $list,
         ]);
+    }
+
+    //TRANG ADD PLANT
+    public function addPlantPage() {
+        return view('/admin_pages/server_plant/add_plant',[]);
     }
 
     //TRANG CHI TIẾT PLANT
@@ -73,6 +80,24 @@ class ServerPlantController extends Controller
     {
         $plant = $this->serverPlantService->getPlantDetail($id);
         return view('/admin_pages/server_plant/detail_contribute')->with('plant', $plant);
+    }
+
+    //ADD PLANT
+    public function addPlant(Request $request){
+        $input = $request->except(['_token']);
+        // validate
+        $rules = [
+            'scientific_name' => 'required',
+            'common_name' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+            return redirect()
+                ->intended('/admin/server_plant/add_plant')
+                ->withInput()
+                ->withErrors($validator->errors());
+        $this->serverPlantService->update($input);
+        return redirect('/admin/server-plant/detail/' . $input['id'])->with(['saved' => true]);
     }
 
     //UPDATE CHI TIẾT PLANT
