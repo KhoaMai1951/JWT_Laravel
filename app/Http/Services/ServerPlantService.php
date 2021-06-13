@@ -58,6 +58,35 @@ class ServerPlantService
         return $plants;
     }
 
+    // LẤY DS THÔNG TIN CÂY CẢNH EDIT THEO CỤM CHO WEB
+    public function getPlantEditListByChunkForWeb($skip, $take, $keyword)
+    {
+        $plants = ServerPlant::select(
+            'server_plant_user_edit.id AS server_plant_user_edit_id',
+            'server_plant.id AS server_plant_id',
+            'server_plant.common_name',
+            'server_plant.scientific_name',
+            'user.email',
+            'server_plant.image_url')
+            ->where(function ($query) use ($keyword) {
+                // subqueries
+                $query
+                    ->where('server_plant.common_name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('server_plant.scientific_name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->join('server_plant_user_edit', 'server_plant.id', '=', 'server_plant_user_edit.server_plant_id')
+            ->join('user', 'server_plant_user_edit.user_id', '=', 'user.id')
+            ->skip($skip)
+            ->take($take)
+            ->orderBy('server_plant.common_name', 'ASC')
+            ->paginate(10);
+
+        foreach ($plants as $plant) {
+            $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);
+        }
+        return $plants;
+    }
+
     // LẤY DS THÔNG TIN CÂY CẢNH ĐÓNG GÓP THEO CỤM
     public function getPlantListContributeByChunk($skip, $take, $keyword)
     {
@@ -84,6 +113,7 @@ class ServerPlantService
     {
         $plant = ServerPlant::find($id);
         if ($plant != null) {
+            $plant->server_plant_id = $plant->id;
             $plant->temperature_range = [$plant->min_temperature, $plant->max_temperature];
             $plant->ph_range = [$plant->min_ph, $plant->max_ph];
             $plant->image_url = ImageUrlHandle::getDynamicImageUrl($plant->image_url);

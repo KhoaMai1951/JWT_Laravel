@@ -11,9 +11,9 @@
             </div>
         @endif
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
             @csrf
-            <!-- TÊN KHOA HỌC -->
+                <!-- TÊN KHOA HỌC -->
                 <div class="form-group">
                     <label class="required">Tên khoa học</label>
                     <input class="form-control @error('scientific_name') is-invalid @enderror" type="text"
@@ -41,6 +41,10 @@
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <input type="file" name="image" class="form-control">
+                </div>
+                <!-- BUTTONS -->
                 <a class="btn btn-danger ml-2" href="/admin/server_plant/list_plant" role="button">Quay lại</a>
                 <button type="submit" class="btn btn-primary">Lưu</button>
 

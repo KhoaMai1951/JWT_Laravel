@@ -20,11 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acdee528-ea47-4021-a90f-1249348d9524" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/add_plant.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/detail_edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/list_plant_edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantUserEditController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerPlantUserEditController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Services/ServerPlantService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/ServerPlantService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/add_plant.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/add_plant.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/detail_contribute.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin_pages/server_plant/detail_contribute.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/components/system_admin/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/system_admin/navbar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -377,6 +381,15 @@
       <workItem from="1622854393312" duration="1744000" />
       <workItem from="1622879683579" duration="2883000" />
       <workItem from="1622882833495" duration="3457000" />
+      <workItem from="1623032439633" duration="1561000" />
+      <workItem from="1623036104622" duration="1361000" />
+      <workItem from="1623212155953" duration="16000" />
+      <workItem from="1623291951239" duration="3659000" />
+      <workItem from="1623313408411" duration="618000" />
+      <workItem from="1623374027151" duration="5328000" />
+      <workItem from="1623462194794" duration="3780000" />
+      <workItem from="1623547206958" duration="7883000" />
+      <workItem from="1623573300789" duration="6454000" />
     </task>
     <servers />
   </component>
@@ -451,13 +464,13 @@
     <state x="405" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1620533286948" />
     <state x="569" y="124" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621393220476" />
     <state x="613" y="129" key="NewPhpClassDialog/62.0.1858.1080@62.0.1858.1080" timestamp="1622727521254" />
-    <state x="830" y="458" key="NewPhpFileDialog" timestamp="1621912073010">
+    <state x="830" y="458" key="NewPhpFileDialog" timestamp="1623577058126">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
     <state x="2160" y="442" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1618991299467" />
     <state x="565" y="309" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1619926822367" />
     <state x="794" y="441" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620641794402" />
-    <state x="830" y="458" key="NewPhpFileDialog/62.0.1858.1080@62.0.1858.1080" timestamp="1621912073010" />
+    <state x="830" y="458" key="NewPhpFileDialog/62.0.1858.1080@62.0.1858.1080" timestamp="1623577058126" />
     <state x="1417" y="34" width="1549" height="799" key="SettingsEditor" timestamp="1619005631852">
       <screen x="1366" y="0" width="1600" height="860" />
     </state>
@@ -481,13 +494,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1620047231647" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1621570612537">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="523" y="240" key="run.anything.popup" timestamp="1623463120403">
+      <screen x="62" y="0" width="1858" height="1080" />
     </state>
     <state x="1763" y="191" key="run.anything.popup/0.0.1366.728/1366.0.1600.860@1366.0.1600.860" timestamp="1619432611713" />
     <state x="1842" y="231" key="run.anything.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1619062701607" />
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1621570612537" />
     <state x="476" y="231" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621392547067" />
+    <state x="523" y="240" key="run.anything.popup/62.0.1858.1080@62.0.1858.1080" timestamp="1623463120403" />
     <state x="623" y="225" width="807" height="679" key="search.everywhere.popup" timestamp="1620639261841">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -35,10 +35,14 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function 
         Route::get('/list_plant', 'ServerPlantController@listPlant')->name('server_plant.list_plant');
         //DS PLANT ĐÓNG GÓP
         Route::get('/list_plant_contribute', 'ServerPlantController@listPlantContributePage')->name('server_plant.list_plant_contribute');
+        //DS PLANT CHỈNH SỬA
+        Route::get('/list_plant_edit', 'ServerPlantController@listPlantEditPage')->name('server_plant.list_plant_edit');
         //CHI TIẾT PLANT
         Route::get('/detail/{id}', 'ServerPlantController@detailPage')->name('server_plant.detail');
         //CHI TIẾT PLANT CONTRIBUTE
         Route::get('/detail_contribute/{id}', 'ServerPlantController@detailContributePage')->name('server_plant.detail');
+        //CHI TIẾT PLANT EDIT
+        Route::get('/detail_edit', 'ServerPlantController@detailEditPage')->name('server_plant.edit');
         //ADD PLANT PAGE
         Route::get('/add_plant', 'ServerPlantController@addPlantPage')->name('server_plant.add_plant');
         //ADD PLANT ADMIN

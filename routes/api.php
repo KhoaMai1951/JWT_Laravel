@@ -39,11 +39,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/create_user_instant', 'UserController@createUserInstant');
         //LẤY INFO USER THEO ID
         Route::get('/get_user_info_by_id', 'UserController@getUserInfoById');
+        Route::post('/get_user_info_by_id', 'UserController@getUserInfoById');
         Route::post('/check_follow', 'UserController@checkFollow');
         Route::post('/follow_user', 'UserController@followUser');
         Route::post('/upload_avatar', 'UserController@uploadAvatar');
         Route::post('/update_info', 'UserController@updateInfo');
+        //ĐỔI MẬT KHẨU
         Route::post('/change_password', 'UserController@changePassword');
+        Route::get('/change_password', 'UserController@changePassword');
         //TÌM KIẾM USER
         Route::post('/search_user', 'UserController@searchUser');
         Route::get('/search_user', 'UserController@searchUser');
@@ -68,9 +71,11 @@ Route::group(['prefix' => 'v1'], function () {
            // Route::post('/submit_post', 'PostController@submitPost');
         });
         Route::post('/submit_post', 'PostController@submitPost');
+
         Route::group(['middleware' => 'auth:api'], function () {
 
         });
+
         Route::post('/upload_image', 'PostController@uploadImageToStorage');
         // LẤY DS BÀI VIẾT CỦA USER CHO TRANG PROFILE THEO CỤM
         Route::post('/user_posts', 'PostController@getUserPosts');
@@ -151,11 +156,15 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_plant_detail', 'ServerPlantController@getPlantDetail');
         // UPLOAD CÂY CẢNH MỚI
         Route::post('/upload_plant', 'ServerPlantController@uploadPlant');
+        // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH DÀNH CHO USER EDIT
+        Route::get('/get_plant_detail_for_edit', 'ServerPlantController@getPlantDetailForUserEdit');
+        Route::post('/get_plant_detail_for_edit', 'ServerPlantController@getPlantDetailForUserEdit');
     });
     // SERVER PLANT USER EDIT
     Route::group(['prefix' => '/server_plant_user_edit'], function () {
         // UPLOAD EDIT THÔNG TIN CÂY CẢNH
         Route::post('/upload_plant', 'ServerPlantUserEditController@uploadPlant');
+        Route::get('/upload_plant', 'ServerPlantUserEditController@uploadPlant');
     });
     // EXPERT PENDING
     Route::group(['prefix' => '/expert_pending'], function () {

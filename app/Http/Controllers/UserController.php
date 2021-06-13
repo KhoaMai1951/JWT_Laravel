@@ -94,7 +94,13 @@ class UserController extends Controller implements FilePathInterface
             ->where('email', 'LIKE', $email)
             ->first();
 
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) // if ($this->checkLogin($user))
+        if (Auth::attempt(
+            [
+                'email' => request('email'),
+                'password' => request('password')
+            ]
+            )
+        ) // if ($this->checkLogin($user))
         {
             $user = Auth::user();
             if ($user->deleted_at == null) {
@@ -484,7 +490,8 @@ class UserController extends Controller implements FilePathInterface
     }
 
     // GET USERNAME
-    public function getUserName(Request $request){
+    public function getUserName(Request $request)
+    {
         $userId = $request->get('user_id');
         return Response::json([
             'username' => User::select('username')->where('id', $userId)->get()[0]['username'],

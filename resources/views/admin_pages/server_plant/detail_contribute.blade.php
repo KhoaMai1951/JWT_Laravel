@@ -11,7 +11,7 @@
     </div>
     @endif
     <div class="card-body">
-        <form method="POST" action="/admin/server-plant/admin_update">
+        <form method="POST" action="/admin/server_plant/admin_update">
             @csrf
             <label>Hình ảnh: </label>
             <img class="mb-5" width="300" height="300" src="{{ $plant->image_url }}" alt="" title="" />

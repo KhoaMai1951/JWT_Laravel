@@ -15,8 +15,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/admin/server_plant/list_plant">Danh sách cây cảnh</a>
-                    <a class="dropdown-item" href="/admin/server_plant/list_plant_contribute">Yêu cầu đóng góp cây
-                        cảnh</a>
+                    <a class="dropdown-item" href="/admin/server_plant/list_plant_contribute">Yêu cầu đóng góp cây cảnh</a>
+                    <a class="dropdown-item" href="/admin/server_plant/list_plant_edit">Yêu cầu chỉnh sửa cây cảnh</a>
                     <a class="dropdown-item" href="/admin/server_plant/add_plant">Thêm mới</a>
                 </div>
             </li>

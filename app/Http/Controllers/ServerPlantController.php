@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\ImageUrlHandle;
 use App\Http\Models\ServerPlant;
+use App\Http\Models\ServerPlantUserEdit;
 use App\Http\Services\ServerPlantService;
 use App\Http\Validators\PostValidator;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,18 @@ class ServerPlantController extends Controller
         ]);
     }
 
+    //TRANG LIST PLANT CHỈNH SỬA
+    public function listPlantEditPage() {
+        $keyword = '';
+        $skip = 0;
+        $take = 1000;
+        $list = $this->serverPlantService->getPlantEditListByChunkForWeb(0, 100, '');
+
+        return view('/admin_pages/server_plant/list_plant_edit',[
+            'list' => $list,
+        ]);
+    }
+
     //TRANG ADD PLANT
     public function addPlantPage() {
         return view('/admin_pages/server_plant/add_plant',[]);
@@ -82,7 +95,34 @@ class ServerPlantController extends Controller
         return view('/admin_pages/server_plant/detail_contribute')->with('plant', $plant);
     }
 
-    //ADD PLANT
+    //TRANG CHI TIẾT PLANT EDIT
+    public function detailEditPage(Request $request)
+    {
+        $serverPlantUserEditId = $request->server_plant_user_edit_id;
+        $serverPlantId = $request->server_plant_id;
+
+        $serverPlant = ServerPlant::find($serverPlantId);
+        if ($serverPlant != null) {
+            $serverPlant->temperature_range = [$serverPlant->min_temperature, $serverPlant->max_temperature];
+            $serverPlant->ph_range = [$serverPlant->min_ph, $serverPlant->max_ph];
+            $serverPlant->image_url = ImageUrlHandle::getDynamicImageUrl($serverPlant->image_url);
+            $serverPlant->makeHidden(['min_temperature', 'max_temperature', 'min_ph', 'max_ph']);
+            $serverPlant->pet_friendly == 1 ? $serverPlant->pet_friendly = true : $serverPlant->pet_friendly = false;
+        }
+
+        $userEditPlant = ServerPlantUserEdit::find($serverPlantUserEditId);
+        if ($userEditPlant != null) {
+            $userEditPlant->temperature_range = [$userEditPlant->min_temperature, $userEditPlant->max_temperature];
+            $userEditPlant->ph_range = [$userEditPlant->min_ph, $userEditPlant->max_ph];
+            $userEditPlant->image_url = ImageUrlHandle::getDynamicImageUrl($userEditPlant->image_url);
+            $userEditPlant->makeHidden(['min_temperature', 'max_temperature', 'min_ph', 'max_ph']);
+            $userEditPlant->pet_friendly == 1 ? $userEditPlant->pet_friendly = true : $userEditPlant->pet_friendly = false;
+        }
+        return view('/admin_pages/server_plant/detail_edit')->with(array('server_plant'=> $serverPlant, 'user_edit_plant'=> $userEditPlant));
+
+    }
+
+    //ADMIN ADD PLANT
     public function addPlant(Request $request){
         $input = $request->except(['_token']);
         // validate
@@ -91,13 +131,19 @@ class ServerPlantController extends Controller
             'common_name' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
+
         if($validator->fails())
             return redirect()
                 ->intended('/admin/server_plant/add_plant')
                 ->withInput()
                 ->withErrors($validator->errors());
-        $this->serverPlantService->update($input);
-        return redirect('/admin/server-plant/detail/' . $input['id'])->with(['saved' => true]);
+        // ADD NEW
+        $input['accepted'] = 1;
+        // upload the image to local storage
+        $input['image_url'] = $this->imageForPostHandleToStorage($request->image);
+        //insert new record
+        $id = $this->serverPlantService->create($input);
+        return redirect('/admin/server_plant/detail/' . $id)->with(['saved' => true]);
     }
 
     //UPDATE CHI TIẾT PLANT
@@ -135,7 +181,34 @@ class ServerPlantController extends Controller
         ], 200);
     }
 
-    // UPLOAD CÂY CẢNH MỚI
+    // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH DÀNH CHO USER EDIT
+    public function getPlantDetailForUserEdit(Request $request)
+    {
+        //KIỂM TRA XEM USER ĐÃ YÊU CẦU EDIT CHƯA
+        $hasRequestEdit = ServerPlantUserEdit::select('*')
+            ->where('user_id', '=', $request->user_id)
+            ->where('server_plant_id', '=', $request->server_plant_id)
+            ->get();
+        //USER ĐÃ YÊU CẦU EDIT
+        if($hasRequestEdit->isEmpty() == false)
+        {
+            $hasRequestEdit[0]->pet_friendly == 1 ? $hasRequestEdit[0]->pet_friendly = true : $hasRequestEdit[0]->pet_friendly = false;
+            $hasRequestEdit[0]->temperature_range = [$hasRequestEdit[0]->min_temperature, $hasRequestEdit[0]->max_temperature];
+            $hasRequestEdit[0]->ph_range = [$hasRequestEdit[0]->min_ph, $hasRequestEdit[0]->max_ph];
+            $hasRequestEdit[0]->image_url = ImageUrlHandle::getDynamicImageUrl($hasRequestEdit[0]->image_url);
+            return Response::json([
+                'has_request_edit' => true,
+                'plant' => $hasRequestEdit[0],
+            ], 200);
+        }
+        //USER CHƯA YÊU CẦU EDIT
+        return Response::json([
+            'has_request_edit' => false,
+            'plant' => $this->serverPlantService->getPlantDetail($request->get('server_plant_id')),
+        ], 200);
+    }
+
+    // USER UPLOAD CÂY CẢNH MỚI
     public function uploadPlant(Request $request){
         $input = $request->except('files');
         DB::beginTransaction();
@@ -165,5 +238,12 @@ class ServerPlantController extends Controller
             'status' => true,
             'id' => $id,
         ], 200);
+    }
+
+    public function imageForPostHandleToStorage($file) {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+        // upload the image to local storage
+        Storage::disk('public')->putFileAs('image_for_server_plant/', $file, $fileName);
+        return $input['image_url'] = '/storage/image_for_server_plant/'.$fileName;
     }
 }
