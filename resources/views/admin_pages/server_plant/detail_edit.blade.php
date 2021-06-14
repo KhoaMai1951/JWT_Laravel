@@ -11,16 +11,25 @@
             </div>
         @endif
         <div class="row">
+        <div class="col-lg-12">
+            <label>Hình ảnh: </label>
+            <img class="mb-5" width="300" height="300" src="{{ $server_plant->image_url }}" alt="" title="" />
+        </div>
+        </div>
+        <div class="row">
+
             <div class="col-6">
                 <h1>Chỉnh sửa của người dùng</h1>
-                <form method="POST" action="/admin/server_plant/admin_update">
+                <form method="POST" action="/admin/server_plant/has_viewed">
                     @csrf
-                    <label>Hình ảnh: </label>
-                    <img class="mb-5" width="300" height="300" src="{{ $user_edit_plant->image_url }}" alt="" title="" />
                     <div class="form-group ">
                         <!--ID -->
                         <input hidden type="text"
-                               name="id" value="{{ $user_edit_plant->id }}" autocomplete="name" autofocus>
+                               name="server_plant_user_edit_id" value="{{ $user_edit_plant->id }}" autocomplete="name" autofocus>
+                        <input hidden type="text"
+                               name="server_plant_id" value="{{ $user_edit_plant->server_plant_id }}" autocomplete="name" autofocus>
+                        <input hidden type="text"
+                               name="user_id" value="{{ $user_edit_plant->user_id }}" autocomplete="name" autofocus>
                         <!-- Tên thường gọi -->
                         <label class="required">Tên thường gọi</label>
                         <input class="form-control @error('name') is-invalid @enderror" type="text"
@@ -54,22 +63,22 @@
                         @enderror
                     </div>
 
-{{--                    <a class="btn btn-danger ml-2" href="/admin/server_plant/list_plant" role="button">Quay lại</a>--}}
-
 {{--                    <a class="btn btn-info ml-2" href="/admin/server_plant/accept_contribute/{{$plant->id}}" role="button">Thêm vào DB chính thức</a>--}}
 
-                    <button type="submit" class="btn btn-primary">Đã xem</button>
+                    <button type="submit" class="btn btn-primary">Duyệt xong</button>
 
                 </form>
             </div>
             <div class="col-6">
                 <h1>Dữ liệu hiện tại</h1>
-                <form method="POST" action="/admin/server_plant/admin_update">
+                <form method="POST" action="/admin/server_plant/admin_update_for_user_edit">
                     @csrf
-                    <label>Hình ảnh: </label>
-                    <img class="mb-5" width="300" height="300" src="{{ $server_plant->image_url }}" alt="" title="" />
                     <div class="form-group ">
                         <!--ID -->
+                        <input hidden type="text"
+                               name="server_plant_user_edit_id" value="{{ $user_edit_plant->id }}" autocomplete="name" autofocus>
+                        <input hidden type="text"
+                               name="server_plant_id" value="{{ $server_plant->id }}" autocomplete="name" autofocus>
                         <input hidden type="text"
                                name="id" value="{{ $server_plant->id }}" autocomplete="name" autofocus>
                         <!-- Tên thường gọi -->

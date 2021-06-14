@@ -9,6 +9,7 @@ use App\Http\Models\ServerPlantUserEdit;
 use App\Http\Services\ServerPlantService;
 use App\Http\Validators\PostValidator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -66,9 +67,6 @@ class ServerPlantController extends Controller
 
     //TRANG LIST PLANT CHỈNH SỬA
     public function listPlantEditPage() {
-        $keyword = '';
-        $skip = 0;
-        $take = 1000;
         $list = $this->serverPlantService->getPlantEditListByChunkForWeb(0, 100, '');
 
         return view('/admin_pages/server_plant/list_plant_edit',[
@@ -150,7 +148,18 @@ class ServerPlantController extends Controller
     public function adminUpdate(Request $request){
         $input = $request->except(['_token']);
         $this->serverPlantService->update($input);
-        return redirect('/admin/server-plant/detail/' . $input['id'])->with(['saved' => true]);
+        return redirect('/admin/server_plant/detail/' . $input['id'])->with(['saved' => true]);
+    }
+
+
+    //ADMIN UPDATE CHI TIẾT PLANT CHO TRANG NGƯỜI DÙNG EDIT
+    public function adminUpdateForUserEdit(Request $request){
+        $input = $request->except(['_token', 'server_plant_user_edit_id', 'server_plant_id']);
+        $server_plant_user_edit_id = $request->server_plant_user_edit_id;
+        $server_plant_id = $request->server_plant_id;
+
+        $this->serverPlantService->update($input);
+        return redirect('/admin/server_plant/detail_edit?server_plant_user_edit_id='. $server_plant_user_edit_id .'&server_plant_id=' . $server_plant_id)->with(['saved' => true]);
     }
 
     //CHẤP NHẬN PLANT ĐÓNG GÓP VÀO DB CHÍNH THỨC
@@ -193,6 +202,7 @@ class ServerPlantController extends Controller
         if($hasRequestEdit->isEmpty() == false)
         {
             $hasRequestEdit[0]->pet_friendly == 1 ? $hasRequestEdit[0]->pet_friendly = true : $hasRequestEdit[0]->pet_friendly = false;
+            $hasRequestEdit[0]->has_viewed == 1 ? $hasRequestEdit[0]->has_viewed = true : $hasRequestEdit[0]->has_viewed = false;
             $hasRequestEdit[0]->temperature_range = [$hasRequestEdit[0]->min_temperature, $hasRequestEdit[0]->max_temperature];
             $hasRequestEdit[0]->ph_range = [$hasRequestEdit[0]->min_ph, $hasRequestEdit[0]->max_ph];
             $hasRequestEdit[0]->image_url = ImageUrlHandle::getDynamicImageUrl($hasRequestEdit[0]->image_url);
@@ -206,6 +216,20 @@ class ServerPlantController extends Controller
             'has_request_edit' => false,
             'plant' => $this->serverPlantService->getPlantDetail($request->get('server_plant_id')),
         ], 200);
+    }
+
+    // ADMIN DUYỆT EDIT PLANT CỦA USER
+    public function hasViewed(Request $request) {
+        // ID CỦA USER
+        $userId = $request->user_id;
+        // ID SERVER PLANT
+        $server_plant_id = $request->server_plant_id;
+        // ID RECORD EDIT CỦA USER
+        $server_plant_user_edit_id = $request->server_plant_user_edit_id;
+        ServerPlantUserEdit::where('server_plant_id', '=', $server_plant_id)
+            ->where('user_id', '=', $userId)
+            ->update(['has_viewed' => 1]);
+        return redirect('/admin/server_plant/detail_edit?server_plant_user_edit_id='. $server_plant_user_edit_id .'&server_plant_id=' . $server_plant_id)->with(['saved' => true]);
     }
 
     // USER UPLOAD CÂY CẢNH MỚI

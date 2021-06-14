@@ -43,12 +43,16 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function 
         Route::get('/detail_contribute/{id}', 'ServerPlantController@detailContributePage')->name('server_plant.detail');
         //CHI TIẾT PLANT EDIT
         Route::get('/detail_edit', 'ServerPlantController@detailEditPage')->name('server_plant.edit');
+        //DUYỆT PLANT EDIT CỦA USER
+        Route::post('/has_viewed', 'ServerPlantController@hasViewed')->name('server_plant.has_viewed');
         //ADD PLANT PAGE
         Route::get('/add_plant', 'ServerPlantController@addPlantPage')->name('server_plant.add_plant');
         //ADD PLANT ADMIN
         Route::post('/add_plant', 'ServerPlantController@addPlant')->name('server_plant.add_plant');
         //ADMIN UPDATE CHI TIẾT PLANT
         Route::post('/admin_update', 'ServerPlantController@adminUpdate')->name('server_plant.update');
+        //ADMIN UPDATE CHI TIẾT PLANT CHO TRANG NGƯỜI DÙNG EDIT
+        Route::post('/admin_update_for_user_edit', 'ServerPlantController@adminUpdateForUserEdit')->name('server_plant.update.user_dit');
         //ADMIN CHẤP NHẬN PLANT VÀO DB CHÍNH THỨC
         Route::get('/accept_contribute/{id}', 'ServerPlantController@acceptContribute')->name('server_plant.update');
     });
