@@ -42,7 +42,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/get_user_info_by_id', 'UserController@getUserInfoById');
         Route::post('/check_follow', 'UserController@checkFollow');
         Route::post('/follow_user', 'UserController@followUser');
+        //UPLOAD AVATAR
         Route::post('/upload_avatar', 'UserController@uploadAvatar');
+        //UPDATE INFO
         Route::post('/update_info', 'UserController@updateInfo');
         //ĐỔI MẬT KHẨU
         Route::post('/change_password', 'UserController@changePassword');
@@ -154,7 +156,7 @@ Route::group(['prefix' => 'v1'], function () {
         // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH THEO ID
         Route::get('/get_plant_detail', 'ServerPlantController@getPlantDetail');
         Route::post('/get_plant_detail', 'ServerPlantController@getPlantDetail');
-        // UPLOAD CÂY CẢNH MỚI
+        // USER UPLOAD CÂY CẢNH MỚI
         Route::post('/upload_plant', 'ServerPlantController@uploadPlant');
         // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH DÀNH CHO USER EDIT
         Route::get('/get_plant_detail_for_edit', 'ServerPlantController@getPlantDetailForUserEdit');

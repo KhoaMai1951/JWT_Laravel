@@ -4,10 +4,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\ImageUrlHandle;
+use App\Http\Models\ImageForPost;
 use App\Http\Models\ServerPlant;
 use App\Http\Models\ServerPlantUserEdit;
 use App\Http\Services\ServerPlantService;
 use App\Http\Validators\PostValidator;
+use App\Utilities\S3Helper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -251,8 +253,9 @@ class ServerPlantController extends Controller
             // change new name
             $fileName = (string)Str::uuid() . $file->getClientOriginalName();
             // upload the image to local storage
-            Storage::disk('public')->putFileAs('image_for_server_plant/', $file, $fileName);
-            $input['image_url'] = '/storage/image_for_server_plant/'.$fileName;
+//            Storage::disk('public')->putFileAs('image_for_server_plant/', $file, $fileName);
+//            $input['image_url'] = '/storage/image_for_server_plant/'.$fileName;
+            $input['image_url'] = $this->imageForPostHandleToS3($file);
         }
         //insert new record
         $id = $this->serverPlantService->create($input);
@@ -262,6 +265,21 @@ class ServerPlantController extends Controller
             'status' => true,
             'id' => $id,
         ], 200);
+    }
+
+    public
+    function imageForPostHandleToS3($file)
+    {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+
+        // if upload succeeded
+        if (S3Helper::S3UploadFile($file, $fileName) == true) {
+            $imageLink = 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $fileName;
+            return $imageLink;
+        } // if upload failed
+        else {
+            return false;
+        }
     }
 
     public function imageForPostHandleToStorage($file) {

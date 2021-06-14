@@ -3,12 +3,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\ImageForPost;
 use App\Http\Models\ImageForUserPlant;
 use App\Http\Models\UserPlant;
 use App\Http\Services\ImageForUserService;
 use App\Http\Services\PlantExchangeService;
 use App\Http\Validators\ImageValidator;
 use App\Http\Validators\PostValidator;
+use App\Utilities\S3Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -55,7 +57,8 @@ class UserPlantController extends Controller
         if ($files = $request->file('files')) {
             // loop through image array
             foreach ($files as $file) {
-                $result = $this->imageForUserPlantHandleToStorage($userPlant, $file);
+                //$result = $this->imageForUserPlantHandleToStorage($userPlant, $file);
+                $result = $this->imageForPostHandleToS3($userPlant, $file);
                 // if upload file to s3 successful
                 if ($result == true) {
                     $uploadIsErrorFlag = true;
@@ -213,7 +216,24 @@ class UserPlantController extends Controller
         $imageForUserPlant->userPlant()->associate($userPlant);
         $imageForUserPlant->save();
         return true;
+    }
 
+    public
+    function imageForPostHandleToS3($userPlant, $file)
+    {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+        // if upload succeeded
+        if (S3Helper::S3UploadFile($file, $fileName) == true) {
+            $imageForPlant = new ImageForUserPlant();
+            $imageLink = 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $fileName;
+            $imageForPlant->url = $imageLink;
+            $imageForPlant->userPlant()->associate($userPlant);
+            $imageForPlant->save();
+            return true;
+        } // if upload failed
+        else {
+            return false;
+        }
     }
 
     public

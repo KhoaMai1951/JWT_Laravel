@@ -6,6 +6,7 @@ namespace App\Http\Traits;
 
 use App\Http\Models\ImageForPost;
 use App\Http\Models\ImageForUser;
+use App\Utilities\S3Helper;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -47,4 +48,5 @@ trait FileUploadTrait
     {
         Storage::disk('public')->putFileAs($pathToPutFile, $file, $fileName);
     }
+
 }

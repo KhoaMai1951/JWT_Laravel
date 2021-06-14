@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Interfaces\FilePathInterface;
 use App\Http\Models\EmailActivate;
 
+use App\Http\Models\ImageForPost;
+use App\Http\Models\ImageForUser;
 use App\Http\Repositories\EmailActiveRepository;
 use App\Http\Services\ImageForUserService;
 use App\Http\Services\UserService;
@@ -12,6 +14,7 @@ use App\Http\Traits\FileUploadTrait;
 use App\Http\Validators\ImageValidator;
 use App\Http\Validators\UserValidator;
 use App\User;
+use App\Utilities\S3Helper;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +23,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller implements FilePathInterface
 {
@@ -353,7 +357,8 @@ class UserController extends Controller implements FilePathInterface
     public function uploadAvatar(Request $request)
     {
         DB::beginTransaction();
-
+        // get user
+        $user = User::find($request->get('user_id'));
         // validate the image
         $validator = ImageValidator::validateImage($request);
 
@@ -380,12 +385,13 @@ class UserController extends Controller implements FilePathInterface
             if ($files = $request->file('files')) {
                 // loop through image array
                 foreach ($files as $file) {
-                    $this->imageForUserHandleToStorage(
-                        $request->get('user_id'),
-                        $file,
-                        UserController::IMAGE_FOR_USER_DB_URL,
-                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
-                    );
+//                    $this->imageForUserHandleToStorage(
+//                        $request->get('user_id'),
+//                        $file,
+//                        UserController::IMAGE_FOR_USER_DB_URL,
+//                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
+//                    );
+                    $this->imageForUserHandleToS3($user, $file);
                 }
             }
             //delete old avatar
@@ -399,12 +405,13 @@ class UserController extends Controller implements FilePathInterface
             if ($files = $request->file('files')) {
                 // loop through image array
                 foreach ($files as $file) {
-                    $this->imageForUserHandleToStorage(
-                        $request->get('user_id'),
-                        $file,
-                        UserController::IMAGE_FOR_USER_DB_URL,
-                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
-                    );
+//                    $this->imageForUserHandleToStorage(
+//                        $request->get('user_id'),
+//                        $file,
+//                        UserController::IMAGE_FOR_USER_DB_URL,
+//                        UserController::IMAGE_FOR_USER_PATH_TO_PUT_FILE
+//                    );
+                    $this->imageForUserHandleToS3($user, $file);
                 }
             }
         }
@@ -415,6 +422,25 @@ class UserController extends Controller implements FilePathInterface
             ],
             200
         );
+    }
+
+    public
+    function imageForUserHandleToS3($user, $file)
+    {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+
+        // if upload succeeded
+        if (S3Helper::S3UploadFile($file, $fileName) == true) {
+            $imageForUser = new ImageForUser();
+            $imageLink = 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $fileName;
+            $imageForUser->url = $imageLink;
+            $imageForUser->user()->associate($user);
+            $imageForUser->save();
+            return true;
+        } // if upload failed
+        else {
+            return false;
+        }
     }
 
     public function updateInfo(Request $request)
