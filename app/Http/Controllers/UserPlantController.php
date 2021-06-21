@@ -141,10 +141,15 @@ class UserPlantController extends Controller
     {
         $skip = $request->get('skip');
         $take = $request->get('take');
+        $keyword = $request->get('keyword');
 
         $userPlants = UserPlant::select('id', 'user_id', 'common_name', 'scientific_name', 'created_at',
             'description', DB::raw('SUBSTRING(description, 1, 70) AS short_content'))
             ->where('user_id', '=', $request->get('user_id'))
+            ->where(function ($query) use ($keyword) {
+                $query->where('common_name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('scientific_name', 'LIKE', '%' . $keyword . '%');
+            })
             ->orderBy('created_at', 'DESC')
             ->skip($skip)
             ->take($take)

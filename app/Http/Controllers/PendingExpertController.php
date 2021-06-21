@@ -4,12 +4,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\ImageForPendingExpert;
+use App\Http\Models\ImageForPost;
 use App\Http\Models\PendingExpert;
 use App\Http\Services\ImageForPendingExpertService;
 use App\Http\Services\PendingExpertService;
 use App\Http\Services\UserService;
 use App\Http\Validators\PostValidator;
 use App\User;
+use App\Utilities\S3Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -68,9 +70,10 @@ class PendingExpertController extends Controller
                 // change new name
                 $fileName = (string)Str::uuid() . $file->getClientOriginalName();
                 // upload the image to local storage
-                Storage::disk('public')->putFileAs('image_for_pending_expert/', $file, $fileName);
+                //Storage::disk('public')->putFileAs('image_for_pending_expert/', $file, $fileName);
                 // save url to db
-                $imageInput['url'] = '/storage/image_for_pending_expert/' . $fileName;
+                //$imageInput['url'] = '/storage/image_for_pending_expert/' . $fileName;
+                $imageInput['url'] = $this->imageForPendingExpertHandleToS3($file);
                 $imageInput['pending_expert_id'] = $pendingExpert->id;
                 ImageForPendingExpert::create($imageInput);
             }
@@ -79,6 +82,21 @@ class PendingExpertController extends Controller
             'status' => true,
             'request_id' => $pendingExpert->id,
         ], 200);
+    }
+
+    public
+    function imageForPendingExpertHandleToS3($file)
+    {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+
+        // if upload succeeded
+        if (S3Helper::S3UploadFile($file, $fileName) == true) {
+            $imageLink = 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $fileName;
+            return $imageLink;
+        } // if upload failed
+        else {
+            return false;
+        }
     }
 
     // GET DETAIL BY ID

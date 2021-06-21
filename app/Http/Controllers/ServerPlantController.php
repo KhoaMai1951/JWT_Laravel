@@ -140,7 +140,8 @@ class ServerPlantController extends Controller
         // ADD NEW
         $input['accepted'] = 1;
         // upload the image to local storage
-        $input['image_url'] = $this->imageForPostHandleToStorage($request->image);
+        //$input['image_url'] = $this->imageForPostHandleToStorage($request->image);
+        $input['image_url'] = $this->imageForPostHandleToS3($request->image);
         //insert new record
         $id = $this->serverPlantService->create($input);
         return redirect('/admin/server_plant/detail/' . $id)->with(['saved' => true]);
@@ -148,11 +149,16 @@ class ServerPlantController extends Controller
 
     //UPDATE CHI TIẾT PLANT
     public function adminUpdate(Request $request){
-        $input = $request->except(['_token']);
+        $input = $request->except(['_token', 'image']);
+        if($request->image != null){
+//            // delete old image
+//            Storage::disk('s3')->delete('s3_folder_path/'. $imageName);
+            // upload the image to s3
+            $input['image_url'] = $this->imageForPostHandleToS3($request->image);
+        }
         $this->serverPlantService->update($input);
         return redirect('/admin/server_plant/detail/' . $input['id'])->with(['saved' => true]);
     }
-
 
     //ADMIN UPDATE CHI TIẾT PLANT CHO TRANG NGƯỜI DÙNG EDIT
     public function adminUpdateForUserEdit(Request $request){
@@ -189,7 +195,10 @@ class ServerPlantController extends Controller
     {
         return Response::json([
             'plant' => $this->serverPlantService->getPlantDetail($request->get('id')),
-        ], 200);
+        ], 200,
+            ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            JSON_UNESCAPED_UNICODE);
+
     }
 
     // LẤY CHI TIẾT THÔNG TIN CÂY CẢNH DÀNH CHO USER EDIT
@@ -287,5 +296,11 @@ class ServerPlantController extends Controller
         // upload the image to local storage
         Storage::disk('public')->putFileAs('image_for_server_plant/', $file, $fileName);
         return $input['image_url'] = '/storage/image_for_server_plant/'.$fileName;
+    }
+
+    // ADMIN XÓA CÂY
+    public function delete(Request $request) {
+        ServerPlant::find($request->id)->delete();
+        return redirect('/admin/server_plant/list_plant');
     }
 }

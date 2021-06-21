@@ -41,6 +41,7 @@
                         </span>
                     @enderror
                 </div>
+                <!-- UPLOAD IMAGE -->
                 <div class="form-group">
                     <input type="file" name="image" class="form-control">
                 </div>

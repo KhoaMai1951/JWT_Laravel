@@ -13,6 +13,10 @@ class Tag extends Model
 
     protected $table = 'tag';
 
+    protected $fillable = [
+        'name', 'tag_type_id',
+    ];
+
     public function tagType()
     {
         return $this->belongsTo(TagType::class, 'tag_type_id', 'id');

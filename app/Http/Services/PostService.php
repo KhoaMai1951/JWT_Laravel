@@ -117,8 +117,8 @@ class PostService
                         ->whereIn('user_id', $followingUserIds) //record có user id nằm trong mảng userIds
                         ->whereIn('audience', $audienceList); //và record có audience nằm trong mảng
                 })
-                    //WHERE 1.2
-                    // orWhere ( where(title/content = keyword) and where(user_id = current user id) and whereIn(audience, [1, 2]) )
+                //WHERE 1.2
+                // orWhere ( where(title/content = keyword) and where(user_id = current user id) and whereIn(audience, [1, 2]) )
                     ->orWhere(function ($query) use ($title, $content, $keyword, $userId) {
                         $query->where(function ($query) use ($title, $content, $keyword) {
                             if ($title != null && $content != null)
@@ -140,8 +140,13 @@ class PostService
                     $query->whereIn('id', $tagIds);*/
                 if ($tagIds != null)
                     $query->whereIn('id', $tagIds);
+                    //->having(DB::raw('count(*)'), '=', count($tagIds));
             })
+//            ->whereHas('tags', function($query) use($tagIds) {
+//                $query->whereIn('id', $tagIds);
+//            }, '=', count($tagIds))->get()
             ->orderBy('created_at', 'DESC')
+//            ->sortByDesc('created_at')
             ->skip($skip)
             ->take($take)
             ->get();
@@ -153,9 +158,11 @@ class PostService
         $audienceList,
         int $skip,
         int $take,
-        $keyword
+        $keyword,
+        $request
     )
     {
+        $tagIds = $request->get('tag_ids');
         return Post::select('id', 'user_id', 'audience', 'title', 'created_at', 'like', DB::raw('SUBSTRING(content, 1, 70) AS short_content'))
             // GET TAGS EXCEPT ID = -1
             ->with(array('tags' => function ($q) {
@@ -180,6 +187,10 @@ class PostService
                 })
                     ->whereIn('audience', [1, 2]) //và record có audience nằm trong mảng
                     ->where('user_id', '=', $userId); //user_id != current user id
+            })
+            ->whereHas('tags', function ($query) use ($tagIds) {
+                if ($tagIds != null)
+                    $query->whereIn('id', $tagIds);
             })
             ->orderBy('created_at', 'DESC')
             ->skip($skip)

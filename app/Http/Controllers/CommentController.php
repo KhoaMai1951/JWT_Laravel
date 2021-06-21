@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Models\Comment;
+use App\Http\Models\ImageForUserPlant;
 use App\Http\Services\CommentService;
 use App\Http\Services\UserService;
+use App\Utilities\S3Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -86,7 +88,7 @@ class CommentController extends Controller
 
     public function submitComment(Request $request)
     {
-        $postId = $request->get('post_id');
+        $postId = $request->post_id;
         $userId = $request->get('user_id');
         $content = $request->get('content');
 
@@ -98,12 +100,13 @@ class CommentController extends Controller
         //image handle
         if($request->file('files') != null)
             foreach ($request->file('files') as $file) {
-                //image handle ==============================
-                // change new name
-                $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+                // image handle ==============================
+                //// change new name
+                // $fileName = (string)Str::uuid() . $file->getClientOriginalName();
                 // upload the image to local storage
-                Storage::disk('public')->putFileAs('image_for_comment/', $file, $fileName);
-                $comment->image_url = '/storage/image_for_comment/'.$fileName;
+//                Storage::disk('public')->putFileAs('image_for_comment/', $file, $fileName);
+//                $comment->image_url = '/storage/image_for_comment/'.$fileName;
+                $comment->image_url = $this->imageForCommentHandleToS3($comment, $file);
             }
 
         $comment->save();
@@ -111,6 +114,24 @@ class CommentController extends Controller
         return Response::json([
             'comments' => $comment,
         ], 200);
+    }
+
+    public
+    function imageForCommentHandleToS3($comment, $file)
+    {
+        $fileName = (string)Str::uuid() . $file->getClientOriginalName();
+        // if upload succeeded
+        if (S3Helper::S3UploadFile($file, $fileName) == true) {
+
+            $imageLink = 'https://caycanhapi.s3.ap-southeast-1.amazonaws.com/' . $fileName;
+
+
+
+            return $imageLink;
+        } // if upload failed
+        else {
+            return false;
+        }
     }
 
     public

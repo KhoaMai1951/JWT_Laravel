@@ -698,7 +698,8 @@ class PostController extends Controller
             $audienceList,
             $request->get('skip'),
             $request->get('take'),
-            $request->get('keyword')
+            $request->get('keyword'),
+            $request
         );
         // IMAGES FOR POST + COMMENTS NUMBER + USER + SHORT CONTENT HANDLE
         foreach ($posts as $post) {

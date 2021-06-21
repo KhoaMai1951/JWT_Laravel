@@ -11,7 +11,7 @@
             </div>
         @endif
         <div class="card-body">
-            <form method="POST" action="/admin/server_plant/admin_update">
+            <form method="POST" action="/admin/server_plant/admin_update"  enctype="multipart/form-data">
                 @csrf
                 <label>Hình ảnh: </label>
                 <img class="mb-5" width="300" height="300" src="{{ $plant->image_url }}" alt="" title="" />
@@ -50,9 +50,15 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <!-- UPLOAD IMAGE -->
+                    <label class="required">Upload hình mới</label>
+                    <div class="form-group">
+                        <input type="file" name="image" class="form-control">
+                    </div>
                 </div>
 
                 <a class="btn btn-danger ml-2" href="/admin/server_plant/list_plant" role="button">Quay lại</a>
+                <a class="btn btn-danger ml-2" href="/admin/server_plant/delete?id={{$plant->id}}" role="button" onclick="return confirm('Bạn có chắc muốn xóa cây này?')" >Xóa</a>
                 @if(session()->has('is_contributed'))
                     <a class="btn btn-danger ml-2" href="" role="button">Thêm vào db chính thức</a>
                 @endif

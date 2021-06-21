@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
@@ -28,7 +28,13 @@ Route::get('/send-mail', function () {
     dd("Email is Sent.");
 });
 
+Route::group(['prefix' => '/', 'middleware' => ['auth', 'role']], function () {
+    //INDEX
+    Route::get('/', 'ServerPlantController@listPlant')->name('server_plant.list_plant');
+});
+
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function () {
+
     //SERVER PLANT
     Route::group(['prefix' => '/server_plant'], function () {
         //DS PLANT
@@ -55,16 +61,32 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role']], function 
         Route::post('/admin_update_for_user_edit', 'ServerPlantController@adminUpdateForUserEdit')->name('server_plant.update.user_dit');
         //ADMIN CHẤP NHẬN PLANT VÀO DB CHÍNH THỨC
         Route::get('/accept_contribute/{id}', 'ServerPlantController@acceptContribute')->name('server_plant.update');
+        //ADMIN XÓA CÂY
+        Route::get('/delete', 'ServerPlantController@delete')->name('server_plant.delete');
+
     });
     //PENDING EXPERT
     Route::group(['prefix' => '/expert_pending'], function () {
         //DS PENDING EXPERT
         Route::get('/list_pending', 'PendingExpertController@pendingExpertPage')->name('expert_pending.list_pending');
         //CHI TIẾT PENDING EXPERT
-        Route::get('/pending_detail/{id}', 'PendingExpertController@pendingExpertDetailPage');
+        Route::get('/pending_detail/{id}', 'PendingExpertController@pendingExpertDetailPage')->name('expert_pending.detail');
         //DUYỆT EXPERT
-        Route::post('/grant_expert', 'PendingExpertController@grantExpert');
+        Route::post('/grant_expert', 'PendingExpertController@grantExpert')->name('expert_pending.grant_expert');
         //DS EXPERT
-        Route::get('/list_expert', 'PendingExpertController@listExpertPage');
+        Route::get('/list_expert', 'PendingExpertController@listExpertPage')->name('expert_pending.list_expert');
+    });
+    //TAG
+    Route::group(['prefix' => '/tag'], function () {
+        //DS TAG
+        Route::get('/list_tag', 'TagController@listTagPage')->name('tag.list_tag');
+        //TRANG THÊM TAG
+        Route::get('/add_tag', 'TagController@addTagPage')->name('tag.add_tag');
+        //THÊM TAG
+        Route::post('/add_tag', 'TagController@addTag')->name('tag.add_tag');
+        //CHI TIẾT TAG
+        Route::get('/tag_detail/{id}', 'TagController@detailPage')->name('tag.detail');
+        //UPDATE TAG
+        Route::post('/update', 'TagController@updateTag')->name('tag.update');
     });
 });
